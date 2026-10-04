@@ -6,6 +6,7 @@ import { exportBackup, importBackup, resetProgress, updateProgress, useProgress,
 import { daysSince, masteredCount, seenCount, streak, totalAnswers, weakTags } from '../lib/progress'
 import { canSpeak, speak } from '../lib/speech'
 import { formatDateFr, todayKey } from '../lib/text'
+import { clearErrors, readErrors } from '../lib/diagnostics'
 import type { Level } from '../types'
 import { btnPrimary, btnSecondary, card, LevelBadge, Page, ProgressBar, Section } from '../components/ui'
 
@@ -68,6 +69,8 @@ export function Progress() {
   }
 
   const backupAge = daysSince(data.lastBackupAt)
+  const [diag, setDiag] = useState(readErrors)
+  const [diagCopied, setDiagCopied] = useState(false)
 
   return (
     <Page title="📈 Ma progression" subtitle={`Depuis le ${formatDateFr(data.createdAt)}`}>
@@ -180,6 +183,31 @@ export function Progress() {
           <button onClick={reset} className="w-full text-xs text-red-600 underline">Effacer toute ma progression</button>
         </div>
       </Section>
+
+      {diag.length > 0 && (
+        <Section title="🩺 Diagnostic technique">
+          <div className={`${card} space-y-2`}>
+            <p className="text-xs text-gray-500">Problèmes d'affichage détectés sur cet appareil. Copie-les et envoie-les pour qu'ils soient corrigés.</p>
+            <ul className="max-h-48 space-y-1 overflow-y-auto font-mono text-[11px] text-gray-600 dark:text-gray-300">
+              {[...diag].reverse().map((e, i) => (
+                <li key={i}>{e.at.slice(0, 16).replace('T', ' ')} · {e.page || '#/'} · {e.message}</li>
+              ))}
+            </ul>
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                onClick={async () => {
+                  const text = diag.map((e) => `${e.at} ${e.page} ${e.message}`).join('\n') + `\n${navigator.userAgent}`
+                  try { await navigator.clipboard.writeText(text); setDiagCopied(true) } catch { setDiagCopied(false) }
+                }}
+                className={btnSecondary}
+              >
+                {diagCopied ? '✓ Copié' : 'Copier'}
+              </button>
+              <button onClick={() => { clearErrors(); setDiag([]) }} className={btnSecondary}>Effacer</button>
+            </div>
+          </div>
+        </Section>
+      )}
 
       <Link to="/nouveautes" className="mt-6 block text-center text-sm text-indigo-600 dark:text-indigo-400">✨ Historique des mises à jour</Link>
     </Page>

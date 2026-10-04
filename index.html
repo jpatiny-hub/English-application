@@ -1,7 +1,10 @@
 <!doctype html>
-<html lang="fr">
+<html lang="fr" translate="no" class="notranslate">
   <head>
     <meta charset="UTF-8" />
+    <!-- La traduction automatique du navigateur réécrit la page et fait disparaître l'appli
+         (écran vide à chaque changement de page). Et le but est justement de lire l'anglais ! -->
+    <meta name="google" content="notranslate" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/icons/icon-192.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1" />
@@ -10,6 +13,35 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="description" content="Application personnelle pour progresser en anglais du B2 vers le C1 : temps, rédaction, vocabulaire, expressions et contenu de mes cours." />
     <title>English B2 → C1</title>
+    <script>
+      // Filet de sécurité : si l'appli n'affiche rien (page vide), on recharge automatiquement,
+      // au plus une fois toutes les 20 secondes pour ne jamais boucler.
+      (function () {
+        var KEY = 'english-app:last-auto-reload'
+        function isEmpty() {
+          var root = document.getElementById('root')
+          if (!root || root.children.length === 0) return true
+          var main = root.querySelector('main')
+          return !!main && main.innerText.trim().length === 0
+        }
+        function recover(reason) {
+          if (!isEmpty()) return
+          var last = 0
+          try { last = Number(sessionStorage.getItem(KEY) || 0) } catch (e) {}
+          try {
+            var log = JSON.parse(localStorage.getItem('english-app:errors') || '[]')
+            log.push({ at: new Date().toISOString(), page: location.hash, message: 'Page vide (' + reason + ')' })
+            localStorage.setItem('english-app:errors', JSON.stringify(log.slice(-20)))
+          } catch (e) {}
+          if (Date.now() - last > 20000) {
+            try { sessionStorage.setItem(KEY, String(Date.now())) } catch (e) {}
+            location.reload()
+          }
+        }
+        window.addEventListener('load', function () { setTimeout(function () { recover('chargement') }, 4000) })
+        window.addEventListener('hashchange', function () { setTimeout(function () { recover('navigation') }, 1500) })
+      })()
+    </script>
   </head>
   <body>
     <div id="root"></div>

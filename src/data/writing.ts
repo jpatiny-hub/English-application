@@ -361,4 +361,36 @@ What about you? Have you finished renovating your flat?
 Take care and keep me posted,
 [Your name]`,
   },
+  {
+    id: 'w-explanations-email',
+    module: 'explanations',
+    level: 'B2+',
+    type: 'email',
+    title: 'Expliquer un malentendu par e-mail',
+    prompt: 'There was a mix-up: a client received the wrong samples (or two teams booked the same room). Write an e-mail explaining what happened, why it happened, what you have done to fix it, and how you will prevent it from happening again.',
+    tipsFr: 'Past simple pour les faits, past perfect pour la cause antérieure (I had entered the wrong date), present perfect pour ce qui est déjà réglé (we have sent…), futur pour la prévention. Ton : clair, honnête, sans se justifier à l\'excès.',
+    minWords: 130,
+    maxWords: 220,
+    targetPhrases: ['The reason is that', "That's why", 'This was due to', 'In other words', 'prevent', 'I would like to apologise'],
+    checklist: [
+      'Les faits au past simple, la cause au past perfect',
+      'Au moins un present perfect pour ce qui a déjà été fait',
+      'Prevent + quelqu\'un / quelque chose + from + -ing',
+      'Une formule d\'excuse et une clôture professionnelle',
+    ],
+    model: `Dear Dr Martin,
+
+I would like to apologise for the mix-up with your order last week. Instead of the batch you had requested, you received samples from a different study.
+
+The reason is that our new user interface displays two batch numbers on the same screen, and the technician selected the wrong line. In other words, it was a simple human error, but one that the system should have prevented. This was due to a missing verification step, which we had removed when we changed the software in September.
+
+We have already sent you the correct samples by express delivery, and they should arrive tomorrow morning. Please do not use the samples you received; our courier will collect them on Thursday.
+
+To prevent this from happening again, we have reintroduced a double check before every shipment, and the software will now ask for confirmation of the batch number.
+
+I hope this explanation makes sense. Please let me know if you have any questions.
+
+Kind regards,
+[Your name]`,
+  },
 ]

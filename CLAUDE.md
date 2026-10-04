@@ -11,7 +11,7 @@ Appli personnelle d'anglais (PWA React/Vite/Tailwind, 100 % locale). L'utilisate
 
 ## Ajouter une séance de cours (fiche « Vocabulary / Pronunciation / Mistakes / Others »)
 
-1. Créer `src/data/sessions/AAAA-MM-JJ.ts` en copiant une séance existante. `id: 'c-AAAA-MM-JJ'`, `module` parmi `company | problems | opinions | assumptions | process` (ajouter un module dans `modules.ts` si nouveau thème).
+1. Créer `src/data/sessions/AAAA-MM-JJ.ts` en copiant une séance existante. `id: 'c-AAAA-MM-JJ'`, `module` parmi `company | problems | opinions | assumptions | process | explanations` (ajouter un module dans `modules.ts` si nouveau thème).
 2. `vocabulary` : ids `v-<mot-en-kebab>` (vérifier qu'il n'existe pas déjà ; sinon ne pas le dupliquer), traduction FR, exemple, niveau.
 3. `pronunciation` : ids `p-<mot>` ; guide avec la syllabe accentuée en majuscules.
 4. `corrections` : chaque phrase de « Mistakes » est la version CORRIGÉE. Inventer la version fautive typique d'un francophone (`wrong`), mettre la phrase corrigée + variantes correctes dans `answers`, expliquer en français, étiqueter (`tags` : voir `TAG_LABELS` dans `src/data/content.ts`, ex. `past-simple`, `pp-vs-ps`, `since-for`, `prepositions`, `false-friends`…). ids `fix-MMJJ-NN`. Si une erreur revient d'une séance à l'autre, le signaler dans l'explication plutôt que de dupliquer.
@@ -26,3 +26,10 @@ Appli personnelle d'anglais (PWA React/Vite/Tailwind, 100 % locale). L'utilisate
 - La comparaison des réponses est tolérante (casse, ponctuation, contractions, orthographe UK/US, une faute de frappe) : `src/lib/text.ts`. Donner plusieurs `answers` pour les formulations libres.
 - La relecture automatique de l'atelier d'écriture (`src/lib/lint.ts`) peut recevoir de nouvelles règles pour les erreurs récurrentes.
 - Garder la progression B2 → B2+ → C1 : chaque nouvel ensemble d'exercices devrait contenir un peu de C1.
+
+## Robustesse d'affichage (ne pas retirer)
+
+- `index.html` : `translate="no"` + `<meta name="google" content="notranslate">` — la traduction automatique de Chrome réécrit le DOM et faisait disparaître l'appli à chaque changement de page.
+- `index.html` : petit script de secours qui recharge la page (au plus une fois / 20 s) si l'appli reste vide.
+- `src/lib/diagnostics.ts` : garde-fous `removeChild` / `insertBefore` et journal d'erreurs (`english-app:errors`) affiché dans « Progrès → Diagnostic technique ». Si l'utilisateur signale un bug d'affichage, lui demander de copier ce journal.
+- `ErrorBoundary` autour des routes (`src/App.tsx`).

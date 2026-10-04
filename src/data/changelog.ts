@@ -4,6 +4,17 @@ import type { ChangelogEntry } from '../types'
 // `version` = précédente + 1 : l'accueil affichera une bannière « Nouveautés ».
 export const changelog: ChangelogEntry[] = [
   {
+    version: 2,
+    date: '2026-10-04',
+    title: 'Cours du 30.09 et fiche « Making Assumptions »',
+    changes: [
+      'Nouveau module « Asking for and Giving Explanations » (cours du 30.09) : 14 mots, 4 prononciations, 14 corrections, expressions clés, dialogue, texte et sujet d\'écrit.',
+      'Nouvelle leçon : questions indirectes et demandes polies (« Could you explain why… »).',
+      'Module « Making Assumptions » : expressions clés de la fiche B2, 7 nouveaux sujets d\'oral, dialogue sur le produit solaire et 10 nouveaux exercices.',
+      "Correctif : l'appli ne peut plus être traduite automatiquement par le navigateur (cause probable des pages vides) et se relance seule si une page reste vide.",
+    ],
+  },
+  {
     version: 1,
     date: '2026-09-24',
     title: 'Première version',

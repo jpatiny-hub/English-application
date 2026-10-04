@@ -71,6 +71,7 @@ export const TAG_LABELS: Record<string, string> = {
   linking: 'Connecteurs',
   register: 'Registre',
   inversion: 'Mise en relief',
+  'indirect-questions': 'Questions indirectes',
   vocab: 'Vocabulaire',
 }
 

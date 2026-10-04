@@ -2,7 +2,7 @@
 export type Level = 'B2' | 'B2+' | 'C1'
 
 // Les 5 grands thèmes des cours (fiches EN-B2 d'Accent Lang).
-export type ModuleId = 'company' | 'problems' | 'opinions' | 'assumptions' | 'process'
+export type ModuleId = 'company' | 'problems' | 'opinions' | 'assumptions' | 'process' | 'explanations'
 
 // ---------------------------------------------------------------------------
 // Exercices — un format commun utilisé partout (grammaire, corrections, style…)

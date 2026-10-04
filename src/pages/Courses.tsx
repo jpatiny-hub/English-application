@@ -12,7 +12,7 @@ export function Courses() {
 
   return (
     <Page title="Mes cours" subtitle="Tout ce qui a été vu en séance, transformé en exercices.">
-      <Section title="Les 5 modules">
+      <Section title={`Les ${modules.length} modules`}>
         {modules.map((m) => {
           const done = MODULE_STEPS.filter((s) => data.steps[`${m.id}:${s.step}`]).length
           return (

@@ -601,4 +601,70 @@ export const structureLessons: GrammarLesson[] = [
       },
     ],
   },
+  {
+    id: 'g-indirect-questions',
+    order: 27,
+    group: 'structures',
+    tag: 'indirect-questions',
+    level: 'B2+',
+    title: 'Questions indirectes et demandes polies',
+    summary: '« Could you explain why the meeting ended early? » : pour demander une explication poliment, sans inverser le sujet.',
+    points: [
+      {
+        title: 'Question directe → question indirecte',
+        explanation: 'Après Could you tell me…, Do you know…, Could you explain…, I wonder…, I\'d like to know… : on garde l\'ordre de la phrase affirmative (sujet + verbe) et on supprime do / does / did.',
+        examples: [
+          { en: 'Why did the meeting end early? → Could you explain why the meeting ended early?' },
+          { en: 'Where is the venue? → Do you know where the venue is?', note: '✗ where is the venue' },
+          { en: 'How does it work? → Could you tell me how it works?' },
+        ],
+      },
+      {
+        title: 'Questions fermées : if / whether',
+        explanation: 'Pour une question à laquelle on répond par oui ou non, on ajoute if (ou whether, plus soutenu).',
+        examples: [
+          { en: 'Is the room available? → Do you know if the room is available?' },
+          { en: 'Did they confirm? → I was wondering whether they had confirmed.' },
+        ],
+      },
+      {
+        title: 'How come…? / What… for?',
+        explanation: '« How come » (= pourquoi, oral) garde l\'ordre affirmatif. « What… for? » demande le but.',
+        examples: [
+          { en: "How come you didn't tell me?", note: '✗ how come didn\'t you' },
+          { en: 'What did you do that for?' },
+        ],
+      },
+      {
+        title: 'Ponctuation',
+        explanation: 'Si la phrase introductive est une affirmation (I wonder…, I\'d like to know…), pas de point d\'interrogation final.',
+        examples: [{ en: "I'd like to know why the delivery was late." }],
+      },
+    ],
+    exercises: [
+      { kind: 'transform', id: 'g-indirect-questions-01', instruction: 'Commence par « Could you tell me… ».', prompt: 'Where is the meeting room?', answers: ['Could you tell me where the meeting room is?'] },
+      { kind: 'transform', id: 'g-indirect-questions-02', instruction: 'Commence par « Could you explain why… ».', prompt: 'Why did the party end early?', answers: ['Could you explain why the party ended early?'] },
+      { kind: 'transform', id: 'g-indirect-questions-03', instruction: 'Commence par « Do you know if… ».', prompt: 'Has the client confirmed?', answers: ['Do you know if the client has confirmed?', 'Do you know whether the client has confirmed?'] },
+      { kind: 'transform', id: 'g-indirect-questions-04', instruction: 'Commence par « I was wondering… ».', prompt: 'When does the rehearsal start?', answers: ['I was wondering when the rehearsal starts.', 'I was wondering when the rehearsal started.'] },
+      { kind: 'transform', id: 'g-indirect-questions-05', instruction: 'Commence par « Could you tell me how… ».', prompt: 'How does this user interface work?', answers: ['Could you tell me how this user interface works?'] },
+      {
+        kind: 'mcq', id: 'g-indirect-questions-06', prompt: 'Which sentence is correct?',
+        options: ['Do you know what time it is?', 'Do you know what time is it?', 'Do you know what time does it be?', 'Do you know it is what time?'], answer: 0,
+      },
+      {
+        kind: 'mcq', id: 'g-indirect-questions-07', prompt: 'Which sentence is correct?',
+        options: ['Could you explain why you changed the script?', 'Could you explain why did you change the script?', 'Could you explain why have you changed the script?', 'Could you explain why you did change the script?'], answer: 0,
+      },
+      {
+        kind: 'fix', id: 'g-indirect-questions-08', wrong: "I'd like to know why is the delivery late.",
+        answers: ["I'd like to know why the delivery is late.", 'I would like to know why the delivery is late.'],
+        explanation: 'Question indirecte : sujet + verbe (why the delivery is late).',
+      },
+      {
+        kind: 'fix', id: 'g-indirect-questions-09', wrong: 'How come did you miss the rehearsal?',
+        answers: ['How come you missed the rehearsal?'],
+        explanation: '« How come » + ordre affirmatif, sans did.',
+      },
+    ],
+  },
 ]

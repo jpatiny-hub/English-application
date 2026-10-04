@@ -8,11 +8,12 @@ import { TAG_LABELS, getExercise } from '../data/content'
 import { sessions } from '../data/sessions/index'
 import { card, cardLink, SpeakButton } from '../components/ui'
 import { formatDateFr } from '../lib/text'
+import { grammarLessons } from '../data/grammar'
 
 const sections = [
   { to: '/cours', label: 'Mes cours', icon: '🎓', desc: 'Séances et modules' },
   { to: '/temps', label: 'Labo des temps', icon: '⏳', desc: 'Past simple, present perfect…' },
-  { to: '/grammaire', label: 'Grammaire', icon: '📖', desc: '26 fiches + exercices' },
+  { to: '/grammaire', label: 'Grammaire', icon: '📖', desc: `${grammarLessons.length} fiches + exercices` },
   { to: '/vocabulaire', label: 'Vocabulaire', icon: '🗂️', desc: 'Cours + découverte' },
   { to: '/pratique/ecrit', label: 'Atelier d\'écriture', icon: '🖋️', desc: 'Rédiger, se relire' },
   { to: '/pratique', label: 'Pratique', icon: '🎧', desc: 'Oral, écoute, lecture' },

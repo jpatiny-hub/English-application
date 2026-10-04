@@ -264,4 +264,31 @@ export const readingTexts: ReadingText[] = [
       },
     ],
   },
+  {
+    id: 'r-rehearsal',
+    title: 'Why the best speakers always rehearse',
+    level: 'B2+',
+    module: 'explanations',
+    paragraphs: [
+      'Have you ever wondered why some people seem to explain complicated ideas so effortlessly? The reason is rarely talent alone. In most cases, it comes down to preparation — and, above all, rehearsal.',
+      'When we explain something we know well, we tend to skip steps that seem obvious to us. Our listeners, however, do not share our knowledge, so they quickly get lost. Rehearsing out loud forces us to notice these gaps. That is why experienced trainers often record themselves and listen to the result before a session.',
+      'Rehearsal also affects confidence. Researchers have found that people who had practised a presentation at least three times felt significantly less anxious than those who had only read their notes. Speaking the words, rather than just thinking them, prepares the brain for the real situation.',
+      'Good explainers also check understanding regularly. Simple questions such as "Does that make sense?" or "Are you with me so far?" prevent misunderstandings from building up. And when something is unclear, they rephrase it: "In other words…", "To put it simply…".',
+      'So the next time you have to explain a process, a decision or a mix-up, do not just write a script. Rehearse it, ideally in front of someone who will tell you honestly where they got lost.',
+    ],
+    glossary: [
+      { en: 'effortlessly', fr: 'sans effort, avec aisance' },
+      { en: 'to skip', fr: 'sauter (une étape)' },
+      { en: 'a gap', fr: 'un trou, une lacune' },
+      { en: 'anxious', fr: 'anxieux, inquiet' },
+      { en: 'to build up', fr: "s'accumuler" },
+      { en: 'to rephrase', fr: 'reformuler' },
+    ],
+    questions: [
+      { kind: 'mcq', id: 'r-rehearsal-q1', prompt: 'According to the text, why do people who know a topic well sometimes explain it badly?', options: ['They skip steps that seem obvious to them', 'They speak too slowly', 'They use too many examples', 'They rehearse too much'], answer: 0 },
+      { kind: 'mcq', id: 'r-rehearsal-q2', prompt: 'What does rehearsing out loud help you notice?', options: ['Gaps in your explanation', 'Spelling mistakes', 'The time of day', 'Your listeners\' names'], answer: 0 },
+      { kind: 'mcq', id: 'r-rehearsal-q3', prompt: '"People who had practised… felt less anxious." Why the past perfect?', options: ['The practice happened before the moment they felt less anxious', 'It is a present habit', 'It is a future plan', 'It is a mistake'], answer: 0, tags: ['past-perfect'] },
+      { kind: 'mcq', id: 'r-rehearsal-q4', prompt: 'Which phrase is given as a way to check understanding?', options: ['Are you with me so far?', 'In other words…', 'To put it simply…', 'The reason is…'], answer: 0 },
+    ],
+  },
 ]

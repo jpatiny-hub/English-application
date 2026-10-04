@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import { NavBar } from './components/NavBar'
+import { ErrorBoundary } from './components/ErrorBoundary'
 import { Home } from './pages/Home'
 import { Courses } from './pages/Courses'
 import { ModuleDetail } from './pages/ModuleDetail'
@@ -33,10 +34,12 @@ function ScrollToTop() {
 }
 
 function App() {
+  const location = useLocation()
   return (
     <div className="mx-auto flex min-h-screen max-w-md flex-col bg-[#f7f7fb] text-gray-900 dark:bg-gray-950 dark:text-gray-100">
       <ScrollToTop />
       <main className="flex-1 pb-24">
+        <ErrorBoundary resetKey={location.pathname + location.search}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/cours" element={<Courses />} />
@@ -64,6 +67,7 @@ function App() {
           <Route path="/entrainement" element={<Drill />} />
           <Route path="*" element={<Home />} />
         </Routes>
+        </ErrorBoundary>
       </main>
       <NavBar />
     </div>

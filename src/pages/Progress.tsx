@@ -18,7 +18,10 @@ export function Progress() {
   const [persisted, setPersisted] = useState<boolean | null>(null)
 
   useEffect(() => {
-    navigator.storage?.persisted?.().then(setPersisted).catch(() => setPersisted(null))
+    // Certains navigateurs n'exposent pas navigator.storage.persisted : on ne fait rien dans ce cas.
+    if (typeof navigator.storage?.persisted === 'function') {
+      navigator.storage.persisted().then(setPersisted).catch(() => setPersisted(null))
+    }
     if (window.location.hash.includes('sauvegarde')) document.getElementById('sauvegarde')?.scrollIntoView()
   }, [])
 

@@ -11,7 +11,7 @@ import { dialogues } from '../src/data/dialogues.ts'
 import { writingTasks } from '../src/data/writing.ts'
 import { extraPronunciation } from '../src/data/pronunciation.ts'
 import { changelog } from '../src/data/changelog.ts'
-import { checkAnswer, normalizeForComparison } from '../src/lib/text.ts'
+import { checkAnswer, checkVocab, normalizeForComparison, vocabCandidates } from '../src/lib/text.ts'
 import type { Exercise } from '../src/types.ts'
 
 const errors: string[] = []
@@ -57,7 +57,16 @@ for (const r of allExercises) {
   claim(r.exercise.id, r.source.label)
   checkExercise(r.exercise, r.source.label)
 }
-for (const v of allVocab) claim(v.id, 'vocabulaire')
+for (const v of allVocab) {
+  claim(v.id, 'vocabulaire')
+  // Les cartes demandent d'écrire la traduction : il faut une réponse exploitable dans les deux sens.
+  for (const side of [v.en, v.fr]) {
+    const cands = vocabCandidates(side)
+    if (cands.length === 0 || cands.some((c) => checkVocab(c, side).verdict !== 'correct')) {
+      errors.push(`vocabulaire ${v.id} : réponse attendue inutilisable (« ${side} »)`)
+    }
+  }
+}
 for (const s of sessions) {
   claim(s.id, 'séance')
   for (const p of s.pronunciation) claim(p.id, `prononciation ${s.id}`)

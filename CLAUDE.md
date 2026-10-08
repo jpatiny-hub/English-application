@@ -22,6 +22,7 @@ Appli personnelle d'anglais (PWA React/Vite/Tailwind, 100 % locale). L'utilisate
 
 ## Autres ajouts
 
+- Vocabulaire : les cartes demandent d'écrire la traduction (`checkVocab` dans `src/lib/text.ts`) ; tolérance orthographique selon la longueur du mot, articles/accents ignorés, chaque segment séparé par « , ; / » de la traduction est accepté. Écrire les traductions FR/EN en gardant ce découpage.
 - Exercices : format commun `Exercise` (`mcq | gap | fix | transform | card`) dans `src/types.ts`. Les `gap` ont `___` dans le prompt ; l'utilisateur tape seulement le trou.
 - La comparaison des réponses est tolérante (casse, ponctuation, contractions, orthographe UK/US, une faute de frappe) : `src/lib/text.ts`. Donner plusieurs `answers` pour les formulations libres.
 - La relecture automatique de l'atelier d'écriture (`src/lib/lint.ts`) peut recevoir de nouvelles règles pour les erreurs récurrentes.

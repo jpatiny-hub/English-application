@@ -236,3 +236,53 @@ export function scoreSpokenMatch(transcript: string, target: string): MatchLevel
   if (ratio >= 0.5) return 'close'
   return 'wrong'
 }
+
+// ---------------------------------------------------------------------------
+// Vocabulaire : réponse écrite, tolérante sur l'orthographe
+// ---------------------------------------------------------------------------
+
+const LEADING_WORDS = /^(?:le |la |les |l'|un |une |des |du |de la |de l'|d'|se |s'|to |a |an |the )/
+
+function stripLeading(text: string): string {
+  let t = text.trim()
+  let prev = ''
+  while (prev !== t) {
+    prev = t
+    t = t.replace(LEADING_WORDS, '').trim()
+  }
+  return t
+}
+
+/** Toutes les traductions acceptables d'une carte : « rendre, retourner (un article) ; revenir » → 3 réponses. */
+export function vocabCandidates(back: string): string[] {
+  const cleaned = back.replace(/\(.*?\)/g, ' ').replace(/…|\.\.\./g, ' ').replace(/\+.*?(?=[,;/]|$)/g, ' ')
+  const parts = [cleaned, ...cleaned.split(/[,;/]|\s(?:ou|or)\s/)]
+  const out = new Set<string>()
+  for (const p of parts) {
+    const n = stripLeading(normalizeForComparison(p))
+    if (n) out.add(n)
+  }
+  return [...out]
+}
+
+function vocabTolerance(len: number): number {
+  if (len <= 3) return 0
+  if (len <= 5) return 1
+  if (len <= 9) return 2
+  return 3
+}
+
+/** « blesure » pour « blessure » → accepté avec une remarque sur l'orthographe. */
+export function checkVocab(input: string, back: string): AnswerCheck {
+  const given = stripLeading(normalizeForComparison(input))
+  const candidates = vocabCandidates(back)
+  if (!given) return { verdict: 'wrong', closest: candidates[1] ?? candidates[0] ?? back }
+  let best = { dist: Infinity, cand: candidates[0] ?? '' }
+  for (const c of candidates) {
+    const d = levenshtein(given, c)
+    if (d < best.dist) best = { dist: d, cand: c }
+  }
+  if (best.dist === 0) return { verdict: 'correct', closest: best.cand }
+  if (best.dist <= vocabTolerance(best.cand.length)) return { verdict: 'typo', closest: best.cand }
+  return { verdict: 'wrong', closest: best.cand }
+}

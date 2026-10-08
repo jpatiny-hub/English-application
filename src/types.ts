@@ -53,6 +53,8 @@ export interface TransformExercise extends ExerciseBase {
 /** Carte de vocabulaire (générée à partir d'un VocabItem). */
 export interface CardExercise extends ExerciseBase {
   kind: 'card'
+  /** Sens de la carte : l'utilisateur écrit la traduction de `front`. */
+  direction: 'en-fr' | 'fr-en'
   front: string
   back: string
   example?: string

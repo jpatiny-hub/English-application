@@ -599,6 +599,18 @@ export const structureLessons: GrammarLesson[] = [
         prompt: 'Your car is cheaper than mine.',
         answers: ['My car is not as cheap as yours.', "My car isn't as cheap as yours."],
       },
+      { kind: 'gap', id: 'g-comparison-09', prompt: 'The ___ (early) we start, the sooner we can finish.', answers: ['earlier'] },
+      { kind: 'gap', id: 'g-comparison-10', prompt: 'The less you sleep, the ___ (tired) you feel.', answers: ['more tired'] },
+      {
+        kind: 'mcq', id: 'g-comparison-11', prompt: 'Which sentence is correct?',
+        options: ['The more experience you have, the easier the job becomes.', 'More experience you have, easier the job becomes.', 'The more experience you have, the more easy the job becomes.', 'The more you have experience, the easier becomes the job.'], answer: 0,
+      },
+      {
+        kind: 'transform', id: 'g-comparison-12', instruction: 'Réécris avec « The more…, the… ».',
+        prompt: 'If you practise more, you become better.',
+        answers: ['The more you practise, the better you become.', 'The more you practice, the better you become.', 'The more you practise, the better you get.', 'The more you practice, the better you get.'],
+        level: 'B2+',
+      },
     ],
   },
   {

@@ -14,6 +14,7 @@ import { session as s0909 } from './2026-09-09.ts'
 import { session as s0916 } from './2026-09-16.ts'
 import { session as s0923 } from './2026-09-23.ts'
 import { session as s0930 } from './2026-09-30.ts'
+import { session as s1007 } from './2026-10-07.ts'
 
 export const sessions: CourseSession[] = [
   s0624,
@@ -29,4 +30,5 @@ export const sessions: CourseSession[] = [
   s0916,
   s0923,
   s0930,
+  s1007,
 ].sort((a, b) => a.date.localeCompare(b.date))

@@ -110,6 +110,7 @@ export function vocabCard(item: VocabItem, direction: 'en-fr' | 'fr-en'): CardEx
   return {
     kind: 'card',
     id: item.id,
+    direction,
     level: item.level,
     tags: ['vocab'],
     front: direction === 'en-fr' ? item.en : item.fr,

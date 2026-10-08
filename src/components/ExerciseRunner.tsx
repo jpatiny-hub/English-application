@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import type { Exercise } from '../types'
-import { checkAnswer, shuffle, wordDiff, type AnswerVerdict } from '../lib/text'
+import { checkAnswer, checkVocab, shuffle, wordDiff, type AnswerVerdict } from '../lib/text'
 import { recordAnswer } from '../lib/progress'
 import { canSpeak, speak } from '../lib/speech'
 import { TAG_LABELS } from '../data/content'
@@ -40,7 +40,6 @@ export function ExerciseRunner({ items, title, onExit, onFinish, record = true }
   const [verdict, setVerdict] = useState<AnswerVerdict | null>(null)
   const [closest, setClosest] = useState('')
   const [override, setOverride] = useState(false)
-  const [flipped, setFlipped] = useState(false)
   const [results, setResults] = useState<Result[]>([])
   const [done, setDone] = useState(false)
   const [round, setRound] = useState(0)
@@ -60,7 +59,6 @@ export function ExerciseRunner({ items, title, onExit, onFinish, record = true }
     setVerdict(null)
     setClosest('')
     setOverride(false)
-    setFlipped(false)
     const t = setTimeout(() => inputRef.current?.focus({ preventScroll: true }), 50)
     return () => clearTimeout(t)
   }, [ex, round, index])
@@ -88,14 +86,24 @@ export function ExerciseRunner({ items, title, onExit, onFinish, record = true }
       setVerdict(res.verdict)
       setClosest(res.closest)
       if (canSpeak() && res.verdict !== 'wrong' && ex.kind !== 'gap') speak(res.closest)
+    } else if (ex.kind === 'card') {
+      if (!text.trim()) return
+      const res = checkVocab(text, ex.back)
+      setVerdict(res.verdict)
+      setClosest(res.closest)
+      if (canSpeak()) speak(ex.speak)
     }
     setPhase('feedback')
   }
 
-  function grade(ok: boolean) {
-    // Flashcards : l'utilisateur s'auto-évalue.
-    setVerdict(ok ? 'correct' : 'wrong')
-    commit(ok)
+  // Vocabulaire : « Je ne sais pas » révèle la réponse et compte comme à revoir.
+  function giveUp() {
+    if (!ex || ex.kind !== 'card') return
+    setText('')
+    setVerdict('wrong')
+    setClosest(ex.back)
+    setPhase('feedback')
+    if (canSpeak()) speak(ex.speak)
   }
 
   function commit(ok: boolean) {
@@ -180,7 +188,14 @@ export function ExerciseRunner({ items, title, onExit, onFinish, record = true }
         </div>
 
         {ex.kind === 'card' ? (
-          <CardView ex={ex} flipped={flipped} onFlip={() => setFlipped(true)} />
+          <CardView
+            ex={ex}
+            phase={phase}
+            text={text}
+            onText={setText}
+            onSubmit={() => phase === 'answer' && check()}
+            inputRef={inputRef}
+          />
         ) : (
           <>
             <Prompt ex={ex} />
@@ -252,26 +267,28 @@ export function ExerciseRunner({ items, title, onExit, onFinish, record = true }
           </>
         )}
 
+        {phase === 'feedback' && ex.kind === 'card' && (
+          <CardFeedback ex={ex} ok={isOk} verdict={verdict} override={override} given={text} onOverride={() => setOverride(true)} />
+        )}
+
         {phase === 'feedback' && ex.kind !== 'card' && (
           <Feedback ex={ex} ok={isOk} verdict={verdict} override={override} closest={closest} given={text} onOverride={() => setOverride(true)} />
         )}
       </div>
 
-      {ex.kind === 'card' ? (
-        flipped && (
-          <div className="mt-4 flex gap-3">
-            <button onClick={() => grade(false)} className={btnSecondary}>À revoir</button>
-            <button onClick={() => grade(true)} className={btnPrimary}>Je savais ✓</button>
-          </div>
-        )
-      ) : phase === 'answer' ? (
-        <button
-          onClick={check}
-          disabled={ex.kind === 'mcq' ? choice === null : !text.trim()}
-          className={`${btnPrimary} mt-4`}
-        >
-          Vérifier
-        </button>
+      {phase === 'answer' ? (
+        <div className="mt-4 flex gap-3">
+          {ex.kind === 'card' && (
+            <button onClick={giveUp} className={btnSecondary}>Je ne sais pas</button>
+          )}
+          <button
+            onClick={check}
+            disabled={ex.kind === 'mcq' ? choice === null : !text.trim()}
+            className={btnPrimary}
+          >
+            Vérifier
+          </button>
+        </div>
       ) : (
         <button onClick={() => commit(isOk)} className={`${btnPrimary} mt-4`}>
           {index + 1 < queue.length ? 'Suivant →' : 'Voir le résultat'}
@@ -390,21 +407,84 @@ function Feedback({
   )
 }
 
-function CardView({ ex, flipped, onFlip }: { ex: Extract<Exercise, { kind: 'card' }>; flipped: boolean; onFlip: () => void }) {
+function CardView({
+  ex, phase, text, onText, onSubmit, inputRef,
+}: {
+  ex: Extract<Exercise, { kind: 'card' }>
+  phase: Phase
+  text: string
+  onText: (t: string) => void
+  onSubmit: () => void
+  inputRef: React.RefObject<HTMLTextAreaElement & HTMLInputElement | null>
+}) {
+  const toFrench = ex.direction === 'en-fr'
   return (
-    <button onClick={onFlip} className="mt-3 flex min-h-48 w-full flex-col items-center justify-center rounded-2xl bg-gray-50 p-5 text-center dark:bg-gray-800/60">
-      <span className="text-2xl font-bold">{ex.front}</span>
-      {flipped ? (
-        <>
-          <span className="mt-3 text-lg text-indigo-700 dark:text-indigo-300">{ex.back}</span>
-          {ex.example && <span className="mt-3 text-sm italic text-gray-500 dark:text-gray-400">« {ex.example} »</span>}
-          {ex.note && <span className="mt-2 text-xs text-amber-700 dark:text-amber-400">⚠️ {ex.note}</span>}
-          <span className="mt-3"><SpeakButton text={ex.example ? `${ex.speak}. ${ex.example}` : ex.speak} label="Écouter" /></span>
-        </>
+    <div className="mt-3">
+      <div className="flex flex-col items-center rounded-2xl bg-gray-50 p-5 text-center dark:bg-gray-800/60">
+        <span className="text-xs text-gray-400">{toFrench ? 'Traduis en français' : 'Traduis en anglais'}</span>
+        <span className="mt-2 text-2xl font-bold">{ex.front}</span>
+        {toFrench && ex.example && phase === 'answer' && (
+          <span className="mt-2 text-sm italic text-gray-500 dark:text-gray-400">« {ex.example} »</span>
+        )}
+        {toFrench && <span className="mt-3"><SpeakButton text={ex.speak} small /></span>}
+      </div>
+      <input
+        ref={inputRef}
+        value={text}
+        onChange={(e) => onText(e.target.value)}
+        onKeyDown={(e) => e.key === 'Enter' && onSubmit()}
+        disabled={phase === 'feedback'}
+        placeholder={toFrench ? 'En français…' : 'In English…'}
+        lang={toFrench ? 'fr' : 'en'}
+        autoCapitalize="none"
+        autoCorrect="off"
+        autoComplete="off"
+        spellCheck={false}
+        className={`${input} mt-3`}
+      />
+    </div>
+  )
+}
+
+function CardFeedback({
+  ex, ok, verdict, override, given, onOverride,
+}: {
+  ex: Extract<Exercise, { kind: 'card' }>
+  ok: boolean
+  verdict: AnswerVerdict | null
+  override: boolean
+  given: string
+  onOverride: () => void
+}) {
+  return (
+    <div className="mt-4 border-t border-gray-100 pt-4 dark:border-gray-800">
+      {ok ? (
+        <p className="font-semibold text-green-600">
+          ✓ {override ? 'Validé' : verdict === 'typo' ? 'Accepté — petite faute d\'orthographe' : 'Correct !'}
+        </p>
       ) : (
-        <span className="mt-4 text-xs text-gray-400">Touche pour voir la réponse</span>
+        <p className="font-semibold text-red-600">{given.trim() ? '✗ Pas tout à fait' : 'À apprendre'}</p>
       )}
-    </button>
+      {verdict === 'typo' && !override && (
+        <p className="mt-1 text-sm">
+          Tu as écrit <span className="text-red-500 line-through">{given}</span> ; orthographe attendue ci-dessous.
+        </p>
+      )}
+      <div className="mt-2 flex items-start justify-between gap-2">
+        <p className="text-sm">
+          <span className="text-gray-500 dark:text-gray-400">Réponse : </span>
+          <span className="font-semibold">{ex.back}</span>
+        </p>
+        <SpeakButton text={ex.example ? `${ex.speak}. ${ex.example}` : ex.speak} small />
+      </div>
+      {ex.example && <p className="mt-1 text-sm italic text-gray-500 dark:text-gray-400">« {ex.example} »</p>}
+      {ex.note && <p className="mt-2 text-xs text-amber-700 dark:text-amber-400">⚠️ {ex.note}</p>}
+      {!ok && given.trim() && (
+        <button onClick={onOverride} className="mt-3 text-xs text-indigo-600 underline dark:text-indigo-400">
+          Ma réponse était correcte (synonyme)
+        </button>
+      )}
+    </div>
   )
 }
 

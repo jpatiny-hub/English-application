@@ -4,6 +4,16 @@ import type { ChangelogEntry } from '../types'
 // `version` = précédente + 1 : l'accueil affichera une bannière « Nouveautés ».
 export const changelog: ChangelogEntry[] = [
   {
+    version: 3,
+    date: '2026-10-08',
+    title: 'Cours du 07.10 et vocabulaire à écrire',
+    changes: [
+      'Cours du 07.10 (Asking for and Giving Explanations) : 6 mots, 4 prononciations, 22 corrections et la note « The more…, the more… ».',
+      "Vocabulaire : tu écris maintenant la traduction au lieu de retourner la carte. Les petites fautes d'orthographe sont acceptées et signalées ; « Je ne sais pas » montre la réponse.",
+      '4 nouveaux exercices sur « The + comparatif…, the + comparatif… », 3 sujets d\'oral et 3 exercices d\'expressions dans le module « Explanations ».',
+    ],
+  },
+  {
     version: 2,
     date: '2026-10-04',
     title: 'Cours du 30.09 et fiche « Making Assumptions »',

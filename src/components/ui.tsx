@@ -5,9 +5,9 @@ import { canSpeak, speak } from '../lib/speech'
 
 export const card =
   'rounded-2xl border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-800 dark:bg-gray-900'
-export const cardLink = `${card} block active:scale-[0.98] transition-transform`
+export const cardLink = `${card} block`
 export const btnPrimary =
-  'w-full rounded-2xl bg-indigo-600 py-3 font-semibold text-white shadow-sm disabled:opacity-40 active:scale-[0.99] transition-transform'
+  'w-full rounded-2xl bg-indigo-600 py-3 font-semibold text-white shadow-sm disabled:opacity-40'
 export const btnSecondary =
   'w-full rounded-2xl bg-gray-200 py-3 font-semibold text-gray-700 dark:bg-gray-800 dark:text-gray-200 disabled:opacity-40'
 export const input =

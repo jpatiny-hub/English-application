@@ -74,7 +74,7 @@ export function Home() {
         </Link>
       )}
 
-      <Link to="/revision" className="mt-5 block rounded-2xl bg-indigo-600 p-4 text-white shadow-sm transition-transform active:scale-[0.98]">
+      <Link to="/revision" className="mt-5 block rounded-2xl bg-indigo-600 p-4 text-white shadow-sm">
         <p className="text-sm opacity-90">Révision du jour</p>
         {due + dueLessons > 0 ? (
           <p className="text-xl font-bold">

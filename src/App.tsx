@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import { NavBar } from './components/NavBar'
 import { ErrorBoundary } from './components/ErrorBoundary'
@@ -29,8 +29,46 @@ import { Drill } from './pages/Drill'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
-  useEffect(() => window.scrollTo(0, 0), [pathname])
+  useEffect(() => {
+    window.scrollTo(0, 0)
+    // Force le navigateur à repeindre la nouvelle page (certains Chrome laissaient un écran vide).
+    const id = requestAnimationFrame(() => {
+      document.body.style.minHeight = '100.1vh'
+      requestAnimationFrame(() => {
+        document.body.style.minHeight = ''
+      })
+    })
+    return () => cancelAnimationFrame(id)
+  }, [pathname])
   return null
+}
+
+// Message affiché après une réparation automatique (rechargement déclenché par index.html).
+function RecoveredToast() {
+  const [reason] = useState(() => {
+    try {
+      const r = sessionStorage.getItem('english-app:recovered')
+      sessionStorage.removeItem('english-app:recovered')
+      return r
+    } catch {
+      return null
+    }
+  })
+  const [visible, setVisible] = useState(!!reason)
+  useEffect(() => {
+    if (!visible) return
+    const t = setTimeout(() => setVisible(false), 6000)
+    return () => clearTimeout(t)
+  }, [visible])
+  if (!visible) return null
+  return (
+    <button
+      onClick={() => setVisible(false)}
+      className="fixed left-1/2 top-3 z-30 w-[92%] max-w-sm -translate-x-1/2 rounded-xl bg-amber-100 px-3 py-2 text-left text-xs text-amber-900 shadow dark:bg-amber-900 dark:text-amber-100"
+    >
+      🔧 La page était vide : l'appli s'est rechargée toute seule ({reason}). C'est noté dans Progrès → Diagnostic.
+    </button>
+  )
 }
 
 function App() {
@@ -38,6 +76,7 @@ function App() {
   return (
     <div className="mx-auto flex min-h-screen max-w-md flex-col bg-[#f7f7fb] text-gray-900 dark:bg-gray-950 dark:text-gray-100">
       <ScrollToTop />
+      <RecoveredToast />
       <main className="flex-1 pb-24">
         <ErrorBoundary resetKey={location.pathname + location.search}>
         <Routes>

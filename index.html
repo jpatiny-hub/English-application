@@ -14,32 +14,64 @@
     <meta name="description" content="Application personnelle pour progresser en anglais du B2 vers le C1 : temps, rédaction, vocabulaire, expressions et contenu de mes cours." />
     <title>English B2 → C1</title>
     <script>
-      // Filet de sécurité : si l'appli n'affiche rien (page vide), on recharge automatiquement,
+      // Filet de sécurité : si l'appli disparaît (écran vide), on recharge automatiquement,
       // au plus une fois toutes les 20 secondes pour ne jamais boucler.
+      // L'appli change de page via history.pushState (pas d'événement hashchange) :
+      // on surveille donc pushState / replaceState / popstate ET le contenu de #root.
       (function () {
         var KEY = 'english-app:last-auto-reload'
+        var started = false
         function isEmpty() {
           var root = document.getElementById('root')
           if (!root || root.children.length === 0) return true
+          if (!root.querySelector('nav')) return true
           var main = root.querySelector('main')
-          return !!main && main.innerText.trim().length === 0
+          return !main || main.innerText.trim().length === 0
+        }
+        function log(message) {
+          try {
+            var list = JSON.parse(localStorage.getItem('english-app:errors') || '[]')
+            list.push({ at: new Date().toISOString(), page: location.hash, message: message })
+            localStorage.setItem('english-app:errors', JSON.stringify(list.slice(-20)))
+          } catch (e) {}
         }
         function recover(reason) {
-          if (!isEmpty()) return
+          if (!started || !isEmpty()) return
           var last = 0
           try { last = Number(sessionStorage.getItem(KEY) || 0) } catch (e) {}
-          try {
-            var log = JSON.parse(localStorage.getItem('english-app:errors') || '[]')
-            log.push({ at: new Date().toISOString(), page: location.hash, message: 'Page vide (' + reason + ')' })
-            localStorage.setItem('english-app:errors', JSON.stringify(log.slice(-20)))
-          } catch (e) {}
+          log('Page vide (' + reason + ')')
           if (Date.now() - last > 20000) {
-            try { sessionStorage.setItem(KEY, String(Date.now())) } catch (e) {}
+            try {
+              sessionStorage.setItem(KEY, String(Date.now()))
+              sessionStorage.setItem('english-app:recovered', reason)
+            } catch (e) {}
             location.reload()
           }
         }
-        window.addEventListener('load', function () { setTimeout(function () { recover('chargement') }, 4000) })
-        window.addEventListener('hashchange', function () { setTimeout(function () { recover('navigation') }, 1500) })
+        function check(reason, delay) {
+          setTimeout(function () { recover(reason) }, delay)
+        }
+        ;['pushState', 'replaceState'].forEach(function (name) {
+          var original = history[name]
+          history[name] = function () {
+            var result = original.apply(this, arguments)
+            check('navigation', 1200)
+            return result
+          }
+        })
+        window.addEventListener('popstate', function () { check('retour', 1200) })
+        window.addEventListener('hashchange', function () { check('navigation', 1200) })
+        window.addEventListener('load', function () {
+          started = true
+          setTimeout(function () {
+            recover('chargement')
+            var root = document.getElementById('root')
+            if (root && 'MutationObserver' in window) {
+              new MutationObserver(function () { if (isEmpty()) check('appli effacée', 800) })
+                .observe(root, { childList: true })
+            }
+          }, 3000)
+        })
       })()
     </script>
   </head>

@@ -31,6 +31,7 @@ Appli personnelle d'anglais (PWA React/Vite/Tailwind, 100 % locale). L'utilisate
 ## Robustesse d'affichage (ne pas retirer)
 
 - `index.html` : `translate="no"` + `<meta name="google" content="notranslate">` — la traduction automatique de Chrome réécrit le DOM et faisait disparaître l'appli à chaque changement de page.
-- `index.html` : petit script de secours qui recharge la page (au plus une fois / 20 s) si l'appli reste vide.
+- `index.html` : script de secours qui recharge la page (au plus une fois / 20 s) si l'appli reste vide. ⚠️ HashRouter navigue via `history.pushState` (aucun `hashchange`) : le script enveloppe pushState/replaceState et observe `#root`. Après réparation, un bandeau s'affiche (`RecoveredToast`).
+- Pas de `backdrop-blur` ni d'animation `active:scale` : suspects d'écrans vides sous Chrome (vidéo du 09.10, téléphone Samsung, mode sombre).
 - `src/lib/diagnostics.ts` : garde-fous `removeChild` / `insertBefore` et journal d'erreurs (`english-app:errors`) affiché dans « Progrès → Diagnostic technique ». Si l'utilisateur signale un bug d'affichage, lui demander de copier ce journal.
 - `ErrorBoundary` autour des routes (`src/App.tsx`).

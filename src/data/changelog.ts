@@ -4,6 +4,15 @@ import type { ChangelogEntry } from '../types'
 // `version` = précédente + 1 : l'accueil affichera une bannière « Nouveautés ».
 export const changelog: ChangelogEntry[] = [
   {
+    version: 4,
+    date: '2026-10-09',
+    title: 'Correctif des pages vides',
+    changes: [
+      "Le filet de sécurité surveille maintenant chaque changement de page : si l'écran reste vide, l'appli se recharge seule et te le signale.",
+      'Effets graphiques suspects supprimés (flou de la barre du bas, animations au toucher) et protection étendue à toute l\'appli.',
+    ],
+  },
+  {
     version: 3,
     date: '2026-10-08',
     title: 'Cours du 07.10 et vocabulaire à écrire',

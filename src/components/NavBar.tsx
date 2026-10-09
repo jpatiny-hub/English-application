@@ -11,7 +11,7 @@ const items = [
 
 export function NavBar() {
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-20 border-t border-gray-200 bg-white/95 pb-[env(safe-area-inset-bottom)] backdrop-blur dark:border-gray-800 dark:bg-gray-950/95">
+    <nav className="fixed bottom-0 left-0 right-0 z-20 border-t border-gray-200 bg-white pb-[env(safe-area-inset-bottom)] dark:border-gray-800 dark:bg-gray-950">
       <ul className="mx-auto grid max-w-md grid-cols-6">
         {items.map((item) => (
           <li key={item.to}>

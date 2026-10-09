@@ -5,6 +5,7 @@ import './index.css'
 import App from './App.tsx'
 import { requestPersistentStorage } from './lib/store'
 import { installDomGuards, logError } from './lib/diagnostics'
+import { ErrorBoundary } from './components/ErrorBoundary'
 
 installDomGuards()
 requestPersistentStorage()
@@ -17,8 +18,10 @@ createRoot(document.getElementById('root')!, {
   onCaughtError: (error) => logError(error instanceof Error ? error.message : String(error)),
 }).render(
   <StrictMode>
-    <HashRouter>
-      <App />
-    </HashRouter>
+    <ErrorBoundary resetKey="app">
+      <HashRouter>
+        <App />
+      </HashRouter>
+    </ErrorBoundary>
   </StrictMode>,
 )

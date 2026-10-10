@@ -84,7 +84,7 @@ export const structureLessons: GrammarLesson[] = [
       {
         kind: 'transform', id: 'g-conditionals-11', instruction: 'Réécris avec « unless ».',
         prompt: "If we don't reduce costs, we will go over budget.",
-        answers: ['Unless we reduce costs, we will go over budget.', "Unless we reduce costs, we'll go over budget.", 'We will go over budget unless we reduce costs.'],
+        answers: ['Unless we reduce costs, we will go over budget.', "Unless we reduce costs, we'll go over budget.", 'We will go over budget unless we reduce costs.', "We'll go over budget unless we reduce costs."],
       },
       {
         kind: 'transform', id: 'g-conditionals-12', instruction: 'Traduis en anglais.',
@@ -131,7 +131,7 @@ export const structureLessons: GrammarLesson[] = [
       },
     ],
     exercises: [
-      { kind: 'gap', id: 'g-modals-deduction-01', prompt: "She's been working for 12 hours. She ___ be exhausted.", answers: ['must'] },
+      { kind: 'gap', id: 'g-modals-deduction-01', prompt: "She's been working for 12 hours. She ___ be exhausted.", answers: ['must'], hint: 'quasi-certitude' },
       { kind: 'gap', id: 'g-modals-deduction-02', prompt: "That ___ be Paul — he's in Canada this week.", answers: ["can't", 'cannot', "couldn't"] },
       { kind: 'gap', id: 'g-modals-deduction-03', prompt: 'The samples are missing. Someone must ___ moved them.', answers: ['have'] },
       { kind: 'gap', id: 'g-modals-deduction-04', prompt: 'We ___ have ordered more reagents — now we have to wait two weeks.', answers: ['should'] },
@@ -320,7 +320,7 @@ export const structureLessons: GrammarLesson[] = [
       {
         kind: 'transform', id: 'g-passive-12', instruction: 'Utilise « can be + participe passé + by + -ing ».',
         prompt: 'If you store the product at the correct temperature, you protect it.',
-        answers: ['The product can be protected by storing it at the correct temperature.'],
+        answers: ['The product can be protected by storing it at the correct temperature.', 'It can be protected by storing it at the correct temperature.'],
       },
     ],
   },
@@ -464,7 +464,7 @@ export const structureLessons: GrammarLesson[] = [
       { kind: 'gap', id: 'g-relatives-01', prompt: 'The engineer ___ designed the process has left the company.', answers: ['who', 'that'] },
       { kind: 'gap', id: 'g-relatives-02', prompt: 'This is the software ___ crashed yesterday.', answers: ['that', 'which'] },
       { kind: 'gap', id: 'g-relatives-03', prompt: 'The patient ___ results were positive was contacted.', answers: ['whose'] },
-      { kind: 'gap', id: 'g-relatives-04', prompt: 'Liège is the city ___ I grew up.', answers: ['where'] },
+      { kind: 'gap', id: 'g-relatives-04', prompt: 'Liège is the city ___ I grew up.', answers: ['where', 'in which'] },
       { kind: 'gap', id: 'g-relatives-05', prompt: 'The delivery was late, ___ caused a two-day delay.', answers: ['which'] },
       {
         kind: 'mcq', id: 'g-relatives-06', prompt: 'Which sentence is correct?',
@@ -473,7 +473,7 @@ export const structureLessons: GrammarLesson[] = [
       {
         kind: 'transform', id: 'g-relatives-07', instruction: 'Relie les deux phrases avec un pronom relatif.',
         prompt: 'I met a woman. Her son works at our company.',
-        answers: ['I met a woman whose son works at our company.'],
+        answers: ['I met a woman whose son works at our company.', 'I met a woman whose son works for our company.'],
       },
       {
         kind: 'transform', id: 'g-relatives-08', instruction: 'Relie avec « which » (qui reprend toute la phrase).',
@@ -523,7 +523,7 @@ export const structureLessons: GrammarLesson[] = [
       { kind: 'gap', id: 'g-reported-01', prompt: '"I am busy." → She said that she ___ busy.', answers: ['was'] },
       { kind: 'gap', id: 'g-reported-02', prompt: '"We will call you." → They said they ___ call me.', answers: ['would'] },
       { kind: 'gap', id: 'g-reported-03', prompt: '"I have lost my badge." → He said he ___ his badge.', answers: ['had lost'] },
-      { kind: 'gap', id: 'g-reported-04', prompt: 'She ___ me that the meeting was cancelled.', answers: ['told'] },
+      { kind: 'gap', id: 'g-reported-04', prompt: 'She ___ me that the meeting was cancelled.', answers: ['told', 'informed'] },
       {
         kind: 'mcq', id: 'g-reported-05', prompt: 'Which sentence is correct?',
         options: ['He asked me where the lab was.', 'He asked me where was the lab.', 'He asked to me where the lab was.', 'He said me where the lab was.'], answer: 0,

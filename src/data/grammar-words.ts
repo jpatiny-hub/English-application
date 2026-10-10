@@ -290,7 +290,7 @@ export const wordLessons: GrammarLesson[] = [
       { kind: 'gap', id: 'g-confusing-05', prompt: 'After the breakup, it took her a year to move ___.', answers: ['on'] },
       { kind: 'gap', id: 'g-confusing-06', prompt: 'I need to take these shoes ___ to the shop — they are too small.', answers: ['back'] },
       { kind: 'gap', id: 'g-confusing-07', prompt: 'Could you ___ me to send the invitations?', answers: ['remind'] },
-      { kind: 'gap', id: 'g-confusing-08', prompt: 'She ___ a concern about safety during the meeting.', answers: ['raised'] },
+      { kind: 'gap', id: 'g-confusing-08', prompt: 'She ___ a concern about safety during the meeting.', answers: ['raised', 'expressed', 'voiced'] },
       {
         kind: 'mcq', id: 'g-confusing-09', prompt: '« Il est impliqué dans le nouveau projet. » (sens neutre)',
         options: ['He is involved in the new project.', 'He is implicated in the new project.', 'He is implied in the new project.', 'He is engaged at the new project.'], answer: 0,

@@ -98,6 +98,10 @@ export function Vocabulary() {
         })}
       </Section>
 
+      <Section title="Jouer avec les mots">
+        <ListLink to="/pratique/reformulation" icon="🔁" title="Synonymes" subtitle="Le sens des mots de tes cours, et des termes plus précis que big, get, help, fix…" />
+      </Section>
+
       <Section title="Par séance">
         {[...courseDecks].reverse().map((d) => (
           <ListLink key={d.id} to={`/vocabulaire/${d.id}`} icon={d.icon} title={d.title} subtitle={`${d.description} · ${d.items.length} mots`} />

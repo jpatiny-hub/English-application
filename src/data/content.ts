@@ -3,7 +3,7 @@ import type { CardExercise, Exercise, GapExercise, VocabItem } from '../types'
 import { grammarLessons } from './grammar.ts'
 import { sessions } from './sessions/index.ts'
 import { modules } from './modules.ts'
-import { styleExercises } from './style.ts'
+import { perspectiveExercises, styleExercises, synonymExercises } from './style.ts'
 import { irregularVerbs } from './irregular-verbs.ts'
 import { allVocab, deckOfVocab } from './vocabulary.ts'
 import { readingTexts } from './reading.ts'
@@ -72,6 +72,8 @@ export const TAG_LABELS: Record<string, string> = {
   register: 'Registre',
   inversion: 'Mise en relief',
   'indirect-questions': 'Questions indirectes',
+  perspective: 'Changer de perspective',
+  synonyms: 'Synonymes',
   vocab: 'Vocabulaire',
 }
 
@@ -145,6 +147,14 @@ for (const m of modules) {
   for (const ex of m.exercises) {
     register(ex, { label: `Module · ${m.title}`, link: `/cours/module/${m.id}` })
   }
+}
+
+for (const ex of perspectiveExercises) {
+  register(ex, { label: 'Changer de perspective', link: '/pratique/reformulation' })
+}
+
+for (const ex of synonymExercises) {
+  register(ex, { label: 'Synonymes', link: '/pratique/reformulation' })
 }
 
 for (const ex of styleExercises) {

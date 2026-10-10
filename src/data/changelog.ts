@@ -6,8 +6,11 @@ export const changelog: ChangelogEntry[] = [
   {
     version: 5,
     date: '2026-10-10',
-    title: 'Consignes précisées',
+    title: 'Consignes précisées, synonymes et changement de perspective',
     changes: [
+      'Nouvelle série « Changer de perspective » (16 exercices) : même sens, autre point de vue.',
+      'Nouvelle série « Synonymes » (30 exercices) : mots de tes cours et mots passe-partout à remplacer.',
+      "Relecture de tous les exercices de réécriture et des phrases à trous : une vingtaine de réponses correctes (synonymes, variantes) sont maintenant acceptées.",
       "« Réécris avec not as… as » : la consigne précise de garder le sens, et « Your car is not as expensive as mine » est désormais acceptée.",
       "« Mets en valeur avec What… is… » : nouvelle phrase de départ, réponses plus naturelles.",
     ],

@@ -26,6 +26,8 @@ Appli personnelle d'anglais (PWA React/Vite/Tailwind, 100 % locale). L'utilisate
 - Exercices : format commun `Exercise` (`mcq | gap | fix | transform | card`) dans `src/types.ts`. Les `gap` ont `___` dans le prompt ; l'utilisateur tape seulement le trou.
 - La comparaison des réponses est tolérante (casse, ponctuation, contractions, orthographe UK/US, une faute de frappe) : `src/lib/text.ts`. Donner plusieurs `answers` pour les formulations libres.
 - La relecture automatique de l'atelier d'écriture (`src/lib/lint.ts`) peut recevoir de nouvelles règles pour les erreurs récurrentes.
+- Réécritures (`transform`) : la consigne doit dire s'il faut garder le sens et imposer le début de phrase ou le mot quand plusieurs points de vue sont possibles (cf. « Your car is cheaper than mine »). Lister TOUTES les variantes correctes (synonymes, sujet inversé, adjectif contraire). Même chose pour les trous : accepter les synonymes valables.
+- Séries « Changer de perspective » (`pe-*`) et « Synonymes » (`sy-*`) dans `src/data/style.ts`.
 - Garder la progression B2 → B2+ → C1 : chaque nouvel ensemble d'exercices devrait contenir un peu de C1.
 
 ## Robustesse d'affichage (ne pas retirer)

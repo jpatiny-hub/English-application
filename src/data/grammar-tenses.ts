@@ -162,7 +162,7 @@ export const tenseLessons: GrammarLesson[] = [
         answers: ["We didn't find a solution quickly.", 'We did not find a solution quickly.'],
       },
       {
-        kind: 'transform', id: 'g-past-simple-15', instruction: 'Pose la question qui correspond à la partie soulignée : « She moved to Poland IN 2020 ».',
+        kind: 'transform', id: 'g-past-simple-15', instruction: 'Pose la question qui porte sur la date (« in 2020 »).',
         prompt: 'She moved to Poland in 2020. → When…?',
         answers: ['When did she move to Poland?'],
       },
@@ -443,7 +443,7 @@ export const tenseLessons: GrammarLesson[] = [
       {
         kind: 'transform', id: 'g-pp-vs-ps-20', instruction: 'Traduis en anglais.',
         prompt: "Samedi, mon petit-fils est venu chez moi et on a joué dans le jardin.",
-        answers: ['On Saturday, my grandson came to my house and we played in the garden.', 'On Saturday, my grandson came to my place and we played in the garden.', 'On Saturday my grandson came to my house and we played in the garden.'],
+        answers: ['On Saturday, my grandson came to my house and we played in the garden.', 'On Saturday, my grandson came to my place and we played in the garden.', 'On Saturday my grandson came to my house and we played in the garden.', 'On Saturday, my grandson came to my home and we played in the garden.', 'On Saturday, my grandson came over and we played in the garden.'],
       },
       {
         kind: 'transform', id: 'g-pp-vs-ps-21', instruction: 'Traduis en anglais.',
@@ -514,7 +514,7 @@ export const tenseLessons: GrammarLesson[] = [
       { kind: 'gap', id: 'g-since-for-02', prompt: "I've been working here ___ eight years.", answers: ['for'] },
       { kind: 'gap', id: 'g-since-for-03', prompt: 'I started working here eight years ___.', answers: ['ago'] },
       { kind: 'gap', id: 'g-since-for-04', prompt: 'I worked at JBC ___ 10 years.', answers: ['for'] },
-      { kind: 'gap', id: 'g-since-for-05', prompt: 'Nobody spoke ___ the presentation.', answers: ['during'] },
+      { kind: 'gap', id: 'g-since-for-05', prompt: 'Nobody spoke ___ the presentation.', answers: ['during', 'throughout'] },
       { kind: 'gap', id: 'g-since-for-06', prompt: 'She ___ (wait) for the results since this morning.', answers: ['has been waiting', "'s been waiting"] },
       { kind: 'transform', id: 'g-since-for-07', instruction: 'Construis la question au present perfect continuous.', prompt: 'How long / you / learn / English?', answers: ['How long have you been learning English?'] },
       { kind: 'gap', id: 'g-since-for-08', prompt: "I ___ (know) him since we were at university.", answers: ['have known', "'ve known"], explanation: '« Know » = verbe d\'état → present perfect simple.' },
@@ -679,7 +679,7 @@ export const tenseLessons: GrammarLesson[] = [
       {
         kind: 'transform', id: 'g-used-to-09', instruction: 'Réécris avec « used to ».',
         prompt: 'Before, I drank a lot of coffee. Now I drink tea.',
-        answers: ['I used to drink a lot of coffee. Now I drink tea.', 'I used to drink a lot of coffee, but now I drink tea.'],
+        answers: ['I used to drink a lot of coffee. Now I drink tea.', 'I used to drink a lot of coffee, but now I drink tea.', 'I used to drink a lot of coffee.'],
       },
       {
         kind: 'transform', id: 'g-used-to-10', instruction: 'Traduis en anglais.',
@@ -808,7 +808,7 @@ export const tenseLessons: GrammarLesson[] = [
       { kind: 'gap', id: 'g-future-advanced-02', prompt: "Don't call at 3 — I ___ (present) the results to the board.", answers: ['will be presenting', "'ll be presenting"] },
       { kind: 'gap', id: 'g-future-advanced-03', prompt: 'In 2050, most people ___ (work) remotely.', answers: ['will be working', 'will work'] },
       { kind: 'gap', id: 'g-future-advanced-04', prompt: 'By 2030, the city ___ (ban) all tourist rentals.', answers: ['will have banned'] },
-      { kind: 'gap', id: 'g-future-advanced-05', prompt: 'Hurry up, the train is ___ to leave!', answers: ['about'] },
+      { kind: 'gap', id: 'g-future-advanced-05', prompt: 'Hurry up, the train is ___ to leave!', answers: ['about', 'going'] },
       {
         kind: 'mcq', id: 'g-future-advanced-06', prompt: 'Next June, I ___ here for ten years.',
         options: ['will have been working', 'will be working since', 'am working', 'will work since'], answer: 0,
@@ -825,7 +825,7 @@ export const tenseLessons: GrammarLesson[] = [
       {
         kind: 'transform', id: 'g-future-advanced-09', instruction: 'Réécris avec « be likely to ».',
         prompt: 'Prices will probably rise next year.',
-        answers: ['Prices are likely to rise next year.'],
+        answers: ['Prices are likely to rise next year.', 'Prices are likely to increase next year.', 'Prices are likely to go up next year.'],
       },
     ],
   },

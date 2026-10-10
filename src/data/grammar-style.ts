@@ -72,7 +72,7 @@ export const styleLessons: GrammarLesson[] = [
       {
         kind: 'transform', id: 'g-linking-09', instruction: 'Relie les deux phrases avec « Although ».',
         prompt: 'The project was difficult. We delivered it on time.',
-        answers: ['Although the project was difficult, we delivered it on time.', 'We delivered it on time although the project was difficult.', 'We delivered the project on time although it was difficult.'],
+        answers: ['Although the project was difficult, we delivered it on time.', 'We delivered it on time although the project was difficult.', 'We delivered the project on time although it was difficult.', 'Although it was difficult, we delivered the project on time.', 'Although the project was difficult, we delivered the project on time.'],
       },
       {
         kind: 'transform', id: 'g-linking-10', instruction: 'Réécris avec « Despite » + -ing.',
@@ -148,7 +148,7 @@ export const styleLessons: GrammarLesson[] = [
         options: ['I was wondering if you could send me the report.', 'Send me the report.', 'You must send me the report.', 'I want the report now.'], answer: 0,
       },
       { kind: 'gap', id: 'g-register-05', prompt: 'I look forward to ___ (hear) from you.', answers: ['hearing'] },
-      { kind: 'gap', id: 'g-register-06', prompt: 'Please find ___ the report you requested.', answers: ['attached'] },
+      { kind: 'gap', id: 'g-register-06', prompt: 'Please find ___ the report you requested.', answers: ['attached', 'enclosed'] },
       {
         kind: 'transform', id: 'g-register-07', instruction: 'Rends cette phrase formelle (e-mail à un client).',
         prompt: 'We need to put off the meeting because we have to sort out a problem.',

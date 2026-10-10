@@ -595,9 +595,10 @@ export const structureLessons: GrammarLesson[] = [
         options: ['We have the same equipment as them.', 'We have the same equipment than them.', 'We have the same equipment like them.', 'We have same equipment as them.'], answer: 0,
       },
       {
-        kind: 'transform', id: 'g-comparison-08', instruction: 'Réécris avec « not as… as ».',
+        kind: 'transform', id: 'g-comparison-08', instruction: 'Réécris avec « not as… as » en gardant exactement le même sens (attention : qui est le moins cher ?).',
         prompt: 'Your car is cheaper than mine.',
-        answers: ['My car is not as cheap as yours.', "My car isn't as cheap as yours."],
+        answers: ['My car is not as cheap as yours.', "My car isn't as cheap as yours.", 'Your car is not as expensive as mine.', "Your car isn't as expensive as mine."],
+        explanation: "« Your car is cheaper » = ta voiture coûte moins cher. Deux façons de garder ce sens : inverser les sujets (My car is not as cheap as yours) ou garder « your car » avec l'adjectif contraire (Your car is not as expensive as mine). ⚠️ « Your car is not as cheap as mine » est correct grammaticalement mais dit l'inverse : ta voiture coûterait plus cher.",
       },
       { kind: 'gap', id: 'g-comparison-09', prompt: 'The ___ (early) we start, the sooner we can finish.', answers: ['earlier'] },
       { kind: 'gap', id: 'g-comparison-10', prompt: 'The less you sleep, the ___ (tired) you feel.', answers: ['more tired'] },

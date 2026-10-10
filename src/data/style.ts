@@ -113,8 +113,9 @@ export const styleExercises: Exercise[] = [
   },
   {
     kind: 'transform', id: 'st-24', tags: ['inversion'], level: 'C1', instruction: 'Mets en valeur avec « What… is… ».',
-    prompt: 'The lack of communication is the real problem.',
-    answers: ['What is really the problem is the lack of communication.', 'What the real problem is, is the lack of communication.', "What's really wrong is the lack of communication.", 'What really causes the problem is the lack of communication.', 'What the team lacks is communication.'],
+    prompt: 'We really need better communication in the team.',
+    answers: ['What we really need is better communication in the team.', 'What we really need in the team is better communication.', 'What the team really needs is better communication.'],
+    explanation: 'Phrase clivée : What + sujet + verbe + is + élément mis en valeur. On met en relief ce qui suit « is ».',
   },
   {
     kind: 'transform', id: 'st-25', tags: ['register'], level: 'B2+', instruction: 'Rends ce début d\'e-mail formel.',

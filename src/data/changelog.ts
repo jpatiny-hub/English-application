@@ -4,6 +4,15 @@ import type { ChangelogEntry } from '../types'
 // `version` = précédente + 1 : l'accueil affichera une bannière « Nouveautés ».
 export const changelog: ChangelogEntry[] = [
   {
+    version: 5,
+    date: '2026-10-10',
+    title: 'Consignes précisées',
+    changes: [
+      "« Réécris avec not as… as » : la consigne précise de garder le sens, et « Your car is not as expensive as mine » est désormais acceptée.",
+      "« Mets en valeur avec What… is… » : nouvelle phrase de départ, réponses plus naturelles.",
+    ],
+  },
+  {
     version: 4,
     date: '2026-10-09',
     title: 'Correctif des pages vides',

@@ -49,7 +49,7 @@ npm run build        # build de production
 
 ## Déploiement sur GitHub Pages
 
-Le workflow `.github/workflows/deploy.yml` vérifie le contenu, build et publie à chaque push.
+Le workflow `.github/workflows/deploy.yml` vérifie le contenu, build et publie à chaque push sur `main` (branche par défaut, seule autorisée à publier).
 Sur GitHub : **Settings → Pages → Build and deployment → Source : GitHub Actions**.
 L'appli sera disponible à `https://jpatiny-hub.github.io/English-application/`.
 

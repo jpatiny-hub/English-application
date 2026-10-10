@@ -8,6 +8,7 @@ Appli personnelle d'anglais (PWA React/Vite/Tailwind, 100 % locale). L'utilisate
 - Corriger le texte d'un exercice existant est possible (même id) si le sens reste le même.
 - Si la structure de `ProgressData` change : incrémenter `SCHEMA_VERSION` et ajouter une étape dans `migrate()` (`src/lib/store.ts`), sans jamais jeter de données.
 - Toujours lancer `npm run check-data` puis `npm run build` avant de pousser.
+- Publication : seule la branche `main` (branche par défaut) déploie sur GitHub Pages (règle de l'environnement `github-pages`). Le travail fait sur une autre branche doit être fusionné dans `main` pour apparaître dans l'appli.
 
 ## Ajouter une séance de cours (fiche « Vocabulary / Pronunciation / Mistakes / Others »)
 

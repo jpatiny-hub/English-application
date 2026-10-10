@@ -2,7 +2,7 @@ name: Déployer sur GitHub Pages
 
 on:
   push:
-    branches: [main, claude/epic-wright-fgxnnd]
+    branches: [main]
   workflow_dispatch:
 
 permissions:

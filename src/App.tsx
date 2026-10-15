@@ -26,6 +26,7 @@ import { Revision } from './pages/Revision'
 import { Progress } from './pages/Progress'
 import { News } from './pages/News'
 import { Drill } from './pages/Drill'
+import { ThemeDetail, Themes } from './pages/Themes'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -74,10 +75,10 @@ function RecoveredToast() {
 function App() {
   const location = useLocation()
   return (
-    <div className="mx-auto flex min-h-screen max-w-md flex-col bg-[#f7f7fb] text-gray-900 dark:bg-gray-950 dark:text-gray-100">
+    <div className="mx-auto flex min-h-screen max-w-md flex-col bg-(--app-bg) text-gray-900 dark:text-gray-100">
       <ScrollToTop />
       <RecoveredToast />
-      <main className="flex-1 pb-24">
+      <main className="flex-1 pb-28">
         <ErrorBoundary resetKey={location.pathname + location.search}>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -104,6 +105,8 @@ function App() {
           <Route path="/progres" element={<Progress />} />
           <Route path="/nouveautes" element={<News />} />
           <Route path="/entrainement" element={<Drill />} />
+          <Route path="/themes" element={<Themes />} />
+          <Route path="/themes/:themeId" element={<ThemeDetail />} />
           <Route path="*" element={<Home />} />
         </Routes>
         </ErrorBoundary>

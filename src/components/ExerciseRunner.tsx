@@ -4,7 +4,7 @@ import { checkAnswer, checkVocab, shuffle, wordDiff, type AnswerVerdict } from '
 import { recordAnswer } from '../lib/progress'
 import { canSpeak, speak } from '../lib/speech'
 import { TAG_LABELS } from '../data/content'
-import { btnPrimary, btnSecondary, input, LevelBadge, Pill, SpeakButton } from './ui'
+import { btnPrimary, btnSecondary, card, hero, input, LevelBadge, Pill, SpeakButton } from './ui'
 
 interface Result {
   exercise: Exercise
@@ -135,9 +135,9 @@ export function ExerciseRunner({ items, title, onExit, onFinish, record = true }
     const pct = Math.round((correct / Math.max(1, results.length)) * 100)
     return (
       <div className="px-4 pt-6">
-        <div className="rounded-3xl bg-indigo-600 p-6 text-center text-white shadow">
+        <div className={`${hero} p-6 text-center`}>
           <p className="text-sm opacity-90">{title ?? 'Session terminée'}</p>
-          <p className="mt-1 text-4xl font-bold">{correct} / {results.length}</p>
+          <p className="mt-1 text-5xl font-extrabold">{correct} / {results.length}</p>
           <p className="mt-1 text-sm opacity-90">
             {pct >= 90 ? 'Excellent ! 🎉' : pct >= 70 ? 'Bien joué ! 👍' : pct >= 50 ? 'Pas mal, on continue 💪' : 'Ces points reviendront en révision 🔁'}
           </p>
@@ -148,7 +148,7 @@ export function ExerciseRunner({ items, title, onExit, onFinish, record = true }
             <p className="text-sm font-semibold text-gray-500 dark:text-gray-400">À retenir</p>
             <div className="mt-2 space-y-2">
               {misses.map((m, i) => (
-                <div key={i} className="rounded-xl border border-gray-200 bg-white p-3 text-sm dark:border-gray-800 dark:bg-gray-900">
+                <div key={i} className={`${card} p-3 text-sm`}>
                   <p className="text-gray-500 dark:text-gray-400">{promptOf(m.exercise)}</p>
                   {m.given && m.exercise.kind !== 'card' && (
                     <p className="mt-1 text-red-600 line-through decoration-1">{m.given}</p>
@@ -173,14 +173,14 @@ export function ExerciseRunner({ items, title, onExit, onFinish, record = true }
   return (
     <div className="px-4 pt-6">
       <div className="mb-3 flex items-center justify-between">
-        <button onClick={onExit} className="text-sm text-indigo-600 dark:text-indigo-400">✕ Quitter</button>
-        <span className="text-sm text-gray-500 dark:text-gray-400">{index + 1} / {queue.length}</span>
+        <button onClick={onExit} className="rounded-full bg-white px-3 py-1 text-xs font-bold text-indigo-700 shadow-sm ring-1 ring-gray-900/5 dark:bg-white/10 dark:text-indigo-200 dark:ring-0">✕ Quitter</button>
+        <span className="text-sm font-bold text-gray-500 dark:text-gray-400">{index + 1} / {queue.length}</span>
       </div>
-      <div className="mb-4 h-1.5 w-full overflow-hidden rounded-full bg-gray-100 dark:bg-gray-800">
-        <div className="h-full bg-indigo-600 transition-all" style={{ width: `${(index / queue.length) * 100}%` }} />
+      <div className="mb-4 h-2.5 w-full overflow-hidden rounded-full bg-white ring-1 ring-gray-900/5 dark:bg-gray-800 dark:ring-0">
+        <div className="h-full rounded-full bg-linear-to-r from-indigo-500 to-violet-500 transition-all" style={{ width: `${(index / queue.length) * 100}%` }} />
       </div>
 
-      <div className="rounded-3xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+      <div className={`${card} p-5`}>
         <div className="flex flex-wrap items-center gap-2">
           <Pill tone="indigo">{kindLabel[ex.kind]}</Pill>
           {ex.level && <LevelBadge level={ex.level} />}
@@ -212,14 +212,14 @@ export function ExerciseRunner({ items, title, onExit, onFinish, record = true }
                       key={oi}
                       disabled={phase === 'feedback'}
                       onClick={() => setChoice(oi)}
-                      className={`block w-full rounded-xl border px-3 py-2.5 text-left text-sm transition-colors ${
+                      className={`block w-full rounded-2xl border-2 px-3.5 py-3 text-left text-sm font-semibold transition-colors ${
                         showOk
                           ? 'border-green-500 bg-green-50 dark:bg-green-900/30'
                           : showKo
                             ? 'border-red-500 bg-red-50 dark:bg-red-900/30'
                             : selected
-                              ? 'border-indigo-600 bg-indigo-50 dark:bg-indigo-900/30'
-                              : 'border-gray-200 dark:border-gray-700'
+                              ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/30'
+                              : 'border-gray-100 bg-gray-50/60 dark:border-gray-700 dark:bg-transparent'
                       }`}
                     >
                       {opt}
@@ -396,7 +396,7 @@ function Feedback({
         </details>
       )}
 
-      {ex.explanation && <p className="mt-3 rounded-xl bg-indigo-50 p-3 text-sm text-indigo-900 dark:bg-indigo-900/30 dark:text-indigo-100">💡 {ex.explanation}</p>}
+      {ex.explanation && <p className="mt-3 rounded-2xl bg-indigo-50 p-3 text-sm text-indigo-900 dark:bg-indigo-900/30 dark:text-indigo-100">💡 {ex.explanation}</p>}
 
       {typed && !ok && (
         <button onClick={onOverride} className="mt-3 text-xs text-indigo-600 underline dark:text-indigo-400">

@@ -10,7 +10,7 @@ import { btnPrimary, card, LevelBadge, Page, ProgressBar, Rich, SpeakButton } fr
 export function GrammarPointView({ point }: { point: GrammarPoint }) {
   return (
     <div className={card}>
-      <p className="font-semibold">{point.title}</p>
+      <p className="text-lg font-extrabold leading-snug">{point.title}</p>
       <p className="mt-1 text-sm leading-relaxed text-gray-600 dark:text-gray-300"><Rich text={point.explanation} /></p>
       {point.table && (
         <div className="mt-3 overflow-x-auto">
@@ -37,7 +37,7 @@ export function GrammarPointView({ point }: { point: GrammarPoint }) {
       {point.examples.length > 0 && (
         <div className="mt-3 space-y-2">
           {point.examples.map((ex, j) => (
-            <div key={j} className="flex items-center justify-between gap-2 rounded-lg bg-gray-50 px-3 py-2 text-sm dark:bg-gray-800">
+            <div key={j} className="flex items-center justify-between gap-2 rounded-2xl bg-gray-50 px-3 py-2 text-sm ring-1 ring-gray-900/[0.03] dark:bg-white/5 dark:ring-0">
               <div>
                 <p className="font-medium">{ex.en}</p>
                 {ex.fr && <p className="text-xs text-gray-500 dark:text-gray-400">{ex.fr}</p>}

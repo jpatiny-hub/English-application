@@ -223,6 +223,68 @@ const c1Words: VocabItem[] = [
   { id: 'c1-whereby', en: 'whereby', fr: 'par lequel, selon lequel', level: 'C1', example: 'We introduced a system whereby each batch is double-checked.' },
 ]
 
+// --- Thème Halloween (voir src/data/themes.ts) ---------------------------------------
+
+const halloweenWords: VocabItem[] = [
+  { id: 'hw-trick-or-treat', en: 'to go trick-or-treating', fr: 'faire la tournée des bonbons', level: 'B2', example: 'The kids went trick-or-treating around the neighbourhood.', note: '« Trick or treat! » = « Des bonbons ou un sort ! »' },
+  { id: 'hw-jack-o-lantern', en: "a jack-o'-lantern", fr: 'une citrouille-lanterne', level: 'B2', example: "We put a jack-o'-lantern on the doorstep." },
+  { id: 'hw-pumpkin', en: 'a pumpkin', fr: 'une citrouille, un potiron', level: 'B2', example: 'We bought three pumpkins at the farm.' },
+  { id: 'hw-to-carve', en: 'to carve', fr: 'sculpter, tailler, évider', level: 'B2', example: 'It took us an hour to carve the pumpkin.', note: 'On dit aussi « carve the turkey » : découper la dinde.' },
+  { id: 'hw-to-dress-up', en: 'to dress up as', fr: 'se déguiser en', level: 'B2', example: 'She dressed up as a witch for the office party.', note: '✗ disguise myself. « A disguise » sert à ne pas être reconnu (un espion) ; pour une fête, on parle de « a costume ».' },
+  { id: 'hw-costume', en: 'a costume', fr: 'un déguisement, un costume (de scène)', level: 'B2', example: "What's your Halloween costume this year?", note: 'Faux-ami : un costume (veste + pantalon) = a suit.' },
+  { id: 'hw-haunted', en: 'haunted', fr: 'hanté', level: 'B2', example: 'Nobody wants to buy the haunted house at the end of the street.', note: 'Prononciation : HAWN-tid (le « h » est expiré !). ≠ hunted (chassé).' },
+  { id: 'hw-to-haunt', en: 'to haunt', fr: 'hanter, obséder', level: 'B2+', example: 'That decision still haunts him.' },
+  { id: 'hw-ghost', en: 'a ghost', fr: 'un fantôme', level: 'B2', example: 'Do you believe in ghosts?', note: 'Believe IN something (✗ believe to).' },
+  { id: 'hw-witch', en: 'a witch', fr: 'une sorcière', level: 'B2', example: 'The witch flew away on her broomstick.', note: 'Un sorcier = a wizard. Attention : witch ≠ which (même prononciation).' },
+  { id: 'hw-broomstick', en: 'a broomstick', fr: 'un balai (de sorcière)', level: 'B2+', example: 'Witches traditionally ride broomsticks.' },
+  { id: 'hw-cauldron', en: 'a cauldron', fr: 'un chaudron', level: 'B2+', example: 'A green potion was bubbling in the cauldron.' },
+  { id: 'hw-to-cast-a-spell', en: 'to cast a spell', fr: 'jeter un sort', level: 'B2+', example: 'The witch cast a spell on the prince.', note: 'cast → cast → cast.' },
+  { id: 'hw-skeleton', en: 'a skeleton', fr: 'un squelette', level: 'B2', example: 'There was a plastic skeleton hanging from the ceiling.' },
+  { id: 'hw-skull', en: 'a skull', fr: 'un crâne', level: 'B2', example: 'The pirate flag shows a skull and crossbones.' },
+  { id: 'hw-graveyard', en: 'a graveyard / a cemetery', fr: 'un cimetière', level: 'B2', example: 'They walked through the graveyard at midnight.' },
+  { id: 'hw-grave', en: 'a grave', fr: 'une tombe', level: 'B2', example: 'Flowers had been left on the grave.', note: 'Une pierre tombale = a tombstone / a gravestone.' },
+  { id: 'hw-coffin', en: 'a coffin', fr: 'un cercueil', level: 'B2+', example: 'The vampire slowly opened his coffin.' },
+  { id: 'hw-bat', en: 'a bat', fr: 'une chauve-souris', level: 'B2', example: 'A bat flew out of the old church tower.', note: 'Aussi : une batte (de baseball).' },
+  { id: 'hw-cobweb', en: 'a cobweb', fr: "une toile d'araignée", level: 'B2+', example: 'The attic was full of dust and cobwebs.' },
+  { id: 'hw-werewolf', en: 'a werewolf', fr: 'un loup-garou', level: 'B2+', example: 'The werewolf only transforms during a full moon.', note: 'Pluriel : werewolves.' },
+  { id: 'hw-mummy', en: 'a mummy', fr: 'une momie', level: 'B2', example: 'He dressed up as a mummy, wrapped in toilet paper.', note: 'Aussi : maman (UK).' },
+  { id: 'hw-scarecrow', en: 'a scarecrow', fr: 'un épouvantail', level: 'B2+', example: 'An old scarecrow stood in the middle of the field.' },
+  { id: 'hw-candy', en: 'candy / sweets', fr: 'des bonbons', level: 'B2', example: 'We ran out of candy before nine o\'clock.', note: 'Candy (US, indénombrable) ; sweets (UK).' },
+  { id: 'hw-spooky', en: 'spooky', fr: 'qui fait peur, sinistre', level: 'B2', example: 'We decorated the office to make it look spooky.', note: 'Le mot « fun » de Halloween : une peur pour jouer.' },
+  { id: 'hw-creepy', en: 'creepy', fr: 'flippant, glauque, qui donne la chair de poule', level: 'B2', example: 'That doll in the attic is really creepy.' },
+  { id: 'hw-eerie', en: 'eerie', fr: 'étrange et inquiétant, sinistre', level: 'C1', example: 'There was an eerie silence in the empty lab.', note: 'Prononciation : EE-ree.' },
+  { id: 'hw-spine-chilling', en: 'spine-chilling / bloodcurdling', fr: 'à glacer le sang', level: 'C1', example: 'We heard a bloodcurdling scream from the cellar.' },
+  { id: 'hw-to-scream', en: 'to scream / to shriek', fr: 'hurler, pousser un cri', level: 'B2', example: 'Everyone screamed when the lights went out.' },
+  { id: 'hw-to-frighten', en: 'to frighten / to scare', fr: 'effrayer, faire peur', level: 'B2', example: "Don't worry, the dog won't frighten the children.", note: 'Avoir peur DE = be scared OF / be frightened OF.' },
+  { id: 'hw-superstitious', en: 'superstitious', fr: 'superstitieux', level: 'B2', example: "I'm not superstitious, but I never walk under ladders." },
+  { id: 'hw-bonfire', en: 'a bonfire', fr: 'un feu de joie, un grand feu (en plein air)', level: 'B2+', example: 'On 5 November, British towns light bonfires and set off fireworks.' },
+]
+
+const halloweenIdioms: VocabItem[] = [
+  { id: 'hi-skeleton-in-the-closet', en: 'to have a skeleton in the closet', fr: 'avoir un cadavre dans le placard', level: 'C1', example: 'Every politician seems to have a skeleton in the closet.', note: 'UK : a skeleton in the cupboard.' },
+  { id: 'hi-skeleton-staff', en: 'a skeleton staff / a skeleton crew', fr: 'un effectif réduit (au strict minimum)', level: 'C1', example: 'We only have a skeleton staff between Christmas and New Year.' },
+  { id: 'hi-graveyard-shift', en: 'the graveyard shift', fr: "le poste de nuit, l'équipe de nuit", level: 'C1', example: 'She works the graveyard shift at the plant, from 10 p.m. to 6 a.m.' },
+  { id: 'hi-ghost-town', en: 'a ghost town', fr: 'une ville morte, un endroit désert', level: 'B2+', example: 'The office is a ghost town on Friday afternoons.' },
+  { id: 'hi-to-ghost', en: 'to ghost someone', fr: "disparaître sans explication, ne plus donner signe de vie à qqn", level: 'B2+', example: 'The candidate ghosted us after the second interview.' },
+  { id: 'hi-ghostwriter', en: 'a ghostwriter', fr: 'un prête-plume, un rédacteur fantôme', level: 'C1', example: "The CEO's autobiography was written by a ghostwriter." },
+  { id: 'hi-give-up-the-ghost', en: 'to give up the ghost', fr: "rendre l'âme (machine), lâcher", level: 'C1', example: 'The old centrifuge finally gave up the ghost.' },
+  { id: 'hi-ghost-of-a-chance', en: "not to have a ghost of a chance", fr: 'ne pas avoir la moindre chance', level: 'C1', example: "Without more data, we don't have a ghost of a chance of getting approval." },
+  { id: 'hi-witch-hunt', en: 'a witch hunt', fr: 'une chasse aux sorcières', level: 'B2+', example: "Let's find the cause of the deviation, not start a witch hunt." },
+  { id: 'hi-scared-stiff', en: 'to be scared stiff / scared to death', fr: 'être mort de peur', level: 'B2+', example: 'I was scared stiff before my first presentation in English.' },
+  { id: 'hi-living-daylights', en: 'to scare the living daylights out of someone', fr: 'faire une peur bleue à qqn', level: 'C1', example: 'The fire alarm scared the living daylights out of me.' },
+  { id: 'hi-blood-run-cold', en: "to make someone's blood run cold", fr: 'glacer le sang de qqn', level: 'C1', example: 'The scream made my blood run cold.' },
+  { id: 'hi-dead-in-the-water', en: 'dead in the water', fr: "au point mort, voué à l'échec", level: 'C1', example: 'Without funding, the project is dead in the water.' },
+  { id: 'hi-over-my-dead-body', en: 'over my dead body', fr: 'jamais de la vie, il faudra me passer sur le corps', level: 'B2+', example: "Cancel the training? Over my dead body!" },
+  { id: 'hi-turn-in-grave', en: 'to turn in your grave', fr: 'se retourner dans sa tombe', level: 'C1', example: 'The founder would turn in his grave if he saw the new logo.', note: 'UK : turn in your grave ; US : roll over in your grave.' },
+  { id: 'hi-dig-your-own-grave', en: 'to dig your own grave', fr: 'creuser sa propre tombe', level: 'B2+', example: "If you ignore the auditor's comments, you're digging your own grave." },
+  { id: 'hi-bury-the-hatchet', en: 'to bury the hatchet', fr: 'enterrer la hache de guerre', level: 'B2+', example: 'After months of conflict, the two managers finally buried the hatchet.' },
+  { id: 'hi-under-a-spell', en: "to be under someone's spell", fr: 'être sous le charme de qqn', level: 'B2+', example: 'The audience was completely under her spell.' },
+  { id: 'hi-witching-hour', en: 'the witching hour', fr: "l'heure des sorcières (minuit, l'heure où tout se dérègle)", level: 'C1', example: 'Our servers always seem to crash at the witching hour.' },
+  { id: 'hi-bat-out-of-hell', en: 'like a bat out of hell', fr: 'à toute allure, comme un fou', level: 'C1', example: 'He drove out of the car park like a bat out of hell.' },
+  { id: 'hi-do-the-trick', en: 'to do the trick', fr: "faire l'affaire, régler le problème", level: 'B2+', example: 'A quick restart should do the trick.' },
+  { id: 'hi-treat-yourself', en: 'to treat yourself (to something)', fr: 'se faire plaisir, s\'offrir qqch', level: 'B2', example: 'After the audit, I treated myself to a nice dinner.' },
+]
+
 export const discoveryDecks: VocabDeck[] = [
   { id: 'phrasal', title: 'Phrasal verbs essentiels', icon: '🔗', description: 'Les verbes à particule qu\'on entend partout au travail.', kind: 'decouverte', items: phrasalVerbs },
   { id: 'idioms', title: 'Idiomes & expressions', icon: '🎭', description: 'Pour parler comme un natif (avec modération).', kind: 'decouverte', items: idioms },
@@ -230,6 +292,8 @@ export const discoveryDecks: VocabDeck[] = [
   { id: 'false-friends', title: 'Faux-amis', icon: '🪤', description: 'Actually, eventually, sensible… les pièges du français.', kind: 'decouverte', items: falseFriends },
   { id: 'lab', title: 'Labo & industrie pharma', icon: '🔬', description: 'Le vocabulaire de ton métier : GMP, lots, déviations, bioréacteurs.', kind: 'decouverte', items: lab },
   { id: 'c1', title: 'Mots de niveau C1', icon: '🚀', description: 'Des verbes et adjectifs précis pour monter en gamme.', kind: 'decouverte', items: c1Words },
+  { id: 'halloween', title: 'Halloween : les mots', icon: '🎃', description: 'Citrouilles, fantômes, sorcières et tout ce qui fait peur.', kind: 'decouverte', items: halloweenWords },
+  { id: 'halloween-idioms', title: 'Halloween : les expressions', icon: '👻', description: 'Skeleton staff, graveyard shift, ghosting… des expressions « qui font peur » utiles au travail.', kind: 'decouverte', items: halloweenIdioms },
 ]
 
 // Un paquet par séance de cours, généré automatiquement.

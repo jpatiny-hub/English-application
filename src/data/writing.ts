@@ -426,4 +426,32 @@ I would be happy to discuss it if you have any questions.
 Kind regards,
 [Your name]`,
   },
+  {
+    id: 'w-halloween-story',
+    level: 'B2+',
+    type: 'story',
+    title: 'Une histoire qui fait peur (Halloween)',
+    prompt: 'Write a short ghost story that begins with this sentence: "It was the night of 31 October, and I was the last person in the lab…" Describe the setting, build up the tension, tell what happened and finish with a twist or an explanation.',
+    tipsFr: "C'est l'exercice idéal pour les temps du récit : past continuous pour le décor (it was raining, the machines were humming), past simple pour les événements (suddenly, the lights went out), past perfect pour ce qui s'était passé avant (someone had moved the samples). Ajoute une déduction au passé (it must have been… / it can't have been…) et du vocabulaire du thème (eerie, creepy, a bloodcurdling scream).",
+    minWords: 150,
+    maxWords: 250,
+    targetPhrases: ['All of a sudden', 'must have', "can't have", 'had', 'My heart was pounding', 'It turned out that'],
+    checklist: [
+      'Le décor est au past continuous (was / were + -ing)',
+      'Les événements sont au past simple',
+      'Au moins un past perfect pour un événement antérieur',
+      'Une déduction au passé : must have / might have / can\'t have + participe passé',
+      'Au moins trois mots du thème Halloween',
+      'Une chute (twist) ou une explication à la fin',
+    ],
+    model: `It was the night of 31 October, and I was the last person in the lab. Outside, it was raining heavily, and the only sound inside was the gentle humming of the freezers. I was finishing my last analysis when, all of a sudden, the lights went out.
+
+For a few seconds, there was an eerie silence. Then I heard footsteps in the corridor. My heart was pounding. I was sure I had locked the door an hour earlier, so nobody could have come in. I grabbed my phone and switched on the torch.
+
+The footsteps stopped right outside the door. Slowly, the handle began to turn. I held my breath. The door opened, and a pale figure in a long white coat appeared, holding a candle.
+
+I let out a bloodcurdling scream, and so did the figure.
+
+It turned out that it was Paul, the security guard. The storm must have caused a power cut, and he had come to check that nobody was trapped in the building. He can't have expected to find anyone, because he was just as scared as I was. We both laughed, but I must admit that, since that night, I have never stayed late on Halloween again.`,
+  },
 ]

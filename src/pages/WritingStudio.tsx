@@ -11,6 +11,7 @@ export function WritingStudio() {
   const { taskId } = useParams()
   const [params] = useSearchParams()
   const moduleId = params.get('module')
+  const themeId = params.get('theme')
   const task = writingTasks.find((t) => t.id === taskId)
   const data = useProgress()
   const [text, setText] = useState(() => (taskId ? data.drafts[taskId] ?? '' : ''))
@@ -86,7 +87,7 @@ ${text}
     }
   }
 
-  const back = moduleId ? { to: `/pratique/ecrit?module=${moduleId}`, label: 'Atelier' } : { to: '/pratique/ecrit', label: 'Atelier' }
+  const back = themeId ? { to: `/themes/${themeId}`, label: 'Thème' } : moduleId ? { to: `/pratique/ecrit?module=${moduleId}`, label: 'Atelier' } : { to: '/pratique/ecrit', label: 'Atelier' }
 
   if (finished) {
     return (

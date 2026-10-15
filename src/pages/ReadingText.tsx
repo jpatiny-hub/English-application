@@ -10,6 +10,7 @@ export function ReadingTextPage() {
   const { textId } = useParams()
   const [params] = useSearchParams()
   const moduleId = params.get('module')
+  const themeId = params.get('theme')
   const text = readingTexts.find((t) => t.id === textId)
   const [playing, setPlaying] = useState(false)
 
@@ -30,7 +31,7 @@ export function ReadingTextPage() {
   }
 
   return (
-    <Page title={text.title} subtitle={<LevelBadge level={text.level} />} back={moduleId ? { to: `/cours/module/${moduleId}`, label: 'Module' } : { to: '/pratique/lecture', label: 'Lecture' }}>
+    <Page title={text.title} subtitle={<LevelBadge level={text.level} />} back={themeId ? { to: `/themes/${themeId}`, label: 'Thème' } : moduleId ? { to: `/cours/module/${moduleId}`, label: 'Module' } : { to: '/pratique/lecture', label: 'Lecture' }}>
       {canSpeak() && (
         <button onClick={playAll} className={`${btnSecondary} mb-3`}>{playing ? '⏹ Arrêter la lecture' : '🔊 Écouter tout le texte'}</button>
       )}

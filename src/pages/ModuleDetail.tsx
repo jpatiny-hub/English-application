@@ -8,7 +8,7 @@ import { markStep } from '../lib/progress'
 import { formatDateFr } from '../lib/text'
 import type { ModuleId, ModuleStep } from '../types'
 import { ExerciseRunner } from '../components/ExerciseRunner'
-import { btnPrimary, card, LevelBadge, ListLink, Page, Section, SpeakButton } from '../components/ui'
+import { btnPrimary, card, IconTile, LevelBadge, ListLink, Page, Section, SpeakButton } from '../components/ui'
 
 interface StepDef {
   step: ModuleStep
@@ -77,9 +77,9 @@ export function ModuleDetail() {
           const to = stepLink(def.step)
           const inner = (
             <>
-              <span className="text-xl">{def.icon}</span>
+              <IconTile icon={def.icon} size="sm" />
               <div>
-                <p className={`font-semibold ${done ? 'text-gray-400 line-through' : ''}`}>{def.label}</p>
+                <p className={`font-bold ${done ? 'text-gray-400 line-through' : ''}`}>{def.label}</p>
                 <p className="text-xs text-gray-500 dark:text-gray-400">{def.description}</p>
               </div>
             </>
@@ -117,14 +117,14 @@ export function ModuleDetail() {
           <details key={g.title} className={card}>
             <summary className="flex cursor-pointer items-center justify-between">
               <span>
-                <span className="font-semibold">{g.title}</span>
+                <span className="font-bold">{g.title}</span>
                 <span className="block text-xs text-gray-500 dark:text-gray-400">{g.titleFr}</span>
               </span>
               <span className="text-gray-400">▾</span>
             </summary>
             <ul className="mt-3 space-y-2">
               {g.phrases.map((p) => (
-                <li key={p} className="flex items-center justify-between gap-2 rounded-lg bg-gray-50 px-3 py-2 text-sm dark:bg-gray-800">
+                <li key={p} className="flex items-center justify-between gap-2 rounded-2xl bg-violet-50/70 px-3 py-2 text-sm dark:bg-white/5">
                   <span>{p}</span>
                   <SpeakButton text={p.replace(/…/g, ',')} small />
                 </li>

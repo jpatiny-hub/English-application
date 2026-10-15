@@ -291,4 +291,50 @@ export const readingTexts: ReadingText[] = [
       { kind: 'mcq', id: 'r-rehearsal-q4', prompt: 'Which phrase is given as a way to check understanding?', options: ['Are you with me so far?', 'In other words…', 'To put it simply…', 'The reason is…'], answer: 0 },
     ],
   },
+  {
+    id: 'r-halloween',
+    title: 'From Samhain to trick-or-treat: a short history of Halloween',
+    level: 'B2+',
+    paragraphs: [
+      'More than two thousand years ago, the Celts of Ireland, Scotland and Britain celebrated Samhain (pronounced SOW-in) at the end of October. It marked the end of the harvest and the beginning of the dark half of the year. People believed that on that night the boundary between the living and the dead became thin, and that spirits could walk the earth. To protect themselves, they lit huge bonfires and sometimes wore masks so that the spirits would not recognise them.',
+      'When Christianity spread across Europe, the Church placed All Saints\' Day, also called All Hallows\' Day, on 1 November. The evening before became All Hallows\' Eve, which was gradually shortened to "Hallowe\'en". Many of the old customs survived: in Ireland and Scotland, children went from door to door in costume, singing or reciting a poem in exchange for food or coins.',
+      'The jack-o\'-lantern has its own legend. According to an Irish folk tale, a man called Stingy Jack had tricked the Devil so many times that, when he died, he was allowed neither into heaven nor into hell. He was condemned to wander in the dark with only a burning coal inside a carved turnip to light his way. For centuries, the Irish carved turnips, not pumpkins, and placed them in their windows to keep wandering spirits away.',
+      'In the nineteenth century, millions of Irish and Scottish immigrants who had left their countries during the Great Famine brought Halloween to the United States. There, they discovered the pumpkin, which was bigger and much easier to carve than a turnip. In the twentieth century, Halloween became a community holiday centred on children, and by the 1950s, trick-or-treating had become a national tradition.',
+      'Today, Americans spend billions of dollars every year on costumes, decorations and candy, and the holiday has crossed the Atlantic again. In many European countries, including Belgium and France, it has grown in popularity since the late 1990s, although some people still see it as a commercial import. Ironically, a celebration that started in Europe has come back home in an American costume.',
+    ],
+    glossary: [
+      { en: 'the harvest', fr: 'la récolte, la moisson' },
+      { en: 'the boundary', fr: 'la frontière, la limite' },
+      { en: 'to spread', fr: 'se répandre' },
+      { en: 'gradually', fr: 'progressivement' },
+      { en: 'stingy', fr: 'radin, avare' },
+      { en: 'to wander', fr: 'errer' },
+      { en: 'a turnip', fr: 'un navet' },
+      { en: 'the Great Famine', fr: 'la Grande Famine (Irlande, 1845-1852)' },
+    ],
+    questions: [
+      {
+        kind: 'mcq', id: 'r-halloween-q1', prompt: 'Why did the Celts wear masks during Samhain?',
+        options: ['So that the spirits would not recognise them', 'To scare their neighbours', 'To celebrate the harvest', 'Because it was very cold'], answer: 0,
+      },
+      {
+        kind: 'mcq', id: 'r-halloween-q2', prompt: 'What does the word "Halloween" come from?',
+        options: ["All Hallows' Eve, the evening before All Saints' Day", 'The name of a Celtic god', 'An Irish word for pumpkin', "Stingy Jack's surname"], answer: 0,
+      },
+      {
+        kind: 'mcq', id: 'r-halloween-q3', prompt: 'What did the Irish originally carve?',
+        options: ['Turnips', 'Pumpkins', 'Apples', 'Potatoes'], answer: 0,
+      },
+      {
+        kind: 'mcq', id: 'r-halloween-q4', prompt: '"…immigrants who had left their countries during the Great Famine brought Halloween to the United States." Why the past perfect?',
+        options: ['They left their countries before they brought Halloween to the US', 'It describes a habit', 'The action is still going on', 'It is a polite form'], answer: 0,
+        tags: ['past-perfect'],
+      },
+      {
+        kind: 'mcq', id: 'r-halloween-q5', prompt: '"It has grown in popularity since the late 1990s." Why the present perfect?',
+        options: ['The growth started in the past and continues today', 'It happened on a precise date', 'It is finished', 'It is a prediction'], answer: 0,
+        tags: ['present-perfect', 'since-for'],
+      },
+    ],
+  },
 ]

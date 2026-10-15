@@ -8,6 +8,7 @@ import { irregularVerbs } from './irregular-verbs.ts'
 import { allVocab, deckOfVocab } from './vocabulary.ts'
 import { readingTexts } from './reading.ts'
 import { dialogues } from './dialogues.ts'
+import { themes } from './themes.ts'
 import { formatDateFr } from '../lib/text.ts'
 
 export interface ExerciseSource {
@@ -75,6 +76,8 @@ export const TAG_LABELS: Record<string, string> = {
   perspective: 'Changer de perspective',
   synonyms: 'Synonymes',
   vocab: 'Vocabulaire',
+  idioms: 'Idiomes',
+  culture: 'Culture',
 }
 
 function withTags(ex: Exercise, extra: string[]): Exercise {
@@ -146,6 +149,12 @@ for (const s of sessions) {
 for (const m of modules) {
   for (const ex of m.exercises) {
     register(ex, { label: `Module · ${m.title}`, link: `/cours/module/${m.id}` })
+  }
+}
+
+for (const t of themes) {
+  for (const ex of t.exercises) {
+    register(ex, { label: `Thème · ${t.title}`, link: `/themes/${t.id}` })
   }
 }
 

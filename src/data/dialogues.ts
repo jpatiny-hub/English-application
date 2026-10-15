@@ -177,4 +177,28 @@ export const dialogues: Dialogue[] = [
       { kind: 'mcq', id: 'd-travel-policy-q4', prompt: '"Could you clarify what you mean by…" is used to…', options: ['ask for an explanation politely', 'disagree strongly', 'give an example', 'end the conversation'], answer: 0 },
     ],
   },
+  {
+    id: 'd-halloween-party',
+    title: 'The office Halloween party',
+    level: 'B2+',
+    context: 'Sophie and Mark, two colleagues, are organising a Halloween party at work.',
+    lines: [
+      { speaker: 'Sophie', text: "So, are we still on for the Halloween party on Friday? HR finally said yes." },
+      { speaker: 'Mark', text: "Great! But I'm worried nobody will come. The office is always a ghost town on Friday afternoons." },
+      { speaker: 'Sophie', text: "That's why we're starting at four, not six. And free pizza usually does the trick." },
+      { speaker: 'Mark', text: "Fair enough. Are people expected to dress up?" },
+      { speaker: 'Sophie', text: "It's optional, but there's a prize for the best costume. Last year, Julia came as a mummy, and she'd wrapped herself in lab tissue. It was brilliant." },
+      { speaker: 'Mark', text: "I remember! I'm going as a vampire this year. I've already bought the fake teeth." },
+      { speaker: 'Sophie', text: "Perfect. Oh, and could you take care of the decorations? Cobwebs, a few skeletons, some pumpkins… nothing too creepy, though. Last year, the plastic spider in the lift scared the living daylights out of the director." },
+      { speaker: 'Mark', text: "Point taken. What about the night team? They can't leave the production line." },
+      { speaker: 'Sophie', text: "Good point. There'll only be a skeleton staff on Friday night, so let's bring them some cake during their break. The graveyard shift deserves a treat too!" },
+      { speaker: 'Mark', text: "Love it. I'll carve a jack-o'-lantern for them." },
+    ],
+    questions: [
+      { kind: 'mcq', id: 'd-halloween-party-q1', prompt: 'Why is the party starting at four o\'clock?', options: ['Because many people leave early on Friday afternoons', 'Because the director has a meeting at six', 'Because the pizza arrives at four', 'Because the night team starts at six'], answer: 0 },
+      { kind: 'mcq', id: 'd-halloween-party-q2', prompt: '"Free pizza usually does the trick" means that pizza…', options: ['is usually enough to attract people', 'is a Halloween trick', 'is usually too expensive', 'makes people sick'], answer: 0 },
+      { kind: 'mcq', id: 'd-halloween-party-q3', prompt: 'What happened last year?', options: ['A plastic spider in the lift frightened the director', 'The party was cancelled', 'Mark won the costume prize', 'The night team came to the party'], answer: 0 },
+      { kind: 'mcq', id: 'd-halloween-party-q4', prompt: 'What will they do for the night team?', options: ['Bring them cake during their break and carve a pumpkin for them', 'Invite them to the party', 'Give them Friday night off', 'Send them a costume'], answer: 0 },
+    ],
+  },
 ]

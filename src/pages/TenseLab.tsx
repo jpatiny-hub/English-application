@@ -3,7 +3,7 @@ import { grammarLessons } from '../data/grammar'
 import { TAG_LABELS, TENSE_TAGS } from '../data/content'
 import { useProgress } from '../lib/store'
 import { masteredCount } from '../lib/progress'
-import { card, cardLink, LevelBadge, ListLink, Page, ProgressBar, Section } from '../components/ui'
+import { card, cardLink, IconTile, LevelBadge, ListLink, Page, ProgressBar, Section } from '../components/ui'
 
 // Aide-mémoire : les temps « autres que le présent », avec leur équivalent français le plus fréquent.
 const cheatSheet = [
@@ -30,24 +30,24 @@ export function TenseLab() {
   return (
     <Page title="⏳ Labo des temps" subtitle="Ta priorité : le passé (past simple, present perfect, past perfect) et le futur. Du cours, des exercices, et des statistiques pour voir tes progrès.">
       <div className="grid grid-cols-2 gap-3">
-        <Link to="/entrainement?tag=pp-vs-ps&n=15" className={`${cardLink} bg-indigo-600! text-white`}>
-          <span className="text-2xl">🥊</span>
-          <p className="mt-2 font-semibold">Past simple ou present perfect ?</p>
+        <Link to="/entrainement?tag=pp-vs-ps&n=15" className="block rounded-3xl bg-linear-to-br from-amber-400 to-orange-500 p-4 text-white shadow-md shadow-orange-500/25 dark:shadow-none">
+          <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/25 text-2xl">🥊</span>
+          <p className="mt-2.5 font-extrabold leading-tight">Past simple ou present perfect ?</p>
           <p className="text-xs opacity-90">Le duel n°1 des francophones</p>
         </Link>
         <Link to="/entrainement?tags=tenses&n=20" className={cardLink}>
-          <span className="text-2xl">🎲</span>
-          <p className="mt-2 font-semibold">Défi des temps mélangés</p>
+          <IconTile icon="🎲" />
+          <p className="mt-2.5 font-extrabold leading-tight">Défi des temps mélangés</p>
           <p className="text-xs text-gray-500 dark:text-gray-400">20 questions, tous les temps</p>
         </Link>
         <Link to="/temps/verbes" className={cardLink}>
-          <span className="text-2xl">📜</span>
-          <p className="mt-2 font-semibold">Verbes irréguliers</p>
+          <IconTile icon="📜" />
+          <p className="mt-2.5 font-extrabold leading-tight">Verbes irréguliers</p>
           <p className="text-xs text-gray-500 dark:text-gray-400">97 verbes, par niveau</p>
         </Link>
         <Link to="/pratique/ecrit/w-weekend-story" className={cardLink}>
-          <span className="text-2xl">🖋️</span>
-          <p className="mt-2 font-semibold">Raconter au passé</p>
+          <IconTile icon="🖋️" />
+          <p className="mt-2.5 font-extrabold leading-tight">Raconter au passé</p>
           <p className="text-xs text-gray-500 dark:text-gray-400">Rédaction guidée</p>
         </Link>
       </div>

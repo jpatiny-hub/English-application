@@ -43,7 +43,7 @@ export class ErrorBoundary extends Component<Props, State> {
         <p className="mt-2 font-semibold">Cette page n'a pas pu s'afficher.</p>
         <p className="mt-1 text-sm text-gray-500">Ta progression n'est pas touchée.</p>
         <div className="mt-5 space-y-2">
-          <button onClick={() => this.setState({ error: null, retried: false })} className="w-full rounded-2xl bg-indigo-600 py-3 font-semibold text-white">
+          <button onClick={() => this.setState({ error: null, retried: false })} className="w-full rounded-2xl bg-linear-to-r from-indigo-500 to-violet-500 py-3 font-bold text-white">
             Réessayer
           </button>
           <button onClick={() => window.location.reload()} className="w-full rounded-2xl bg-gray-200 py-3 font-semibold text-gray-700 dark:bg-gray-800 dark:text-gray-200">

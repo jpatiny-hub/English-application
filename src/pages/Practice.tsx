@@ -20,6 +20,9 @@ export function Practice() {
         <ListLink to="/pratique/ecoute" icon="🎧" title="Écoute & dictée" subtitle={`${dialogues.length} dialogues + dictées tirées de tes cours`} />
         <ListLink to="/pratique/lecture" icon="📰" title="Lecture" subtitle={`${readingTexts.length} textes B2 → C1 avec glossaire et questions`} />
       </Section>
+      <Section title="Culture">
+        <ListLink to="/themes" icon="🎭" title="Thèmes & culture" subtitle="Halloween : références, traditions, idiomes et histoires qui font peur" tone="orange" />
+      </Section>
     </Page>
   )
 }

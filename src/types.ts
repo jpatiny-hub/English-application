@@ -248,3 +248,27 @@ export interface ChangelogEntry {
   title: string
   changes: string[]
 }
+
+// ---------------------------------------------------------------------------
+// Thèmes & culture (Halloween, Noël…) : une leçon autonome, hors cours.
+// ---------------------------------------------------------------------------
+
+export interface ThemeLesson {
+  id: string
+  title: string
+  icon: string
+  /** Phrase d'accroche affichée dans la liste des thèmes. */
+  summary: string
+  intro: string
+  /** Période (MM-JJ) pendant laquelle le thème est mis en avant sur l'accueil. */
+  season?: { from: string; to: string }
+  /** Références culturelles, traditions et petits points de langue. */
+  culture: GrammarPoint[]
+  /** Paquets de vocabulaire (ids de `discoveryDecks`). */
+  deckIds: string[]
+  speaking: SpeakingPrompt[]
+  readingId?: string
+  dialogueId?: string
+  writingTaskIds: string[]
+  exercises: Exercise[]
+}

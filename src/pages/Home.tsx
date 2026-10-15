@@ -6,18 +6,28 @@ import { CONTENT_VERSION } from '../data/changelog'
 import { discoveryDecks } from '../data/vocabulary'
 import { TAG_LABELS, getExercise } from '../data/content'
 import { sessions } from '../data/sessions/index'
-import { card, cardLink, SpeakButton } from '../components/ui'
+import { card, cardLink, hero, IconTile, SpeakButton, type Tone } from '../components/ui'
+import { seasonalTheme } from '../data/themes'
 import { formatDateFr } from '../lib/text'
 import { grammarLessons } from '../data/grammar'
 
-const sections = [
-  { to: '/cours', label: 'Mes cours', icon: '🎓', desc: 'Séances et modules' },
-  { to: '/temps', label: 'Labo des temps', icon: '⏳', desc: 'Past simple, present perfect…' },
-  { to: '/grammaire', label: 'Grammaire', icon: '📖', desc: `${grammarLessons.length} fiches + exercices` },
-  { to: '/vocabulaire', label: 'Vocabulaire', icon: '🗂️', desc: 'Cours + découverte' },
-  { to: '/pratique/ecrit', label: 'Atelier d\'écriture', icon: '🖋️', desc: 'Rédiger, se relire' },
-  { to: '/pratique', label: 'Pratique', icon: '🎧', desc: 'Oral, écoute, lecture' },
+const sections: { to: string; label: string; icon: string; desc: string; tone: Tone }[] = [
+  { to: '/cours', label: 'Mes cours', icon: '🎓', desc: 'Séances et modules', tone: 'violet' },
+  { to: '/temps', label: 'Labo des temps', icon: '⏳', desc: 'Past simple, present perfect…', tone: 'amber' },
+  { to: '/grammaire', label: 'Grammaire', icon: '📖', desc: `${grammarLessons.length} fiches + exercices`, tone: 'sky' },
+  { to: '/vocabulaire', label: 'Vocabulaire', icon: '🗂️', desc: 'Cours + découverte', tone: 'emerald' },
+  { to: '/pratique/ecrit', label: "Atelier d'écriture", icon: '🖋️', desc: 'Rédiger, se relire', tone: 'rose' },
+  { to: '/pratique', label: 'Pratique', icon: '🎧', desc: 'Oral, écoute, lecture', tone: 'rose' },
+  { to: '/themes', label: 'Thèmes & culture', icon: '🎭', desc: 'Fêtes, références, idiomes', tone: 'orange' },
+  { to: '/progres', label: 'Progrès', icon: '📈', desc: 'Statistiques et sauvegarde', tone: 'teal' },
 ]
+
+function greeting(date: Date): string {
+  const h = date.getHours()
+  if (h < 12) return 'Good morning!'
+  if (h < 18) return 'Good afternoon!'
+  return 'Good evening!'
+}
 
 // Une expression différente chaque jour, tirée des idiomes et collocations.
 function expressionOfTheDay() {
@@ -39,99 +49,123 @@ export function Home() {
   const backupAge = daysSince(data.lastBackupAt)
   const needsBackup = answers >= 50 && (backupAge === null || backupAge > 30)
 
+  const theme = seasonalTheme()
+  const today = new Date()
+
   return (
-    <div className="px-4 pt-8">
-      <div className="flex items-start justify-between">
-        <div>
-          <h1 className="text-2xl font-bold">Hello! 👋</h1>
-          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Du B2 vers le C1, un peu chaque jour.</p>
+    <div className="px-4 pt-5">
+      <div className={`${hero} relative overflow-hidden`}>
+        <span aria-hidden className="pointer-events-none absolute -right-8 -top-10 h-36 w-36 rounded-full bg-white/10" />
+        <span aria-hidden className="pointer-events-none absolute -bottom-12 right-10 h-28 w-28 rounded-full bg-white/10" />
+        <div className="relative flex items-start justify-between">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-wider text-white/75">
+              {today.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' })}
+            </p>
+            <h1 className="mt-1 text-3xl font-extrabold tracking-tight">{greeting(today)}</h1>
+            <p className="mt-0.5 text-sm text-white/85">Du B2 vers le C1, un peu chaque jour.</p>
+          </div>
+          <Link to="/progres" className="rounded-2xl bg-white/15 px-3 py-2 text-center ring-1 ring-white/25">
+            <p className="text-lg font-extrabold leading-none">🔥 {days}</p>
+            <p className="mt-0.5 text-[10px] font-semibold text-white/80">jour{days > 1 ? 's' : ''}</p>
+          </Link>
         </div>
-        <Link to="/progres" className="rounded-2xl bg-white px-3 py-2 text-center shadow-sm dark:bg-gray-900">
-          <p className="text-lg font-bold leading-none">🔥 {days}</p>
-          <p className="text-[10px] text-gray-500">jour{days > 1 ? 's' : ''}</p>
+
+        <Link to="/revision" className="relative mt-5 flex items-center gap-3 rounded-2xl bg-white p-3.5 text-gray-900 shadow-sm">
+          <IconTile icon="🔁" tone="indigo" />
+          <div className="min-w-0 flex-1">
+            <p className="text-xs font-semibold text-gray-500">Révision du jour</p>
+            {due + dueLessons > 0 ? (
+              <p className="font-extrabold">
+                {due > 0 && `${due} élément${due > 1 ? 's' : ''} à revoir`}
+                {due > 0 && dueLessons > 0 && ' · '}
+                {dueLessons > 0 && `${dueLessons} leçon${dueLessons > 1 ? 's' : ''}`}
+              </p>
+            ) : (
+              <p className="font-extrabold">{answers === 0 ? 'Commence par un cours ou le Labo des temps' : 'Tout est à jour ✓'}</p>
+            )}
+          </div>
+          <span className="text-2xl font-bold leading-none text-indigo-600">›</span>
         </Link>
       </div>
 
       {data.seenContentVersion < CONTENT_VERSION && (
-        <Link to="/nouveautes" className="mt-5 flex items-center gap-3 rounded-2xl border border-amber-300 bg-amber-50 p-4 dark:border-amber-700 dark:bg-amber-900/30">
-          <span className="text-2xl">✨</span>
+        <Link to="/nouveautes" className="mt-3 flex items-center gap-3 rounded-3xl bg-amber-50 p-4 ring-1 ring-amber-200 dark:bg-amber-500/10 dark:ring-amber-500/30">
+          <IconTile icon="✨" tone="amber" />
           <div className="flex-1">
-            <p className="font-semibold">{data.seenContentVersion === 0 ? 'Bienvenue !' : 'Nouveau contenu disponible'}</p>
+            <p className="font-bold">{data.seenContentVersion === 0 ? 'Bienvenue !' : 'Nouveau contenu disponible'}</p>
             <p className="text-xs text-gray-600 dark:text-gray-300">
-              {data.seenContentVersion === 0 ? 'Découvre ce que contient l\'appli.' : 'Ta progression est conservée. Voir les nouveautés →'}
+              {data.seenContentVersion === 0 ? "Découvre ce que contient l'appli." : 'Ta progression est conservée. Voir les nouveautés →'}
             </p>
           </div>
         </Link>
       )}
 
+      {theme && (
+        <Link to={`/themes/${theme.id}`} className="mt-3 flex items-center gap-3 overflow-hidden rounded-3xl bg-linear-to-r from-[#2a1145] via-[#5b1d6b] to-[#e8590c] p-4 text-white shadow-md shadow-orange-500/20 dark:shadow-none">
+          <span className="text-4xl">{theme.icon}</span>
+          <div className="flex-1">
+            <p className="text-xs font-semibold uppercase tracking-wider text-white/75">Spécial saison</p>
+            <p className="text-lg font-extrabold">{theme.title}</p>
+            <p className="text-xs text-white/85">Vocabulaire, films cultes, expressions qui font peur…</p>
+          </div>
+          <span className="text-2xl font-bold">›</span>
+        </Link>
+      )}
+
       {needsBackup && (
-        <Link to="/progres#sauvegarde" className="mt-3 flex items-center gap-3 rounded-2xl border border-gray-200 bg-white p-3 text-sm dark:border-gray-800 dark:bg-gray-900">
-          <span className="text-xl">💾</span>
+        <Link to="/progres#sauvegarde" className={`${cardLink} mt-3 flex items-center gap-3 text-sm`}>
+          <IconTile icon="💾" tone="teal" size="sm" />
           <span className="flex-1">
             {backupAge === null ? 'Pense à sauvegarder ta progression dans un fichier.' : `Dernière sauvegarde il y a ${backupAge} jours.`}
           </span>
-          <span className="text-indigo-600">→</span>
+          <span className="text-2xl font-bold leading-none text-teal-600">›</span>
         </Link>
       )}
-
-      <Link to="/revision" className="mt-5 block rounded-2xl bg-indigo-600 p-4 text-white shadow-sm">
-        <p className="text-sm opacity-90">Révision du jour</p>
-        {due + dueLessons > 0 ? (
-          <p className="text-xl font-bold">
-            {due > 0 && `${due} élément${due > 1 ? 's' : ''} à revoir`}
-            {due > 0 && dueLessons > 0 && ' · '}
-            {dueLessons > 0 && `${dueLessons} leçon${dueLessons > 1 ? 's' : ''}`}
-          </p>
-        ) : (
-          <p className="text-xl font-bold">{answers === 0 ? 'Commence par un cours ou le Labo des temps' : 'Tout est à jour ✓'}</p>
-        )}
-      </Link>
 
       {weakest && weakest.rate < 0.75 && (
         <Link to={`/entrainement?tag=${weakest.tag}`} className={`${cardLink} mt-3 flex items-center gap-3`}>
-          <span className="text-2xl">🎯</span>
+          <IconTile icon="🎯" tone="rose" />
           <div className="flex-1">
             <p className="text-xs text-gray-500 dark:text-gray-400">Ton point faible du moment</p>
-            <p className="font-semibold">{TAG_LABELS[weakest.tag] ?? weakest.tag} — {Math.round(weakest.rate * 100)} % de réussite</p>
+            <p className="font-bold">{TAG_LABELS[weakest.tag] ?? weakest.tag} — {Math.round(weakest.rate * 100)} % de réussite</p>
           </div>
-          <span className="text-indigo-600">→</span>
+          <span className="text-2xl font-bold leading-none text-rose-600">›</span>
         </Link>
       )}
 
-      <div className={`${card} mt-3`}>
+      <div className={`${card} relative mt-3 overflow-hidden`}>
+        <span aria-hidden className="absolute inset-y-0 left-0 w-1.5 bg-linear-to-b from-emerald-400 to-teal-500" />
         <div className="flex items-center justify-between">
-          <p className="text-xs font-semibold uppercase tracking-wide text-gray-400">Expression du jour</p>
+          <p className="text-xs font-extrabold uppercase tracking-wider text-emerald-700 dark:text-emerald-300">💬 Expression du jour</p>
           <SpeakButton text={expr.example ? `${expr.en}. ${expr.example}` : expr.en} small />
         </div>
-        <p className="mt-1 text-lg font-bold">{expr.en}</p>
-        <p className="text-sm text-indigo-700 dark:text-indigo-300">{expr.fr}</p>
-        {expr.example && <p className="mt-1 text-sm italic text-gray-500 dark:text-gray-400">« {expr.example} »</p>}
+        <p className="mt-1 text-xl font-extrabold">{expr.en}</p>
+        <p className="text-sm font-semibold text-emerald-700 dark:text-emerald-300">{expr.fr}</p>
+        {expr.example && <p className="mt-1.5 text-sm italic text-gray-500 dark:text-gray-400">« {expr.example} »</p>}
       </div>
 
-      <div className="mt-5 grid grid-cols-2 gap-3">
+      <h2 className="mt-7 text-xs font-extrabold uppercase tracking-wider text-gray-500 dark:text-gray-400">Explorer</h2>
+      <div className="mt-2.5 grid grid-cols-2 gap-3">
         {sections.map((s) => (
           <Link key={s.to} to={s.to} className={cardLink}>
-            <span className="text-2xl">{s.icon}</span>
-            <p className="mt-2 font-semibold">{s.label}</p>
-            <p className="text-xs text-gray-500 dark:text-gray-400">{s.desc}</p>
+            <IconTile icon={s.icon} tone={s.tone} />
+            <p className="mt-2.5 font-extrabold leading-tight">{s.label}</p>
+            <p className="mt-0.5 text-xs text-gray-500 dark:text-gray-400">{s.desc}</p>
           </Link>
         ))}
       </div>
 
       {lastSession && (
         <Link to={`/cours/seance/${lastSession.id}`} className={`${cardLink} mt-3 flex items-center gap-3`}>
-          <span className="text-2xl">📒</span>
+          <IconTile icon="📒" tone="violet" />
           <div className="flex-1">
             <p className="text-xs text-gray-500 dark:text-gray-400">Dernier cours · {formatDateFr(lastSession.date)}</p>
-            <p className="font-semibold">{lastSession.title}</p>
+            <p className="font-bold">{lastSession.title}</p>
           </div>
-          <span className="text-indigo-600">→</span>
+          <span className="text-2xl font-bold leading-none text-violet-600 dark:text-violet-300">›</span>
         </Link>
       )}
-
-      <Link to="/progres" className="mt-3 block text-center text-sm text-indigo-600 dark:text-indigo-400">
-        📈 Ma progression, réglages et sauvegarde
-      </Link>
     </div>
   )
 }

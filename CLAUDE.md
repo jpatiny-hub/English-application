@@ -28,6 +28,8 @@ Appli personnelle d'anglais (PWA React/Vite/Tailwind, 100 % locale). L'utilisate
 - La comparaison des réponses est tolérante (casse, ponctuation, contractions, orthographe UK/US, une faute de frappe) : `src/lib/text.ts`. Donner plusieurs `answers` pour les formulations libres.
 - La relecture automatique de l'atelier d'écriture (`src/lib/lint.ts`) peut recevoir de nouvelles règles pour les erreurs récurrentes.
 - Réécritures (`transform`) : la consigne doit dire s'il faut garder le sens et imposer le début de phrase ou le mot quand plusieurs points de vue sont possibles (cf. « Your car is cheaper than mine »). Lister TOUTES les variantes correctes (synonymes, sujet inversé, adjectif contraire). Même chose pour les trous : accepter les synonymes valables.
+- Thèmes & culture (Halloween…) : `src/data/themes.ts` (type `ThemeLesson`), ids d'exercices `th-<thème>-NN`, paquets de vocabulaire dans `discoveryDecks` (`vocabulary.ts`), `season` (MM-JJ) pour la mise en avant sur l'accueil.
+- Interface : une teinte par rubrique (`tones` / `useTone` dans `src/components/ui.tsx`, déduite de l'adresse) ; utiliser `card`, `hero`, `btnPrimary`, `IconTile`, `ListLink` plutôt que des classes ad hoc. Police Nunito embarquée (`@fontsource-variable/nunito`, précachée pour le hors-ligne).
 - Séries « Changer de perspective » (`pe-*`) et « Synonymes » (`sy-*`) dans `src/data/style.ts`.
 - Garder la progression B2 → B2+ → C1 : chaque nouvel ensemble d'exercices devrait contenir un peu de C1.
 

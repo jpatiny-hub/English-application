@@ -9,7 +9,7 @@ import { isDue } from '../lib/srs'
 import { shuffle } from '../lib/text'
 import type { Exercise } from '../types'
 import { ExerciseRunner } from '../components/ExerciseRunner'
-import { btnPrimary, btnSecondary, card, ListLink, Page, Section } from '../components/ui'
+import { btnPrimary, btnSecondary, card, ListLink, Page, Section, hero } from '../components/ui'
 import { toCards } from './Vocabulary'
 
 const SESSION_SIZE = 25
@@ -52,12 +52,12 @@ export function Revision() {
             : 'Rien à réviser pour l\'instant, bravo ! Reviens demain.'}
         </div>
       ) : (
-        <div className="rounded-2xl bg-indigo-600 p-4 text-white">
+        <div className={hero}>
           <p className="text-sm opacity-90">Session du jour</p>
           <p className="text-2xl font-bold">{dueExercises.length + dueVocab.length} éléments à revoir</p>
           <p className="text-xs opacity-90">{dueExercises.length} exercices · {dueVocab.length} mots</p>
           {dueExercises.length + dueVocab.length > 0 && (
-            <button onClick={() => setRun({ items: buildMixed(), title: 'Révision du jour' })} className="mt-3 w-full rounded-xl bg-white py-2.5 font-semibold text-indigo-700">
+            <button onClick={() => setRun({ items: buildMixed(), title: 'Révision du jour' })} className="mt-3 w-full rounded-2xl bg-white py-2.5 font-bold text-indigo-700 shadow-sm">
               Commencer ({Math.min(SESSION_SIZE, dueExercises.length + dueVocab.length)})
             </button>
           )}

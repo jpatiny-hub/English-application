@@ -1,7 +1,20 @@
 @import "tailwindcss";
+@import "@fontsource-variable/nunito";
+@import "@fontsource-variable/nunito/wght-italic.css";
+
+@theme {
+  --font-sans: "Nunito Variable", system-ui, "Segoe UI", Roboto, sans-serif;
+}
 
 :root {
   color-scheme: light dark;
+  --app-bg: #f5f3fb;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --app-bg: #0d0e16;
+  }
 }
 
 html, body, #root {
@@ -10,16 +23,10 @@ html, body, #root {
 
 body {
   margin: 0;
-  font-family: system-ui, "Segoe UI", Roboto, sans-serif;
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
-  background: #f7f7fb;
+  background: var(--app-bg);
   overscroll-behavior-y: none;
-}
-
-@media (prefers-color-scheme: dark) {
-  body {
-    background: #0f1115;
-  }
 }
 
 details > summary {

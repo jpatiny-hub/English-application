@@ -4,6 +4,17 @@ import type { ChangelogEntry } from '../types'
 // `version` = précédente + 1 : l'accueil affichera une bannière « Nouveautés ».
 export const changelog: ChangelogEntry[] = [
   {
+    version: 7,
+    date: '2026-10-15',
+    title: 'Spécial Halloween 🎃 et nouveau look',
+    changes: [
+      'Nouvelle rubrique « Thèmes & culture » (accueil et Pratique) avec une leçon Halloween : origines, traditions, films et livres cultes, Bonfire Night, superstitions.',
+      '54 mots et expressions (citrouilles, fantômes… et des idiomes utiles au travail : skeleton staff, graveyard shift, ghosting, dead in the water, witch hunt).',
+      "32 exercices (dont first conditional, temps du récit et must have / can't have), une lecture sur l'histoire d'Halloween, un dialogue et une histoire qui fait peur à écrire.",
+      'Nouvelle interface : police plus ronde, une couleur par rubrique, accueil repensé et barre de navigation flottante. Ta progression est conservée.',
+    ],
+  },
+  {
     version: 6,
     date: '2026-10-15',
     title: 'Cours du 14.10 et fiche « Asking for and Giving Explanations »',

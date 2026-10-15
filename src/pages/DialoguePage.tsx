@@ -10,6 +10,7 @@ export function DialoguePage() {
   const { dialogueId } = useParams()
   const [params] = useSearchParams()
   const moduleId = params.get('module')
+  const themeId = params.get('theme')
   const dialogue = dialogues.find((d) => d.id === dialogueId)
   const [playing, setPlaying] = useState(false)
   const [showText, setShowText] = useState(false)
@@ -41,7 +42,7 @@ export function DialoguePage() {
     <Page
       title={`🎧 ${dialogue.title}`}
       subtitle={<span className="flex items-center gap-2"><LevelBadge level={dialogue.level} /> {dialogue.context}</span>}
-      back={moduleId ? { to: `/cours/module/${moduleId}`, label: 'Module' } : { to: '/pratique/ecoute', label: 'Écoute' }}
+      back={themeId ? { to: `/themes/${themeId}`, label: 'Thème' } : moduleId ? { to: `/cours/module/${moduleId}`, label: 'Module' } : { to: '/pratique/ecoute', label: 'Écoute' }}
     >
       {canSpeak() ? (
         <button onClick={play} className={btnPrimary}>{playing ? '⏹ Arrêter' : plays === 0 ? '▶️ Écouter le dialogue' : '🔁 Réécouter'}</button>

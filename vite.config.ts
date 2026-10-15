@@ -30,7 +30,9 @@ export default defineConfig({
         ],
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,svg,png,ico}'],
+        globPatterns: ['**/*.{js,css,html,svg,png,ico,woff2}'],
+        // La police n'a besoin que des alphabets latins (pas de cyrillique ni de vietnamien hors ligne).
+        globIgnores: ['**/*cyrillic*', '**/*vietnamese*'],
       },
     }),
   ],

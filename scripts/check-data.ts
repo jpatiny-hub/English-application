@@ -11,6 +11,7 @@ import { dialogues } from '../src/data/dialogues.ts'
 import { writingTasks } from '../src/data/writing.ts'
 import { extraPronunciation } from '../src/data/pronunciation.ts'
 import { changelog } from '../src/data/changelog.ts'
+import { themes } from '../src/data/themes.ts'
 import { checkAnswer, checkVocab, normalizeForComparison, vocabCandidates } from '../src/lib/text.ts'
 import type { Exercise } from '../src/types.ts'
 
@@ -88,6 +89,14 @@ for (const m of modules) {
   if (m.readingId && !readingTexts.some((t) => t.id === m.readingId)) errors.push(`${m.id} : lecture inconnue « ${m.readingId} »`)
   if (m.dialogueId && !dialogues.some((d) => d.id === m.dialogueId)) errors.push(`${m.id} : dialogue inconnu « ${m.dialogueId} »`)
   for (const id of m.writingTaskIds) if (!writingTasks.some((w) => w.id === id)) errors.push(`${m.id} : sujet d'écrit inconnu « ${id} »`)
+}
+for (const t of themes) {
+  claim(t.id, 'thème')
+  for (const sp of t.speaking) claim(sp.id, `oral ${t.id}`)
+  for (const id of t.deckIds) if (!allDecks.some((d) => d.id === id)) errors.push(`${t.id} : paquet inconnu « ${id} »`)
+  if (t.readingId && !readingTexts.some((r) => r.id === t.readingId)) errors.push(`${t.id} : lecture inconnue « ${t.readingId} »`)
+  if (t.dialogueId && !dialogues.some((d) => d.id === t.dialogueId)) errors.push(`${t.id} : dialogue inconnu « ${t.dialogueId} »`)
+  for (const id of t.writingTaskIds) if (!writingTasks.some((w) => w.id === id)) errors.push(`${t.id} : sujet d'écrit inconnu « ${id} »`)
 }
 const versions = changelog.map((c) => c.version)
 if (new Set(versions).size !== versions.length) errors.push('changelog : numéros de version en double')

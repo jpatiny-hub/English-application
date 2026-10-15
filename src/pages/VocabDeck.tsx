@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useSearchParams } from 'react-router-dom'
 import { allDecks } from '../data/vocabulary'
 import { modules } from '../data/modules'
 import { sessions } from '../data/sessions/index'
@@ -34,6 +34,8 @@ export function VocabDeckPage() {
   const data = useProgress()
   const [run, setRun] = useState<CardExercise[] | null>(null)
   const moduleId = deckId?.startsWith('module-') ? deckId.slice(7) : null
+  const [params] = useSearchParams()
+  const themeId = params.get('theme')
 
   if (!deck) return <Page title="Paquet introuvable" back={{ to: '/vocabulaire', label: 'Vocabulaire' }}>{null}</Page>
 
@@ -54,7 +56,7 @@ export function VocabDeckPage() {
   const dir = data.settings.cardDirection
 
   return (
-    <Page title={`${deck.icon} ${deck.title}`} subtitle={`${deck.description} · ${masteredCount(data, ids)}/${ids.length} acquis`} back={{ to: '/vocabulaire', label: 'Vocabulaire' }}>
+    <Page title={`${deck.icon} ${deck.title}`} subtitle={`${deck.description} · ${masteredCount(data, ids)}/${ids.length} acquis`} back={themeId ? { to: `/themes/${themeId}`, label: 'Thème' } : { to: '/vocabulaire', label: 'Vocabulaire' }}>
       <div className="grid grid-cols-2 gap-2">
         <button
           disabled={fresh.length === 0 && due.length === 0}

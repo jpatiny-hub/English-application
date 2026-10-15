@@ -4,6 +4,17 @@ import type { ChangelogEntry } from '../types'
 // `version` = précédente + 1 : l'accueil affichera une bannière « Nouveautés ».
 export const changelog: ChangelogEntry[] = [
   {
+    version: 6,
+    date: '2026-10-15',
+    title: 'Cours du 14.10 et fiche « Asking for and Giving Explanations »',
+    changes: [
+      'Cours du 14.10 : 10 mots, 19 corrections (plusieurs erreurs récurrentes signalées) et les notes « be used to + -ing » et « admit / accept ».',
+      'Module « Explanations » : expressions clés de la fiche B2, 9 sujets d\'oral (dont les 3 scénarios « justifier une décision »), 8 nouveaux exercices.',
+      'Nouveau dialogue « Corporate travel policy » et nouveau sujet d\'écrit : justifier une décision à ta direction.',
+      'Leçon « Mots souvent confondus » : point admit / accept et 3 exercices.',
+    ],
+  },
+  {
     version: 5,
     date: '2026-10-10',
     title: 'Consignes précisées, synonymes et changement de perspective',

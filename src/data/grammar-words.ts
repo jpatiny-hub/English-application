@@ -273,6 +273,15 @@ export const wordLessons: GrammarLesson[] = [
         ],
       },
       {
+        title: 'Admit / accept (cours du 14.10)',
+        explanation: 'ADMIT = reconnaître qu\'une chose est vraie, souvent gênante (admit a mistake, admit that…). ACCEPT = accepter de recevoir, accepter une offre, ou prendre acte d\'une situation.',
+        examples: [
+          { en: 'He admitted that he had made a mistake.' },
+          { en: 'She accepted the job offer.' },
+          { en: 'He accepted that he was wrong.', note: 'il a pris acte et cessé de résister' },
+        ],
+      },
+      {
         title: 'Remember / remind, borrow / lend, rise / raise',
         explanation: 'remember = se souvenir ; remind sb = rappeler à qqn. borrow = emprunter ; lend = prêter. rise = monter (intransitif) ; raise = lever, augmenter (transitif : raise prices, raise a concern).',
         examples: [
@@ -290,6 +299,13 @@ export const wordLessons: GrammarLesson[] = [
       { kind: 'gap', id: 'g-confusing-05', prompt: 'After the breakup, it took her a year to move ___.', answers: ['on'] },
       { kind: 'gap', id: 'g-confusing-06', prompt: 'I need to take these shoes ___ to the shop — they are too small.', answers: ['back'] },
       { kind: 'gap', id: 'g-confusing-07', prompt: 'Could you ___ me to send the invitations?', answers: ['remind'] },
+      { kind: 'gap', id: 'g-confusing-11', prompt: 'He finally ___ that he had forgotten to order the reagents. (reconnaître, avouer)', answers: ['admitted', 'acknowledged'] },
+      { kind: 'gap', id: 'g-confusing-12', prompt: 'She ___ the job offer from the Canadian company.', answers: ['accepted'] },
+      {
+        kind: 'mcq', id: 'g-confusing-13', prompt: '« Il a reconnu qu\'il s\'était trompé. » (il avoue la vérité)',
+        options: ['He admitted that he had been wrong.', 'He accepted that he had been wrong.', 'He recognised him that he was wrong.', 'He confessed him wrong.'], answer: 0,
+        explanation: 'Admit = reconnaître une vérité gênante. « Accepted that he was wrong » existe aussi, mais insiste sur le fait de prendre acte et d\'arrêter de résister.',
+      },
       { kind: 'gap', id: 'g-confusing-08', prompt: 'She ___ a concern about safety during the meeting.', answers: ['raised', 'expressed', 'voiced'] },
       {
         kind: 'mcq', id: 'g-confusing-09', prompt: '« Il est impliqué dans le nouveau projet. » (sens neutre)',

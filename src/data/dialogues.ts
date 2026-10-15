@@ -154,4 +154,27 @@ export const dialogues: Dialogue[] = [
       { kind: 'mcq', id: 'd-mix-up-q4', prompt: 'What will Tom do to prevent it from happening again?', options: ['Check every booking and remind the dance school', 'Cancel the showcase', 'Change the hall', 'Buy new software'], answer: 0 },
     ],
   },
+  {
+    id: 'd-travel-policy',
+    title: 'Corporate travel policy',
+    level: 'B2+',
+    module: 'explanations',
+    context: 'Daniel, from Finance, and Miriam, a project manager, disagree about a new rule: always book the cheapest flight.',
+    lines: [
+      { speaker: 'Daniel', text: "Miriam, from next month, everyone will have to book the cheapest available flight. The reason is that our travel costs went up by thirty percent last year." },
+      { speaker: 'Miriam', text: "I understand the goal, but could you clarify what you mean by 'the cheapest'? Does that include flights with two stopovers that arrive at midnight?" },
+      { speaker: 'Daniel', text: "Basically, yes. If it's cheaper, it's the one we book." },
+      { speaker: 'Miriam', text: "The point is that the cheapest ticket doesn't always save money in the long run. If I arrive at midnight, I need an extra night in a hotel. And if I'm exhausted, the meeting with the client is less productive. As a result, we might even lose business." },
+      { speaker: 'Daniel', text: "I see your point, but we can't let everyone choose the most comfortable option. That's why we need a clear rule." },
+      { speaker: 'Miriam', text: "Then how about a compromise? We book the cheapest flight that arrives before 8 p.m. and has no more than one stopover. More specifically, managers could approve exceptions for important client meetings." },
+      { speaker: 'Daniel', text: "That sounds reasonable. Would you mind sending me that proposal in writing so I can present it to the director?" },
+      { speaker: 'Miriam', text: "Of course. I'll send it this afternoon." },
+    ],
+    questions: [
+      { kind: 'mcq', id: 'd-travel-policy-q1', prompt: 'What is the main disagreement between the two speakers?', options: ['Whether employees should always book the cheapest flight', 'Which client to visit first', 'Whether travel should be cancelled', 'Who should pay for hotels'], answer: 0 },
+      { kind: 'mcq', id: 'd-travel-policy-q2', prompt: 'Why does Miriam think the cheapest flight may not save money in the long run?', options: ['Late arrivals mean extra hotel nights and less productive meetings', 'Cheap airlines often cancel flights', 'Clients pay for business-class tickets', 'Fuel prices will rise'], answer: 0 },
+      { kind: 'mcq', id: 'd-travel-policy-q3', prompt: 'What compromise does Miriam suggest?', options: ['The cheapest flight arriving before 8 p.m. with at most one stopover, plus exceptions approved by managers', 'Always booking business class', 'Travelling only by train', 'Letting everyone choose freely'], answer: 0 },
+      { kind: 'mcq', id: 'd-travel-policy-q4', prompt: '"Could you clarify what you mean by…" is used to…', options: ['ask for an explanation politely', 'disagree strongly', 'give an example', 'end the conversation'], answer: 0 },
+    ],
+  },
 ]

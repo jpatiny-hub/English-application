@@ -393,4 +393,37 @@ I hope this explanation makes sense. Please let me know if you have any question
 Kind regards,
 [Your name]`,
   },
+  {
+    id: 'w-explanations-decision',
+    module: 'explanations',
+    level: 'B2+',
+    type: 'email',
+    title: 'Justifier une décision à ta direction',
+    prompt: 'You manage a small team that needs customer-service training, and your budget is limited. You must choose between a one-day in-person workshop for the whole team and an online course that employees complete individually over time. Write an e-mail to your director: state which option you chose, explain your reasons (cost, flexibility, impact…), mention at least one disadvantage of the other option, and justify why your choice is better for the company.',
+    tipsFr: "Structure de la fiche : choix → raisons → inconvénient de l'autre option → conclusion. Utilise les expressions du module (The reason is that…, More specifically…, As a result…, The point is that…). Conditionnel pour l'option écartée (it would…).",
+    minWords: 140,
+    maxWords: 230,
+    targetPhrases: ['The reason is that', 'More specifically', 'As a result', 'The point is that', 'Consequently', 'For example'],
+    checklist: [
+      'Le choix est annoncé dès le premier paragraphe',
+      'Au moins deux raisons, chacune justifiée',
+      "Un inconvénient de l'autre option, au conditionnel (would / could)",
+      'Une conclusion qui dit pourquoi ce choix est meilleur pour l\'entreprise',
+      'Registre professionnel (Dear…, Kind regards)',
+    ],
+    model: `Dear Ms Lambert,
+
+After comparing the two training options, I have decided to book the one-day in-person workshop for the whole team.
+
+The reason is that our main weakness is consistency: each person handles complaints differently. More specifically, we need everyone to agree on the same procedures and phrases, and this works best when the team practises together, with a trainer who can give immediate feedback. For example, role-plays are far more effective face to face than in front of a screen.
+
+The online course would certainly be more flexible and slightly cheaper. However, the point is that employees would complete it at different times, often between two calls, and some might not finish it at all. As a result, we would not get the shared understanding we need.
+
+Consequently, although the workshop requires us to free up everyone's schedule for one day, I believe it will have a stronger and longer-lasting impact on customer satisfaction. I have chosen a Tuesday, when we receive the fewest customer calls.
+
+I would be happy to discuss it if you have any questions.
+
+Kind regards,
+[Your name]`,
+  },
 ]

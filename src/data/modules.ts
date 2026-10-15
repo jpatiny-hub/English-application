@@ -682,11 +682,73 @@ export const modules: CourseModule[] = [
     titleFr: 'Demander et donner des explications',
     icon: '💡',
     description: 'Demander pourquoi, expliquer une cause, vérifier qu\'on s\'est compris, reformuler.',
-    keyPhrasesFromCourse: false,
+    keyPhrasesFromCourse: true,
     keyPhrases: [
       {
-        title: 'Asking for explanations',
-        titleFr: 'Demander une explication',
+        title: 'Asking: neutral / standard',
+        titleFr: 'Demander : neutre',
+        phrases: [
+          'Can you explain that (to me)?',
+          'Could you clarify what you mean?',
+          'Can you give me more details?',
+          'What do you mean by that?',
+        ],
+      },
+      {
+        title: 'Asking: more polite / formal',
+        titleFr: 'Demander : plus poli / formel',
+        phrases: [
+          'Would you mind explaining that in more detail?',
+          "I'd appreciate it if you could clarify …",
+          'Could you elaborate on that point?',
+          'Could you walk me through this?',
+        ],
+      },
+      {
+        title: 'Introducing an explanation',
+        titleFr: 'Introduire une explication',
+        phrases: [
+          'The reason is that …',
+          'This is because …',
+          'The main idea is that …',
+          'What happens is that …',
+        ],
+      },
+      {
+        title: 'Giving more detail',
+        titleFr: 'Donner plus de détails',
+        phrases: [
+          'In other words, …',
+          'To put it simply, …',
+          'Basically, …',
+          'More specifically, …',
+          'For example, …',
+        ],
+      },
+      {
+        title: 'Explaining cause and effect',
+        titleFr: 'Cause et conséquence',
+        phrases: [
+          'Therefore, …',
+          'As a result, …',
+          "That's why …",
+          'This leads to …',
+          'Consequently, …',
+        ],
+      },
+      {
+        title: 'Justifying / defending a point',
+        titleFr: 'Justifier, défendre un point',
+        phrases: [
+          'The point is that …',
+          "What I'm trying to say is …",
+          'The key issue is that …',
+          "That's the reason why …",
+        ],
+      },
+      {
+        title: 'Going further: asking',
+        titleFr: 'Pour aller plus loin : demander',
         phrases: [
           'Could you explain why …?',
           'What do you mean by …?',
@@ -698,8 +760,8 @@ export const modules: CourseModule[] = [
         ],
       },
       {
-        title: 'Giving explanations',
-        titleFr: 'Expliquer',
+        title: 'Going further: explaining',
+        titleFr: 'Pour aller plus loin : expliquer',
         phrases: [
           'The reason is that …',
           'This is because …',
@@ -712,7 +774,7 @@ export const modules: CourseModule[] = [
       },
       {
         title: 'Checking understanding',
-        titleFr: 'Vérifier la compréhension',
+        titleFr: 'Vérifier la compréhension (ajouté par l\'appli)',
         phrases: [
           'Does that make sense?',
           'Is that clear?',
@@ -721,8 +783,8 @@ export const modules: CourseModule[] = [
         ],
       },
       {
-        title: 'Clarifying and rephrasing',
-        titleFr: 'Clarifier, reformuler',
+        title: 'Going further: rephrasing',
+        titleFr: 'Pour aller plus loin : reformuler',
         phrases: [
           'In other words, …',
           'To put it another way, …',
@@ -742,12 +804,21 @@ export const modules: CourseModule[] = [
       { id: 'sp-explanations-08', question: 'Could you walk me through the production or quality control process in your company? What are the steps, and who carries them out?', focus: 'Passif (is carried out by…), séquence, et « The higher…, the more… ».' },
       { id: 'sp-explanations-09', question: 'How do people celebrate Halloween (or another celebration) in your family? How long have you been doing it?', focus: "Present perfect continuous : We've been celebrating… for the past 5 years." },
       { id: 'sp-explanations-10', question: 'Is there something you are afraid of (heights, roller coasters, flying)? Explain why, and how you could conquer your fears.', focus: "It's been … years since I last…, the more…, the less…" },
+      { id: 'sp-explanations-11', question: 'How often do you have to justify what you are doing, or what you have done, at work?', focus: 'Present simple (habitude) + present perfect (« what you have done »).' },
+      { id: 'sp-explanations-12', question: "How would you explain your company's products or services to a new customer?" },
+      { id: 'sp-explanations-13', question: "What would you do if a colleague asked for an explanation and you didn't know the answer?", focus: '2e conditionnel : If I didn\'t know…, I would…' },
+      { id: 'sp-explanations-14', question: 'An external consultant asks: "Could you explain how your company manages its internal work processes and makes sure everything runs smoothly?" Describe the process clearly and professionally.', focus: 'Introducing an explanation + giving more detail (basically, more specifically, for example).' },
+      { id: 'sp-explanations-15', question: 'You manage a small team that needs customer-service training, with a limited budget. One-day in-person workshop or online course? Explain your choice to your director.', focus: 'Ton choix, tes raisons (coût, flexibilité, impact), un inconvénient de l\'autre option, et pourquoi le tien est meilleur.' },
+      { id: 'sp-explanations-16', question: 'Your team is very busy. Hire one experienced senior employee with a higher salary, or two junior employees with lower salaries that you train? Explain your decision to your manager.', focus: 'Coût, rapidité, expérience, valeur à long terme + un inconvénient de l\'autre option.' },
+      { id: 'sp-explanations-17', question: 'To improve well-being: a four-day week with longer days, or the five-day week plus a wellness budget (gym, counselling, health activities)? Explain your decision to the HR director.', focus: 'Productivité, satisfaction, coût, équité + un inconvénient de l\'autre option.' },
+      { id: 'sp-explanations-18', question: 'Think about the last time you had to explain or justify a decision you made at work. When and where was it, with whom, what reasons did you give, and how did it end up?', focus: 'Récit au past simple (« How did it end up? » → It ended up…).' },
+      { id: 'sp-explanations-19', question: 'Your company wants employees to always book the cheapest flight. Do you agree? Can the cheapest option cost more in the long run?', focus: 'Cause et conséquence : as a result, this leads to, consequently.' },
       { id: 'sp-explanations-07', question: 'A colleague says: "As long as the work is done well, I don\'t have to justify anything." Ask them to explain, then give your view.', focus: 'Demander des explications : What do you mean by…? Could you elaborate on…?' },
     ],
     grammarLessonIds: ['g-indirect-questions', 'g-linking', 'g-past-perfect', 'g-confusing'],
     readingId: 'r-rehearsal',
-    dialogueId: 'd-mix-up',
-    writingTaskIds: ['w-explanations-email'],
+    dialogueId: 'd-travel-policy',
+    writingTaskIds: ['w-explanations-decision', 'w-explanations-email'],
     exercises: [
       { kind: 'gap', id: 'kp-explanations-01', prompt: 'What do you mean ___ "flexible"?', answers: ['by'] },
       { kind: 'gap', id: 'kp-explanations-02', prompt: 'Could you elaborate ___ that point?', answers: ['on'] },
@@ -790,6 +861,25 @@ export const modules: CourseModule[] = [
         prompt: 'What does "downstream processing" mean?',
         answers: ['Could you clarify what "downstream processing" means?', 'Could you clarify what downstream processing means?', 'Could you clarify what the term "downstream processing" means?', 'Could you clarify what the term downstream processing means?'],
         tags: ['indirect-questions'],
+      },
+      { kind: 'gap', id: 'kp-explanations-16', prompt: 'Would you mind ___ (explain) that in more detail?', answers: ['explaining'], explanation: 'Would you mind + -ing.', tags: ['gerund-inf'] },
+      { kind: 'gap', id: 'kp-explanations-17', prompt: "I'd ___ it if you could clarify the deadline.", answers: ['appreciate'] },
+      { kind: 'gap', id: 'kp-explanations-18', prompt: 'What ___ is that the system sends the order twice.', answers: ['happens'] },
+      { kind: 'gap', id: 'kp-explanations-19', prompt: 'More ___, the problem comes from the second step.', answers: ['specifically', 'precisely'] },
+      { kind: 'gap', id: 'kp-explanations-20', prompt: "That's the reason ___ we changed supplier.", answers: ['why'] },
+      {
+        kind: 'mcq', id: 'kp-explanations-21', prompt: 'Which phrase is the MOST formal way to ask for an explanation?',
+        options: ["I'd appreciate it if you could clarify the new policy.", 'What do you mean by that?', 'Can you explain that?', 'How come?'], answer: 0,
+      },
+      {
+        kind: 'mcq', id: 'kp-explanations-22', prompt: 'Which phrase is used to DEFEND your point?',
+        options: ["What I'm trying to say is…", 'For example,…', 'Could you walk me through this?', 'Basically,…'], answer: 0,
+      },
+      {
+        kind: 'transform', id: 'kp-explanations-23', instruction: 'Rends la demande plus polie : commence par « Would you mind… ».',
+        prompt: 'Explain the travel policy again.',
+        answers: ['Would you mind explaining the travel policy again?', 'Would you mind explaining the travel policy again, please?'],
+        tags: ['gerund-inf'],
       },
     ],
   },

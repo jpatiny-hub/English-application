@@ -23,7 +23,7 @@ export const session: CourseSession = {
     {
       kind: 'fix', id: 'fix-1007-01', wrong: 'We made some crafts and created costumes for Halloween.',
       answers: ['We did some crafts and created costumes for Halloween.'],
-      explanation: 'Faire du bricolage / des activités manuelles = DO crafts (activité). Make = fabriquer un objet précis.',
+      explanation: 'Faire du bricolage / des activités manuelles = DO crafts (activité). Make = fabriquer un objet précis. ⚠️ Corrigé à nouveau le 14.10.',
       tags: ['make-do'],
     },
     {

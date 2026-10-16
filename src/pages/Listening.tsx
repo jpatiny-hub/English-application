@@ -4,6 +4,7 @@ import { allCorrections } from '../data/content'
 import { modules } from '../data/modules'
 import { canSpeak, speak } from '../lib/speech'
 import { recordActivity } from '../lib/progress'
+import { ACTIVITY_XP } from '../lib/xp'
 import { checkAnswer, shuffle, wordDiff } from '../lib/text'
 import { btnPrimary, btnSecondary, card, input, LevelBadge, ListLink, Page, Section } from '../components/ui'
 
@@ -53,8 +54,9 @@ function Dictation({ sentences, onExit }: { sentences: string[]; onExit: () => v
 
   function check() {
     setChecked(true)
-    recordActivity()
-    if (checkAnswer(text, [target]).verdict !== 'wrong') setScore((s) => s + 1)
+    const ok = checkAnswer(text, [target]).verdict !== 'wrong'
+    recordActivity(1, ok ? ACTIVITY_XP.dictation : 1)
+    if (ok) setScore((s) => s + 1)
   }
 
   function next() {

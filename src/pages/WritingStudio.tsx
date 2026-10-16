@@ -3,6 +3,7 @@ import { useParams, useSearchParams } from 'react-router-dom'
 import { writingTasks } from '../data/writing'
 import { updateProgress, useProgress } from '../lib/store'
 import { markStep, recordActivity } from '../lib/progress'
+import { writingXp } from '../lib/xp'
 import { lintText } from '../lib/lint'
 import { containsPhrase, countWords, formatDateFr } from '../lib/text'
 import { btnPrimary, btnSecondary, card, LevelBadge, Page, Pill, Section, SpeakButton } from '../components/ui'
@@ -57,7 +58,7 @@ export function WritingStudio() {
       delete drafts[task.id]
       return { ...d, writing: [...d.writing, entry], drafts }
     })
-    recordActivity(5)
+    recordActivity(5, writingXp(used.length, task.targetPhrases.length))
     markStep(moduleId ?? task.module, 'ecrit')
     setFinished(true)
     window.scrollTo(0, 0)
@@ -91,7 +92,7 @@ ${text}
 
   if (finished) {
     return (
-      <Page title="Texte enregistré ✓" subtitle={`${words} mots · ${used.length}/${task.targetPhrases.length} expressions cibles`} back={back}>
+      <Page title="Texte enregistré ✓" subtitle={`${words} mots · ${used.length}/${task.targetPhrases.length} expressions cibles · +${writingXp(used.length, task.targetPhrases.length)} XP ⭐`} back={back}>
         <div className={card}>
           <p className="text-xs font-semibold uppercase tracking-wide text-gray-400">Ton texte</p>
           <p className="mt-2 whitespace-pre-wrap text-sm">{text}</p>

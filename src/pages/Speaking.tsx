@@ -5,6 +5,7 @@ import { modules } from '../data/modules'
 import { extraPronunciation } from '../data/pronunciation'
 import { canListen, canSpeak, listenContinuous, listenOnce, speak } from '../lib/speech'
 import { markStep, recordActivity } from '../lib/progress'
+import { ACTIVITY_XP } from '../lib/xp'
 import { lintText } from '../lib/lint'
 import { containsPhrase, countWords, scoreSpokenMatch, shuffle, type MatchLevel } from '../lib/text'
 import type { ModuleId, SpeakingPrompt } from '../types'
@@ -74,7 +75,7 @@ function useRecognizer(target: string) {
         setListening(false)
         setHeard(t)
         setResult(scoreSpokenMatch(t, target))
-        recordActivity()
+        recordActivity(1, ACTIVITY_XP.speakingRepeat)
       },
       () => {
         setListening(false)
@@ -238,7 +239,7 @@ function FreeSpeech({ moduleId }: { moduleId: ModuleId | null }) {
       setRecording(false)
       setInterim('')
       if (countWords(finalText) >= 30) markStep(current?.module, 'oral')
-      recordActivity(3)
+      recordActivity(3, countWords(finalText) >= 30 ? ACTIVITY_XP.speakingFree : 3)
       return
     }
     setError(null)

@@ -10,9 +10,10 @@
 // 4. Export / import d'un fichier de sauvegarde JSON depuis la page « Progrès ».
 import { useSyncExternalStore } from 'react'
 import type { CardState } from './srs'
+import { retroactiveXp } from './xp'
 
 export const STORAGE_KEY = 'english-app:progress'
-export const SCHEMA_VERSION = 1
+export const SCHEMA_VERSION = 2
 
 export interface Attempt {
   ok: number
@@ -60,6 +61,10 @@ export interface ProgressData {
   seenContentVersion: number
   lastBackupAt: string | null
   settings: Settings
+  /** Expérience totale (gamification, voir src/lib/xp.ts). */
+  xp: number
+  /** XP gagnée par jour (AAAA-MM-JJ). */
+  xpByDay: Record<string, number>
 }
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -83,6 +88,8 @@ function emptyData(): ProgressData {
     seenContentVersion: 0,
     lastBackupAt: null,
     settings: { ...DEFAULT_SETTINGS },
+    xp: 0,
+    xpByDay: {},
   }
 }
 
@@ -93,8 +100,8 @@ export function migrate(raw: unknown): ProgressData {
   if (!raw || typeof raw !== 'object') return base
   const data = raw as Partial<ProgressData>
 
-  // Exemple pour le futur :
-  // if ((data.schema ?? 1) < 2) { ...transformer l'ancien format... }
+  // Schéma 2 : arrivée de l'expérience. L'XP de départ est estimée d'après les réponses déjà données.
+  const xp = typeof data.xp === 'number' ? data.xp : retroactiveXp({ attempts: data.attempts ?? {}, writing: Array.isArray(data.writing) ? data.writing : [] })
 
   return {
     ...base,
@@ -108,6 +115,8 @@ export function migrate(raw: unknown): ProgressData {
     writing: Array.isArray(data.writing) ? data.writing : [],
     drafts: { ...(data.drafts ?? {}) },
     settings: { ...DEFAULT_SETTINGS, ...(data.settings ?? {}) },
+    xp,
+    xpByDay: { ...(data.xpByDay ?? {}) },
   }
 }
 

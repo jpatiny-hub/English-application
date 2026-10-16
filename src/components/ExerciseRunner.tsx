@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import type { Exercise } from '../types'
 import { checkAnswer, checkVocab, shuffle, wordDiff, type AnswerVerdict } from '../lib/text'
-import { recordAnswer } from '../lib/progress'
+import { addXp, recordAnswer } from '../lib/progress'
+import { getProgress } from '../lib/store'
+import { answerXp, levelInfo, perfectBonus, type AnswerQuality } from '../lib/xp'
 import { canSpeak, speak } from '../lib/speech'
 import { TAG_LABELS } from '../data/content'
 import { btnPrimary, btnSecondary, card, hero, input, LevelBadge, Pill, SpeakButton } from './ui'
@@ -43,6 +45,11 @@ export function ExerciseRunner({ items, title, onExit, onFinish, record = true }
   const [results, setResults] = useState<Result[]>([])
   const [done, setDone] = useState(false)
   const [round, setRound] = useState(0)
+  // Gamification : série de bonnes réponses, XP de la session, XP au départ (pour détecter un passage de niveau).
+  const [combo, setCombo] = useState(0)
+  const [sessionXp, setSessionXp] = useState(0)
+  const [bonusXp, setBonusXp] = useState(0)
+  const [startXp, setStartXp] = useState(() => getProgress().xp)
   const inputRef = useRef<HTMLTextAreaElement & HTMLInputElement>(null)
 
   const ex = queue[index]
@@ -73,6 +80,8 @@ export function ExerciseRunner({ items, title, onExit, onFinish, record = true }
   }
 
   const isOk = override || verdict === 'correct' || verdict === 'typo'
+  const quality: AnswerQuality = !isOk ? 'wrong' : override && verdict !== 'correct' && verdict !== 'typo' ? 'override' : verdict === 'typo' ? 'typo' : 'perfect'
+  const pendingXp = ex ? answerXp(ex, quality, isOk ? combo + 1 : 0) : 0
 
   function check() {
     if (!ex) return
@@ -108,7 +117,13 @@ export function ExerciseRunner({ items, title, onExit, onFinish, record = true }
 
   function commit(ok: boolean) {
     if (!ex) return
-    if (record) recordAnswer(ex, ok)
+    const q: AnswerQuality = ok ? quality : 'wrong'
+    const nextCombo = ok ? combo + 1 : 0
+    const xp = record ? answerXp(ex, q, nextCombo) : 0
+    if (record) recordAnswer(ex, ok, xp)
+    setCombo(nextCombo)
+    const nextSessionXp = sessionXp + xp
+    setSessionXp(nextSessionXp)
     const given = ex.kind === 'mcq' ? (choice !== null ? ex.options[choice] : '') : text
     const nextResults = [...results, { exercise: ex, ok, given }]
     setResults(nextResults)
@@ -117,6 +132,9 @@ export function ExerciseRunner({ items, title, onExit, onFinish, record = true }
     } else {
       setDone(true)
       const correct = nextResults.filter((r) => r.ok).length
+      const bonus = record ? perfectBonus(nextSessionXp, nextResults.length, nextResults.length - correct) : 0
+      if (bonus > 0) addXp(bonus)
+      setBonusXp(bonus)
       onFinish?.(correct, nextResults.length)
     }
   }
@@ -127,6 +145,10 @@ export function ExerciseRunner({ items, title, onExit, onFinish, record = true }
     setResults([])
     setDone(false)
     setRound((r) => r + 1)
+    setCombo(0)
+    setSessionXp(0)
+    setBonusXp(0)
+    setStartXp(getProgress().xp)
   }
 
   if (done) {
@@ -138,10 +160,18 @@ export function ExerciseRunner({ items, title, onExit, onFinish, record = true }
         <div className={`${hero} p-6 text-center`}>
           <p className="text-sm opacity-90">{title ?? 'Session terminée'}</p>
           <p className="mt-1 text-5xl font-extrabold">{correct} / {results.length}</p>
-          <p className="mt-1 text-sm opacity-90">
+          {record && (
+            <div className="mt-3 inline-flex flex-wrap items-center justify-center gap-2">
+              <span className="rounded-full bg-white/20 px-3 py-1 text-sm font-extrabold ring-1 ring-white/30">⭐ +{sessionXp + bonusXp} XP</span>
+              {bonusXp > 0 && <span className="rounded-full bg-amber-300 px-3 py-1 text-xs font-extrabold text-amber-900">Sans faute ! +{bonusXp} bonus</span>}
+            </div>
+          )}
+          <p className="mt-2 text-sm opacity-90">
             {pct >= 90 ? 'Excellent ! 🎉' : pct >= 70 ? 'Bien joué ! 👍' : pct >= 50 ? 'Pas mal, on continue 💪' : 'Ces points reviendront en révision 🔁'}
           </p>
         </div>
+
+        {record && <LevelUp from={startXp} to={startXp + sessionXp + bonusXp} />}
 
         {misses.length > 0 && (
           <div className="mt-5">
@@ -174,7 +204,11 @@ export function ExerciseRunner({ items, title, onExit, onFinish, record = true }
     <div className="px-4 pt-6">
       <div className="mb-3 flex items-center justify-between">
         <button onClick={onExit} className="rounded-full bg-white px-3 py-1 text-xs font-bold text-indigo-700 shadow-sm ring-1 ring-gray-900/5 dark:bg-white/10 dark:text-indigo-200 dark:ring-0">✕ Quitter</button>
-        <span className="text-sm font-bold text-gray-500 dark:text-gray-400">{index + 1} / {queue.length}</span>
+        <span className="flex items-center gap-2 text-sm font-bold text-gray-500 dark:text-gray-400">
+          {record && combo >= 3 && <span className="rounded-full bg-orange-100 px-2 py-0.5 text-xs font-extrabold text-orange-700 dark:bg-orange-500/20 dark:text-orange-200">🔥 ×{combo}</span>}
+          {record && <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-extrabold text-amber-800 dark:bg-amber-500/20 dark:text-amber-200">⭐ {sessionXp}</span>}
+          {index + 1} / {queue.length}
+        </span>
       </div>
       <div className="mb-4 h-2.5 w-full overflow-hidden rounded-full bg-white ring-1 ring-gray-900/5 dark:bg-gray-800 dark:ring-0">
         <div className="h-full rounded-full bg-linear-to-r from-indigo-500 to-violet-500 transition-all" style={{ width: `${(index / queue.length) * 100}%` }} />
@@ -291,6 +325,7 @@ export function ExerciseRunner({ items, title, onExit, onFinish, record = true }
         </div>
       ) : (
         <button onClick={() => commit(isOk)} className={`${btnPrimary} mt-4`}>
+          {record && <span className="mr-2 rounded-full bg-white/25 px-2 py-0.5 text-xs">+{pendingXp} XP</span>}
           {index + 1 < queue.length ? 'Suivant →' : 'Voir le résultat'}
         </button>
       )}
@@ -516,4 +551,30 @@ export function answerOf(ex: Exercise): string {
     case 'transform': return ex.answers[0]
     case 'card': return ex.back
   }
+}
+
+// Passage de niveau en fin de session (ou simple jauge d'avancement).
+function LevelUp({ from, to }: { from: number; to: number }) {
+  const before = levelInfo(from)
+  const after = levelInfo(to)
+  const up = after.level > before.level
+  return (
+    <div className={`${card} mt-3 ${up ? 'ring-2 ring-amber-400' : ''}`}>
+      {up ? (
+        <>
+          <p className="text-center text-xs font-extrabold uppercase tracking-wider text-amber-600 dark:text-amber-300">Level up! 🎉</p>
+          <p className="mt-1 text-center text-2xl font-extrabold">Niveau {after.level}</p>
+          {after.rank.from > before.level && (
+            <p className="mt-1 text-center text-sm font-bold">Nouveau grade : {after.rank.icon} {after.rank.title}</p>
+          )}
+        </>
+      ) : (
+        <p className="text-sm font-bold">Niveau {after.level} · {after.rank.icon} {after.rank.title}</p>
+      )}
+      <div className="mt-2 h-2.5 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-800">
+        <div className="h-full rounded-full bg-linear-to-r from-amber-400 to-orange-500" style={{ width: `${(after.into / after.needed) * 100}%` }} />
+      </div>
+      <p className="mt-1 text-right text-xs text-gray-500 dark:text-gray-400">{after.into} / {after.needed} XP avant le niveau {after.level + 1}</p>
+    </div>
+  )
 }

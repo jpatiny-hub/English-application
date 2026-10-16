@@ -1,7 +1,7 @@
-import { NavLink } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 const items = [
-  { to: '/', label: 'Accueil', icon: '🏠', end: true },
+  { to: '/', label: 'Accueil', icon: '🏠' },
   { to: '/cours', label: 'Cours', icon: '🎓' },
   { to: '/temps', label: 'Temps', icon: '⏳' },
   { to: '/vocabulaire', label: 'Vocab', icon: '🗂️' },
@@ -9,32 +9,37 @@ const items = [
   { to: '/revision', label: 'Révision', icon: '🔁' },
 ]
 
-// Barre opaque, sans flou ni animation de transformation (cf. CLAUDE.md, robustesse d'affichage).
+function isActive(pathname: string, to: string): boolean {
+  return to === '/' ? pathname === '/' : pathname === to || pathname.startsWith(`${to}/`)
+}
+
+// Barre opaque, sans flou, sans transition ni transformation (cf. CLAUDE.md, robustesse d'affichage).
+// Elle est recréée à chaque changement de page (`key`) : certains Chrome Android ne repeignaient pas
+// un élément `fixed` dont seule la classe change (onglet actif pas mis à jour, barre invisible).
+// Les marges (px-4) sont celles du contenu, pour qu'elle soit alignée sur les encadrés.
 export function NavBar() {
+  const { pathname } = useLocation()
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-20 pb-[env(safe-area-inset-bottom)]">
-      <div className="mx-auto max-w-md px-3 pb-2">
-        <ul className="grid grid-cols-6 rounded-3xl bg-white px-1 py-1.5 shadow-[0_8px_30px_-6px_rgba(30,27,75,0.25)] ring-1 ring-gray-900/5 dark:bg-gray-900 dark:ring-white/10">
-          {items.map((item) => (
+    <nav key={pathname} className="fixed inset-x-0 bottom-0 z-20 pb-[max(env(safe-area-inset-bottom),0.75rem)]">
+      <ul className="mx-4 grid grid-cols-6 gap-1 rounded-3xl bg-white p-1.5 shadow-lg ring-1 ring-gray-900/10 sm:mx-auto sm:max-w-[calc(28rem-2rem)] dark:bg-gray-900 dark:ring-white/15">
+        {items.map((item) => {
+          const active = isActive(pathname, item.to)
+          return (
             <li key={item.to}>
-              <NavLink
+              <Link
                 to={item.to}
-                end={item.end}
-                className={({ isActive }) =>
-                  `flex flex-col items-center gap-0.5 rounded-2xl py-1.5 text-[10.5px] font-bold transition-colors ${
-                    isActive
-                      ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-200'
-                      : 'text-gray-500 dark:text-gray-400'
-                  }`
-                }
+                aria-current={active ? 'page' : undefined}
+                className={`flex flex-col items-center gap-0.5 rounded-2xl py-1.5 text-[10.5px] font-bold ${
+                  active ? 'bg-indigo-600 text-white dark:bg-indigo-500' : 'text-gray-500 dark:text-gray-400'
+                }`}
               >
                 <span className="text-lg leading-none">{item.icon}</span>
                 {item.label}
-              </NavLink>
+              </Link>
             </li>
-          ))}
-        </ul>
-      </div>
+          )
+        })}
+      </ul>
     </nav>
   )
 }

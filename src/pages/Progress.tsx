@@ -8,6 +8,7 @@ import { canSpeak, speak } from '../lib/speech'
 import { formatDateFr, todayKey } from '../lib/text'
 import { clearErrors, readErrors } from '../lib/diagnostics'
 import type { Level } from '../types'
+import { levelInfo, RANKS, xpToNext, ACTIVITY_XP } from '../lib/xp'
 import { btnPrimary, btnSecondary, card, LevelBadge, Page, ProgressBar, Section } from '../components/ui'
 
 const LEVELS: Level[] = ['B2', 'B2+', 'C1']
@@ -92,6 +93,9 @@ export function Progress() {
           ))}
         </div>
       </div>
+
+      <div id="niveau" />
+      <XpSection xp={data.xp} xpByDay={data.xpByDay} />
 
       <Section title="Vers le C1 : acquis par niveau">
         <div className={`${card} space-y-3`}>
@@ -211,5 +215,63 @@ export function Progress() {
 
       <Link to="/nouveautes" className="mt-6 block text-center text-sm text-indigo-600 dark:text-indigo-400">✨ Historique des mises à jour</Link>
     </Page>
+  )
+}
+
+function XpSection({ xp, xpByDay }: { xp: number; xpByDay: Record<string, number> }) {
+  const info = levelInfo(xp)
+  const today = xpByDay[todayKey()] ?? 0
+  const week = Array.from({ length: 7 }, (_, i) => {
+    const d = new Date()
+    d.setDate(d.getDate() - i)
+    return xpByDay[todayKey(d)] ?? 0
+  }).reduce((a, b) => a + b, 0)
+  return (
+    <Section title="⭐ Niveau & expérience">
+      <div className={card}>
+        <div className="flex items-center gap-3">
+          <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-amber-100 text-3xl dark:bg-amber-500/20">{info.rank.icon}</span>
+          <div className="flex-1">
+            <p className="text-lg font-extrabold">Niveau {info.level} · {info.rank.title}</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">{info.rank.fr}</p>
+          </div>
+        </div>
+        <div className="mt-3 h-2.5 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-800">
+          <div className="h-full rounded-full bg-linear-to-r from-amber-400 to-orange-500" style={{ width: `${(info.into / info.needed) * 100}%` }} />
+        </div>
+        <p className="mt-1 text-right text-xs text-gray-500 dark:text-gray-400">{info.into} / {info.needed} XP · total {xp} XP</p>
+        <div className="mt-3 grid grid-cols-2 gap-2 text-center">
+          <div className="rounded-2xl bg-amber-50 p-2 dark:bg-amber-500/10"><p className="text-lg font-extrabold">+{today}</p><p className="text-[11px] text-gray-500 dark:text-gray-400">XP aujourd'hui</p></div>
+          <div className="rounded-2xl bg-amber-50 p-2 dark:bg-amber-500/10"><p className="text-lg font-extrabold">+{week}</p><p className="text-[11px] text-gray-500 dark:text-gray-400">XP sur 7 jours</p></div>
+        </div>
+      </div>
+
+      <details className={card}>
+        <summary className="flex cursor-pointer items-center justify-between font-bold">Comment gagner de l'XP ? <span className="text-gray-400">▾</span></summary>
+        <ul className="mt-2 space-y-1 text-sm text-gray-600 dark:text-gray-300">
+          <li>✅ Bonne réponse : <strong>10 XP</strong> (B2), <strong>12</strong> (B2+), <strong>15</strong> (C1) ; +3 pour une phrase à réécrire ; un peu moins pour une carte de vocabulaire.</li>
+          <li>✏️ Réponse acceptée avec une faute de frappe : 70 % de l'XP. Validée toi-même : 50 %.</li>
+          <li>🔥 Série : +1 XP par bonne réponse d'affilée à partir de la 3e (jusqu'à +5).</li>
+          <li>🏆 Session sans aucune erreur (5 questions ou plus) : <strong>+50 %</strong> de bonus.</li>
+          <li>🖋️ Texte enregistré dans l'atelier : <strong>{ACTIVITY_XP.writing} XP</strong>, +{ACTIVITY_XP.writingAllPhrases} si toutes les expressions cibles sont placées.</li>
+          <li>🎤 Oral libre (30 mots ou plus) : {ACTIVITY_XP.speakingFree} XP · répétition : {ACTIVITY_XP.speakingRepeat} XP · dictée réussie : {ACTIVITY_XP.dictation} XP.</li>
+          <li>❌ Mauvaise réponse : 2 XP quand même, pour l'effort.</li>
+        </ul>
+        <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">Chaque niveau demande 30 XP de plus que le précédent (niveau 1 → 2 : {xpToNext(1)} XP, niveau 10 → 11 : {xpToNext(10)} XP…).</p>
+      </details>
+
+      <details className={card}>
+        <summary className="flex cursor-pointer items-center justify-between font-bold">Les grades <span className="text-gray-400">▾</span></summary>
+        <ul className="mt-2 space-y-1.5">
+          {RANKS.map((r) => (
+            <li key={r.title} className={`flex items-center gap-2 rounded-xl px-2 py-1 text-sm ${r.title === info.rank.title ? 'bg-amber-50 font-bold dark:bg-amber-500/10' : info.level < r.from ? 'opacity-50' : ''}`}>
+              <span className="text-xl">{r.icon}</span>
+              <span className="flex-1">{r.title}<span className="block text-[11px] font-normal text-gray-500 dark:text-gray-400">{r.fr}</span></span>
+              <span className="text-xs text-gray-500">niv. {r.from}</span>
+            </li>
+          ))}
+        </ul>
+      </details>
+    </Section>
   )
 }

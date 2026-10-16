@@ -2,9 +2,10 @@ import type { Exercise, ModuleId, ModuleStep } from '../types'
 import { getProgress, updateProgress, type ProgressData } from './store'
 import { isDue, reviewCard } from './srs'
 import { todayKey } from './text'
+import { answerXp } from './xp'
 
 /** Enregistre une réponse : répétition espacée, historique, statistiques par étiquette, activité du jour. */
-export function recordAnswer(ex: Exercise, correct: boolean) {
+export function recordAnswer(ex: Exercise, correct: boolean, xp = answerXp(ex, correct ? 'perfect' : 'wrong')) {
   const now = new Date().toISOString()
   const day = todayKey()
   updateProgress((d) => {
@@ -28,14 +29,28 @@ export function recordAnswer(ex: Exercise, correct: boolean) {
       },
       tagStats,
       activity: { ...d.activity, [day]: (d.activity[day] ?? 0) + 1 },
+      xp: d.xp + xp,
+      xpByDay: { ...d.xpByDay, [day]: (d.xpByDay[day] ?? 0) + xp },
     }
   })
 }
 
-/** Pour les éléments sans exercice (leçon relue, texte lu…) : compte seulement l'activité. */
-export function recordActivity(count = 1) {
+/** Ajoute de l'XP (bonus de session, écrit, oral…). */
+export function addXp(amount: number) {
+  if (amount <= 0) return
   const day = todayKey()
-  updateProgress((d) => ({ ...d, activity: { ...d.activity, [day]: (d.activity[day] ?? 0) + count } }))
+  updateProgress((d) => ({ ...d, xp: d.xp + amount, xpByDay: { ...d.xpByDay, [day]: (d.xpByDay[day] ?? 0) + amount } }))
+}
+
+/** Pour les éléments sans exercice (leçon relue, texte lu…) : compte seulement l'activité. */
+export function recordActivity(count = 1, xp = 0) {
+  const day = todayKey()
+  updateProgress((d) => ({
+    ...d,
+    activity: { ...d.activity, [day]: (d.activity[day] ?? 0) + count },
+    xp: d.xp + xp,
+    xpByDay: { ...d.xpByDay, [day]: (d.xpByDay[day] ?? 0) + xp },
+  }))
 }
 
 /** Planifie une leçon entière dans la révision (réussie si ≥ 70 %). */

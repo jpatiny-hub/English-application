@@ -14,10 +14,10 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg'],
       manifest: {
-        name: 'English B2 → C1',
+        name: 'English B2 → C1 — Tea Time',
         short_name: 'English',
         description: "Application personnelle pour progresser en anglais du niveau B2 vers le C1",
-        theme_color: '#4f46e5',
+        theme_color: '#012169',
         background_color: '#eef2ff',
         display: 'standalone',
         orientation: 'portrait',
@@ -26,7 +26,7 @@ export default defineConfig({
         icons: [
           { src: 'icons/icon-192.png', sizes: '192x192', type: 'image/png' },
           { src: 'icons/icon-512.png', sizes: '512x512', type: 'image/png' },
-          { src: 'icons/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
+          { src: 'icons/icon-maskable-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
         ],
       },
       workbox: {

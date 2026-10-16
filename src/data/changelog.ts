@@ -4,6 +4,17 @@ import type { ChangelogEntry } from '../types'
 // `version` = précédente + 1 : l'accueil affichera une bannière « Nouveautés ».
 export const changelog: ChangelogEntry[] = [
   {
+    version: 8,
+    date: '2026-10-16',
+    title: 'Niveaux, expérience et nouveau logo 🫖',
+    changes: [
+      "Expérience (XP) : chaque exercice en rapporte, davantage pour le C1, les réponses sans faute et les séries de bonnes réponses ; +50 % pour une session sans erreur. L'écrit et l'oral rapportent aussi.",
+      "Niveaux de plus en plus exigeants et grades « so British » : de Lost Tourist à Royal Highness of English. Ton XP de départ a été calculée d'après tes réponses passées.",
+      'Nouveau logo : une tasse de thé à chapeau melon, moustache et monocle sur fond d\'Union Jack.',
+      "Correctif : la barre de navigation s'aligne sur les encadrés et l'onglet actif s'affiche sur toutes les pages.",
+    ],
+  },
+  {
     version: 7,
     date: '2026-10-15',
     title: 'Spécial Halloween 🎃 et nouveau look',

@@ -8,6 +8,7 @@ import { TAG_LABELS, getExercise } from '../data/content'
 import { sessions } from '../data/sessions/index'
 import { card, cardLink, hero, IconTile, SpeakButton, type Tone } from '../components/ui'
 import { seasonalTheme } from '../data/themes'
+import { XpBar } from '../components/XpBar'
 import { formatDateFr } from '../lib/text'
 import { grammarLessons } from '../data/grammar'
 
@@ -58,12 +59,15 @@ export function Home() {
         <span aria-hidden className="pointer-events-none absolute -right-8 -top-10 h-36 w-36 rounded-full bg-white/10" />
         <span aria-hidden className="pointer-events-none absolute -bottom-12 right-10 h-28 w-28 rounded-full bg-white/10" />
         <div className="relative flex items-start justify-between">
-          <div>
+          <div className="flex items-start gap-3">
+            <img src={`${import.meta.env.BASE_URL}favicon.svg`} alt="" className="h-14 w-14 shrink-0 rounded-2xl shadow-md ring-2 ring-white/40" />
+            <div>
             <p className="text-xs font-semibold uppercase tracking-wider text-white/75">
               {today.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' })}
             </p>
-            <h1 className="mt-1 text-3xl font-extrabold tracking-tight">{greeting(today)}</h1>
+            <h1 className="mt-0.5 text-2xl font-extrabold leading-tight tracking-tight">{greeting(today)}</h1>
             <p className="mt-0.5 text-sm text-white/85">Du B2 vers le C1, un peu chaque jour.</p>
+            </div>
           </div>
           <Link to="/progres" className="rounded-2xl bg-white/15 px-3 py-2 text-center ring-1 ring-white/25">
             <p className="text-lg font-extrabold leading-none">🔥 {days}</p>
@@ -71,7 +75,9 @@ export function Home() {
           </Link>
         </div>
 
-        <Link to="/revision" className="relative mt-5 flex items-center gap-3 rounded-2xl bg-white p-3.5 text-gray-900 shadow-sm">
+        <XpBar xp={data.xp} />
+
+        <Link to="/revision" className="relative mt-3 flex items-center gap-3 rounded-2xl bg-white p-3.5 text-gray-900 shadow-sm">
           <IconTile icon="🔁" tone="indigo" />
           <div className="min-w-0 flex-1">
             <p className="text-xs font-semibold text-gray-500">Révision du jour</p>

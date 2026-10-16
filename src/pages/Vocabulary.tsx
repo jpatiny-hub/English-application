@@ -3,6 +3,7 @@ import { courseDecks, discoveryDecks, allVocab } from '../data/vocabulary'
 import { modules } from '../data/modules'
 import { sessions } from '../data/sessions/index'
 import { vocabCard } from '../data/content'
+import { synonymExercises } from '../data/style'
 import { updateProgress, useProgress, type Settings } from '../lib/store'
 import { dueIds, masteredCount, newIds } from '../lib/progress'
 import { shuffle } from '../lib/text'
@@ -67,7 +68,7 @@ export function Vocabulary() {
       </div>
       <p className="mt-1 text-center text-[11px] text-gray-400">Français → anglais = plus difficile, mais c'est ce qui fait progresser à l'oral.</p>
 
-      <Section title="Par module de cours">
+      {sessions.length > 0 && <Section title="Par module de cours">
         {modules.map((m) => {
           const items = sessions.filter((s) => s.module === m.id).flatMap((s) => s.vocabulary)
           const ids = items.map((i) => i.id)
@@ -81,9 +82,9 @@ export function Vocabulary() {
             />
           )
         })}
-      </Section>
+      </Section>}
 
-      <Section title="Découverte (hors cours)">
+      <Section title={sessions.length > 0 ? 'Découverte (hors cours)' : 'Les paquets'}>
         {discoveryDecks.map((d) => {
           const ids = d.items.map((i) => i.id)
           return (
@@ -98,15 +99,19 @@ export function Vocabulary() {
         })}
       </Section>
 
-      <Section title="Jouer avec les mots">
-        <ListLink to="/pratique/reformulation" icon="🔁" title="Synonymes" subtitle="Le sens des mots de tes cours, et des termes plus précis que big, get, help, fix…" />
-      </Section>
+      {synonymExercises.length > 0 && (
+        <Section title="Jouer avec les mots">
+          <ListLink to="/pratique/reformulation" icon="🔁" title="Synonymes" subtitle="Le sens des mots de tes cours, et des termes plus précis que big, get, help, fix…" />
+        </Section>
+      )}
 
-      <Section title="Par séance">
-        {[...courseDecks].reverse().map((d) => (
-          <ListLink key={d.id} to={`/vocabulaire/${d.id}`} icon={d.icon} title={d.title} subtitle={`${d.description} · ${d.items.length} mots`} />
-        ))}
-      </Section>
+      {courseDecks.length > 0 && (
+        <Section title="Par séance">
+          {[...courseDecks].reverse().map((d) => (
+            <ListLink key={d.id} to={`/vocabulaire/${d.id}`} icon={d.icon} title={d.title} subtitle={`${d.description} · ${d.items.length} mots`} />
+          ))}
+        </Section>
+      )}
     </Page>
   )
 }

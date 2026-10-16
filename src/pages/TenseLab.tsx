@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom'
+import { isJuju } from '../edition'
+import { irregularVerbs } from '../data/irregular-verbs'
 import { grammarLessons } from '../data/grammar'
 import { TAG_LABELS, TENSE_TAGS } from '../data/content'
 import { useProgress } from '../lib/store'
@@ -28,12 +30,12 @@ export function TenseLab() {
   })
 
   return (
-    <Page title="⏳ Labo des temps" subtitle="Ta priorité : le passé (past simple, present perfect, past perfect) et le futur. Du cours, des exercices, et des statistiques pour voir tes progrès.">
+    <Page title="⏳ Labo des temps" subtitle={isJuju ? 'Le présent (simple et continuous), le passé et le futur : des fiches simples, des exercices et tes statistiques.' : 'Ta priorité : le passé (past simple, present perfect, past perfect) et le futur. Du cours, des exercices, et des statistiques pour voir tes progrès.'}>
       <div className="grid grid-cols-2 gap-3">
-        <Link to="/entrainement?tag=pp-vs-ps&n=15" className="block rounded-3xl bg-linear-to-br from-amber-400 to-orange-500 p-4 text-white shadow-md shadow-orange-500/25 dark:shadow-none">
+        <Link to={isJuju ? '/entrainement?tag=present&n=15' : '/entrainement?tag=pp-vs-ps&n=15'} className="block rounded-3xl bg-linear-to-br from-amber-400 to-orange-500 p-4 text-white shadow-md shadow-orange-500/25 dark:shadow-none">
           <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/25 text-2xl">🥊</span>
-          <p className="mt-2.5 font-extrabold leading-tight">Past simple ou present perfect ?</p>
-          <p className="text-xs opacity-90">Le duel n°1 des francophones</p>
+          <p className="mt-2.5 font-extrabold leading-tight">{isJuju ? 'Present simple ou continuous ?' : 'Past simple ou present perfect ?'}</p>
+          <p className="text-xs opacity-90">{isJuju ? 'Habitude ou maintenant ?' : 'Le duel n°1 des francophones'}</p>
         </Link>
         <Link to="/entrainement?tags=tenses&n=20" className={cardLink}>
           <IconTile icon="🎲" />
@@ -43,9 +45,9 @@ export function TenseLab() {
         <Link to="/temps/verbes" className={cardLink}>
           <IconTile icon="📜" />
           <p className="mt-2.5 font-extrabold leading-tight">Verbes irréguliers</p>
-          <p className="text-xs text-gray-500 dark:text-gray-400">97 verbes, par niveau</p>
+          <p className="text-xs text-gray-500 dark:text-gray-400">{irregularVerbs.length} verbes, par niveau</p>
         </Link>
-        <Link to="/pratique/ecrit/w-weekend-story" className={cardLink}>
+        <Link to={isJuju ? '/pratique/ecrit/jj-w-weekend' : '/pratique/ecrit/w-weekend-story'} className={cardLink}>
           <IconTile icon="🖋️" />
           <p className="mt-2.5 font-extrabold leading-tight">Raconter au passé</p>
           <p className="text-xs text-gray-500 dark:text-gray-400">Rédaction guidée</p>

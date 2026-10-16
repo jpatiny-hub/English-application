@@ -134,6 +134,9 @@ export function Section({ title, children, right }: { title: string; children: R
 }
 
 const levelColors: Record<Level, string> = {
+  A1: 'bg-sky-100 text-sky-700 dark:bg-sky-900/40 dark:text-sky-300',
+  A2: 'bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300',
+  B1: 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300',
   B2: 'bg-sky-100 text-sky-700 dark:bg-sky-900/40 dark:text-sky-300',
   'B2+': 'bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300',
   C1: 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300',

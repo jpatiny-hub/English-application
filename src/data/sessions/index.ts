@@ -16,8 +16,9 @@ import { session as s0923 } from './2026-09-23.ts'
 import { session as s0930 } from './2026-09-30.ts'
 import { session as s1007 } from './2026-10-07.ts'
 import { session as s1014 } from './2026-10-14.ts'
+import { isJuju } from '../../edition.ts'
 
-export const sessions: CourseSession[] = [
+const jojoSessions: CourseSession[] = [
   s0624,
   s0702,
   s0715,
@@ -34,3 +35,6 @@ export const sessions: CourseSession[] = [
   s1007,
   s1014,
 ].sort((a, b) => a.date.localeCompare(b.date))
+
+// Accès en cours (voir src/edition.ts).
+export const sessions: CourseSession[] = isJuju ? [] : jojoSessions

@@ -1,6 +1,8 @@
 import type { VocabDeck, VocabItem } from '../types'
 import { sessions } from './sessions/index.ts'
 import { formatDateFr } from '../lib/text.ts'
+import { isJuju } from '../edition.ts'
+import { jujuDecks } from './juju/vocabulary.ts'
 
 // ---------------------------------------------------------------------------
 // Paquets « Découverte » : du vocabulaire nouveau pour élargir au-delà des cours.
@@ -285,7 +287,7 @@ const halloweenIdioms: VocabItem[] = [
   { id: 'hi-treat-yourself', en: 'to treat yourself (to something)', fr: 'se faire plaisir, s\'offrir qqch', level: 'B2', example: 'After the audit, I treated myself to a nice dinner.' },
 ]
 
-export const discoveryDecks: VocabDeck[] = [
+const jojoDecks: VocabDeck[] = [
   { id: 'phrasal', title: 'Phrasal verbs essentiels', icon: '🔗', description: 'Les verbes à particule qu\'on entend partout au travail.', kind: 'decouverte', items: phrasalVerbs },
   { id: 'idioms', title: 'Idiomes & expressions', icon: '🎭', description: 'Pour parler comme un natif (avec modération).', kind: 'decouverte', items: idioms },
   { id: 'collocations', title: 'Collocations', icon: '🧲', description: 'Les mots qui vont ensemble : meet a deadline, raise a concern…', kind: 'decouverte', items: collocations },
@@ -295,6 +297,8 @@ export const discoveryDecks: VocabDeck[] = [
   { id: 'halloween', title: 'Halloween : les mots', icon: '🎃', description: 'Citrouilles, fantômes, sorcières et tout ce qui fait peur.', kind: 'decouverte', items: halloweenWords },
   { id: 'halloween-idioms', title: 'Halloween : les expressions', icon: '👻', description: 'Skeleton staff, graveyard shift, ghosting… des expressions « qui font peur » utiles au travail.', kind: 'decouverte', items: halloweenIdioms },
 ]
+
+export const discoveryDecks: VocabDeck[] = isJuju ? jujuDecks : jojoDecks
 
 // Un paquet par séance de cours, généré automatiquement.
 export const courseDecks: VocabDeck[] = sessions

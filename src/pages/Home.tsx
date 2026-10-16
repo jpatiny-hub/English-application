@@ -4,22 +4,24 @@ import { daysSince, streak, totalAnswers, weakTags } from '../lib/progress'
 import { isDue } from '../lib/srs'
 import { CONTENT_VERSION } from '../data/changelog'
 import { discoveryDecks } from '../data/vocabulary'
-import { TAG_LABELS, getExercise } from '../data/content'
+import { TAG_LABELS, getExercise, translationExercises } from '../data/content'
 import { sessions } from '../data/sessions/index'
 import { card, cardLink, hero, IconTile, SpeakButton, type Tone } from '../components/ui'
-import { seasonalTheme } from '../data/themes'
+import { seasonalTheme, themes } from '../data/themes'
 import { XpBar } from '../components/XpBar'
+import { EDITION, isJuju } from '../edition'
 import { formatDateFr } from '../lib/text'
 import { grammarLessons } from '../data/grammar'
 
 const sections: { to: string; label: string; icon: string; desc: string; tone: Tone }[] = [
-  { to: '/cours', label: 'Mes cours', icon: '🎓', desc: 'Séances et modules', tone: 'violet' },
-  { to: '/temps', label: 'Labo des temps', icon: '⏳', desc: 'Past simple, present perfect…', tone: 'amber' },
+  { to: '/cours', label: isJuju ? 'Mes modules' : 'Mes cours', icon: '🎓', desc: isJuju ? 'Famille, bière, sport, CDMO…' : 'Séances et modules', tone: 'violet' },
+  { to: '/temps', label: 'Labo des temps', icon: '⏳', desc: isJuju ? 'Présent, passé, futur' : 'Past simple, present perfect…', tone: 'amber' },
   { to: '/grammaire', label: 'Grammaire', icon: '📖', desc: `${grammarLessons.length} fiches + exercices`, tone: 'sky' },
-  { to: '/vocabulaire', label: 'Vocabulaire', icon: '🗂️', desc: 'Cours + découverte', tone: 'emerald' },
+  { to: '/vocabulaire', label: 'Vocabulaire', icon: '🗂️', desc: isJuju ? `${discoveryDecks.length} paquets` : 'Cours + découverte', tone: 'emerald' },
   { to: '/pratique/ecrit', label: "Atelier d'écriture", icon: '🖋️', desc: 'Rédiger, se relire', tone: 'rose' },
   { to: '/pratique', label: 'Pratique', icon: '🎧', desc: 'Oral, écoute, lecture', tone: 'rose' },
-  { to: '/themes', label: 'Thèmes & culture', icon: '🎭', desc: 'Fêtes, références, idiomes', tone: 'orange' },
+  ...(themes.length > 0 ? [{ to: '/themes', label: 'Thèmes & culture', icon: '🎭', desc: 'Fêtes, références, idiomes', tone: 'orange' as Tone }] : []),
+  ...(translationExercises.length > 0 ? [{ to: '/pratique/traduction', label: 'Traduire', icon: '🔤', desc: `${translationExercises.length} petites phrases`, tone: 'orange' as Tone }] : []),
   { to: '/progres', label: 'Progrès', icon: '📈', desc: 'Statistiques et sauvegarde', tone: 'teal' },
 ]
 
@@ -32,7 +34,8 @@ function greeting(date: Date): string {
 
 // Une expression différente chaque jour, tirée des idiomes et collocations.
 function expressionOfTheDay() {
-  const pool = discoveryDecks.filter((d) => d.id === 'idioms' || d.id === 'collocations').flatMap((d) => d.items)
+  const ids = isJuju ? ['jj-idioms', 'jj-fluency'] : ['idioms', 'collocations']
+  const pool = discoveryDecks.filter((d) => ids.includes(d.id)).flatMap((d) => d.items)
   const day = Math.floor(Date.now() / 86_400_000)
   return pool[day % pool.length]
 }
@@ -66,7 +69,7 @@ export function Home() {
               {today.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' })}
             </p>
             <h1 className="mt-0.5 text-2xl font-extrabold leading-tight tracking-tight">{greeting(today)}</h1>
-            <p className="mt-0.5 text-sm text-white/85">Du B2 vers le C1, un peu chaque jour.</p>
+            <p className="mt-0.5 text-sm text-white/85">{EDITION.tagline}</p>
             </div>
           </div>
           <Link to="/progres" className="rounded-2xl bg-white/15 px-3 py-2 text-center ring-1 ring-white/25">

@@ -1,9 +1,10 @@
 import type { Exercise } from '../types'
+import { isJuju } from '../edition.ts'
 
 // « Trouver les bonnes formulations » : exercices de reformulation pour passer du B2 au C1.
 // Pour les réécritures libres (transform), plusieurs réponses sont acceptées et on peut
 // toujours valider soi-même une formulation différente mais correcte.
-export const styleExercises: Exercise[] = [
+const jojo_styleExercises: Exercise[] = [
   // --- Le plus naturel ---
   {
     kind: 'mcq', id: 'st-01', tags: ['register'], prompt: 'Which sounds the most natural in a meeting?',
@@ -161,7 +162,7 @@ export const styleExercises: Exercise[] = [
 
 // « Changer de perspective » : dire EXACTEMENT la même chose avec un autre point de vue.
 // Chaque consigne impose le début de la phrase ou le mot à utiliser, pour éviter les ambiguïtés.
-export const perspectiveExercises: Exercise[] = [
+const jojo_perspectiveExercises: Exercise[] = [
   {
     kind: 'transform', id: 'pe-01', tags: ['perspective', 'comparison'], level: 'B2', instruction: 'Même sens, autre point de vue : commence par « I… ».',
     prompt: 'My brother is older than me.',
@@ -261,7 +262,7 @@ export const perspectiveExercises: Exercise[] = [
 ]
 
 // « Synonymes » : varier son vocabulaire et monter en précision.
-export const synonymExercises: Exercise[] = [
+const jojo_synonymExercises: Exercise[] = [
   { kind: 'mcq', id: 'sy-01', tags: ['synonyms'], level: 'C1', prompt: 'Which word is closest in meaning to « to mitigate » (the risk)?', options: ['to reduce', 'to ignore', 'to measure', 'to increase'], answer: 0, explanation: 'Mitigate = reduce, lessen, alleviate.' },
   { kind: 'mcq', id: 'sy-02', tags: ['synonyms'], level: 'B2+', prompt: 'Affordable housing is « scarce ». Closest meaning?', options: ['rare / in short supply', 'expensive', 'dangerous', 'far away'], answer: 0 },
   { kind: 'mcq', id: 'sy-03', tags: ['synonyms'], level: 'B2+', prompt: 'Short-term rentals are « lucrative ». Closest meaning?', options: ['profitable', 'illegal', 'popular', 'risky'], answer: 0 },
@@ -303,3 +304,7 @@ export const synonymExercises: Exercise[] = [
   },
 ]
 
+// Séries de niveau B2 → C1 : réservées à l'accès Jojo.
+export const styleExercises: Exercise[] = isJuju ? [] : jojo_styleExercises
+export const perspectiveExercises: Exercise[] = isJuju ? [] : jojo_perspectiveExercises
+export const synonymExercises: Exercise[] = isJuju ? [] : jojo_synonymExercises

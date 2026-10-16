@@ -22,7 +22,10 @@ function findDeck(deckId: string | undefined): VocabDeck | undefined {
       icon: mod.icon,
       description: 'Tous les mots des séances de ce module',
       kind: 'cours',
-      items: sessions.filter((s) => s.module === mod.id).flatMap((s) => s.vocabulary),
+      items: [
+        ...sessions.filter((s) => s.module === mod.id).flatMap((s) => s.vocabulary),
+        ...(mod.deckIds ?? []).flatMap((id) => allDecks.find((d) => d.id === id)?.items ?? []),
+      ],
     }
   }
   return allDecks.find((d) => d.id === deckId)

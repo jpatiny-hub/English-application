@@ -14,7 +14,7 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg'],
       manifest: {
-        name: 'English B2 → C1 — Tea Time',
+        name: 'English — Tea Time',
         short_name: 'English',
         description: "Application personnelle pour progresser en anglais du niveau B2 vers le C1",
         theme_color: '#012169',

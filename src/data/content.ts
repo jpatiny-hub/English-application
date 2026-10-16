@@ -9,6 +9,8 @@ import { allVocab, deckOfVocab } from './vocabulary.ts'
 import { readingTexts } from './reading.ts'
 import { dialogues } from './dialogues.ts'
 import { themes } from './themes.ts'
+import { isJuju } from '../edition.ts'
+import { jujuTranslations } from './juju/extra.ts'
 import { formatDateFr } from '../lib/text.ts'
 
 export interface ExerciseSource {
@@ -77,6 +79,13 @@ export const TAG_LABELS: Record<string, string> = {
   synonyms: 'Synonymes',
   vocab: 'Vocabulaire',
   idioms: 'Idiomes',
+  be: 'Le verbe be',
+  have: 'Have / have got',
+  possessives: 'Possessifs',
+  'there-is': 'There is / there are',
+  can: 'Can',
+  questions: 'Les questions',
+  translation: 'Traduction',
   culture: 'Culture',
 }
 
@@ -150,6 +159,13 @@ for (const m of modules) {
   for (const ex of m.exercises) {
     register(ex, { label: `Module · ${m.title}`, link: `/cours/module/${m.id}` })
   }
+}
+
+/** Petites phrases à traduire (accès Jujularage). */
+export const translationExercises: Exercise[] = isJuju ? jujuTranslations : []
+
+for (const ex of translationExercises) {
+  register(withTags(ex, ['translation']), { label: 'Traduction', link: '/pratique/traduction' })
 }
 
 for (const t of themes) {

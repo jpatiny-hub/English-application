@@ -6,7 +6,7 @@ import { grammarLessons } from '../data/grammar'
 import { useProgress } from '../lib/store'
 import { markStep } from '../lib/progress'
 import { formatDateFr } from '../lib/text'
-import type { ModuleId, ModuleStep } from '../types'
+import type { CourseModule, ModuleId, ModuleStep } from '../types'
 import { ExerciseRunner } from '../components/ExerciseRunner'
 import { btnPrimary, card, IconTile, LevelBadge, ListLink, Page, Section, SpeakButton } from '../components/ui'
 
@@ -18,8 +18,8 @@ interface StepDef {
 }
 
 export const MODULE_STEPS: StepDef[] = [
-  { step: 'phrases', icon: '💬', label: 'Expressions clés', description: 'Les formules de la fiche, à connaître par cœur' },
-  { step: 'vocabulaire', icon: '🗂️', label: 'Vocabulaire', description: 'Les mots vus pendant les séances' },
+  { step: 'phrases', icon: '💬', label: 'Expressions clés', description: 'Les formules clés, à connaître par cœur' },
+  { step: 'vocabulaire', icon: '🗂️', label: 'Vocabulaire', description: 'Les mots du module' },
   { step: 'corrections', icon: '🩹', label: 'Mes corrections', description: 'Les phrases corrigées en séance' },
   { step: 'grammaire', icon: '📖', label: 'Grammaire', description: 'Les points de langue liés au thème' },
   { step: 'prononciation', icon: '🗣️', label: 'Prononciation', description: 'Les mots à bien prononcer' },
@@ -28,6 +28,19 @@ export const MODULE_STEPS: StepDef[] = [
   { step: 'oral', icon: '🎤', label: 'Expression orale', description: 'Répondre aux questions de discussion' },
   { step: 'ecrit', icon: '🖋️', label: 'Expression écrite', description: 'Un sujet de rédaction avec modèle' },
 ]
+
+/** Étapes utiles pour ce module (pas d'étape « corrections » sans séance, pas d'écoute sans dialogue…). */
+export function moduleSteps(mod: CourseModule): StepDef[] {
+  const modSessions = sessions.filter((s) => s.module === mod.id)
+  return MODULE_STEPS.filter((def) => {
+    if (def.step === 'corrections') return modSessions.some((s) => s.corrections.length > 0)
+    if (def.step === 'vocabulaire') return modSessions.some((s) => s.vocabulary.length > 0) || (mod.deckIds?.length ?? 0) > 0
+    if (def.step === 'ecoute') return !!mod.dialogueId
+    if (def.step === 'lecture') return !!mod.readingId
+    if (def.step === 'ecrit') return mod.writingTaskIds.length > 0
+    return true
+  })
+}
 
 export function ModuleDetail() {
   const { moduleId } = useParams()
@@ -71,7 +84,7 @@ export function ModuleDetail() {
   return (
     <Page title={`${mod.icon} ${mod.title}`} subtitle={`${mod.titleFr} — ${mod.description}`} back={{ to: '/cours', label: 'Cours' }}>
       <div className="space-y-2">
-        {MODULE_STEPS.map((def) => {
+        {moduleSteps(mod).map((def) => {
           const key = `${mod.id}:${def.step}`
           const done = !!data.steps[key]
           const to = stepLink(def.step)
@@ -108,7 +121,7 @@ export function ModuleDetail() {
 
       <div id="phrases" />
       <Section title="Expressions clés">
-        {!mod.keyPhrasesFromCourse && (
+        {!mod.keyPhrasesFromCourse && sessions.length > 0 && (
           <p className="text-xs text-gray-500 dark:text-gray-400">
             Pas de fiche d'expressions pour ce thème dans tes cours : celles-ci ont été rédigées pour l'appli sur le même modèle.
           </p>
@@ -144,11 +157,13 @@ export function ModuleDetail() {
         })}
       </Section>
 
-      <Section title="Séances de ce module">
-        {modSessions.map((s) => (
-          <ListLink key={s.id} to={`/cours/seance/${s.id}`} title={formatDateFr(s.date)} subtitle={`${s.vocabulary.length} mots · ${s.corrections.length} corrections`} />
-        ))}
-      </Section>
+      {modSessions.length > 0 && (
+        <Section title="Séances de ce module">
+          {modSessions.map((s) => (
+            <ListLink key={s.id} to={`/cours/seance/${s.id}`} title={formatDateFr(s.date)} subtitle={`${s.vocabulary.length} mots · ${s.corrections.length} corrections`} />
+          ))}
+        </Section>
+      )}
     </Page>
   )
 }

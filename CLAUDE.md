@@ -2,6 +2,15 @@
 
 Appli personnelle d'anglais (PWA React/Vite/Tailwind, 100 % locale). L'utilisateur est francophone (région de Liège), niveau B2, vise le C1, travaille en biologie / industrie pharmaceutique. Grosses lacunes sur les temps du passé (past simple vs present perfect surtout). Interface en français, contenu en anglais.
 
+## Deux accès (éditions) : Jojo et Jujularage
+
+- `src/edition.ts` : l'accès est choisi au premier lancement (écran `EditionPicker`, ou lien `…/?acces=jujularage`), mémorisé dans `english-app:edition`, modifiable dans Progrès → Réglages (route `/acces`). Changer d'accès recharge la page.
+- **Jojo** (l'utilisateur, B2 → C1) : tout le contenu historique, progression dans `english-app:progress` (clé inchangée).
+- **Jujularage** (A1 → A2, ami de l'utilisateur, daltonien deutéranope) : contenu dans `src/data/juju/` (grammaire, paquets, modules `jj-*`, textes, traductions, prononciation, changelog séparé), progression dans `english-app:jujularage:progress`. Intérêts : bière / zythologie, sport, biologie, travail en CDMO (production de plasmides), animaux, maison. Ids préfixés `jj-` / `jv-`.
+- Chaque fichier de `src/data/` exporte la version de l'accès en cours (`isJuju ? … : …`) : les pages n'ont pas à s'en soucier ; elles masquent ce qui est vide (séances, corrections, reformulation, thèmes).
+- Mode daltonien (`settings.colorBlind`, `html[data-colorblind]` dans `index.css`) : remappe vert → bleu, rouge / rose → orange. Actif par défaut pour Jujularage. Ne jamais transmettre une information par la seule couleur (garder ✓ / ✗, textes).
+- `npm run check-data` valide les DEUX accès (`EDITION=jujularage`).
+
 ## Règle n°1 : ne jamais casser la progression
 
 - La progression (localStorage `english-app:progress`) est indexée par les `id` de contenu. **Ne jamais renommer, supprimer ou réutiliser un id existant.** On ajoute, on ne réécrit pas les ids.

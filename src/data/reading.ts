@@ -1,8 +1,10 @@
 import type { ReadingText } from '../types'
+import { isJuju } from '../edition.ts'
+import { jujuReadingTexts } from './juju/texts.ts'
 
 // Textes originaux écrits pour l'appli, sur les thèmes des cours.
 // Ils mélangent volontairement les temps (past simple, present perfect, past perfect…) pour les voir en contexte.
-export const readingTexts: ReadingText[] = [
+const jojoReadingTexts: ReadingText[] = [
   {
     id: 'r-company',
     title: 'Northbridge Biologics: from a garage to a global player',
@@ -338,3 +340,6 @@ export const readingTexts: ReadingText[] = [
     ],
   },
 ]
+
+// Accès en cours (voir src/edition.ts).
+export const readingTexts: ReadingText[] = isJuju ? jujuReadingTexts : jojoReadingTexts

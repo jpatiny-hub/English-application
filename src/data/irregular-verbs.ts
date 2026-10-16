@@ -1,7 +1,8 @@
 import type { IrregularVerb } from '../types'
+import { isJuju } from '../edition.ts'
 
 // tier 1 = incontournables, 2 = courants, 3 = avancés
-export const irregularVerbs: IrregularVerb[] = [
+const allIrregularVerbs: IrregularVerb[] = [
   { base: 'be', past: 'was / were', participle: 'been', fr: 'être', tier: 1 },
   { base: 'have', past: 'had', participle: 'had', fr: 'avoir', tier: 1 },
   { base: 'do', past: 'did', participle: 'done', fr: 'faire', tier: 1 },
@@ -99,3 +100,6 @@ export const irregularVerbs: IrregularVerb[] = [
   { base: 'mislead', past: 'misled', participle: 'misled', fr: 'induire en erreur', tier: 3 },
   { base: 'wind', past: 'wound', participle: 'wound', fr: 'enrouler, remonter', tier: 3 },
 ]
+
+// Jujularage (A1 → A2) : les verbes incontournables et courants seulement.
+export const irregularVerbs: IrregularVerb[] = isJuju ? allIrregularVerbs.filter((v) => v.tier < 3) : allIrregularVerbs

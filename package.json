@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
-    "check-data": "node --experimental-strip-types scripts/check-data.ts",
+    "check-data": "node --experimental-strip-types scripts/check-data.ts && EDITION=jujularage node --experimental-strip-types scripts/check-data.ts",
     "preview": "vite preview"
   },
   "dependencies": {

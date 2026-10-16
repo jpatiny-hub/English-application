@@ -4,17 +4,21 @@ import { useProgress } from '../lib/store'
 import { seenCount } from '../lib/progress'
 import { formatDateFr } from '../lib/text'
 import { ListLink, Page, ProgressBar, Section } from '../components/ui'
-import { MODULE_STEPS } from './ModuleDetail'
+import { moduleSteps } from './ModuleDetail'
+import { allDecks } from '../data/vocabulary'
 
 export function Courses() {
   const data = useProgress()
   const sorted = [...sessions].reverse()
 
   return (
-    <Page title="Mes cours" subtitle="Tout ce qui a été vu en séance, transformé en exercices.">
+    <Page title="Mes cours" subtitle={sessions.length > 0 ? 'Tout ce qui a été vu en séance, transformé en exercices.' : 'Des modules thématiques : expressions, vocabulaire, grammaire, oral et écrit.'}>
       <Section title={`Les ${modules.length} modules`}>
         {modules.map((m) => {
-          const done = MODULE_STEPS.filter((s) => data.steps[`${m.id}:${s.step}`]).length
+          const steps = moduleSteps(m)
+          const done = steps.filter((s) => data.steps[`${m.id}:${s.step}`]).length
+          const nSessions = sessions.filter((s) => s.module === m.id).length
+          const nWords = (m.deckIds ?? []).reduce((n, id) => n + (allDecks.find((d) => d.id === id)?.items.length ?? 0), 0)
           return (
             <ListLink
               key={m.id}
@@ -23,8 +27,8 @@ export function Courses() {
               title={m.title}
               subtitle={
                 <>
-                  <span>{m.titleFr} · {sessions.filter((s) => s.module === m.id).length} séances</span>
-                  <span className="mt-1.5 block"><ProgressBar value={done} max={MODULE_STEPS.length} /></span>
+                  <span>{m.titleFr} · {nSessions > 0 ? `${nSessions} séances` : `${nWords} mots`}</span>
+                  <span className="mt-1.5 block"><ProgressBar value={done} max={steps.length} /></span>
                 </>
               }
             />
@@ -32,7 +36,7 @@ export function Courses() {
         })}
       </Section>
 
-      <Section title="Séances (de la plus récente)">
+      {sorted.length > 0 && <Section title="Séances (de la plus récente)">
         {sorted.map((s) => {
           const mod = modules.find((m) => m.id === s.module)
           const ids = s.corrections.map((c) => c.id)
@@ -47,7 +51,7 @@ export function Courses() {
             />
           )
         })}
-      </Section>
+      </Section>}
     </Page>
   )
 }

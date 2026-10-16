@@ -10,7 +10,10 @@ import { btnPrimary, btnSecondary, card, input, LevelBadge, ListLink, Page, Sect
 
 // Dictée : les phrases CORRECTES de tes cours, pour entendre et écrire la bonne version.
 function buildDictation(n = 8): string[] {
-  const sentences = allCorrections.map((c) => c.answers[0]).filter((s) => s.split(' ').length >= 5)
+  // Jojo : les phrases corrigées en cours. Jujularage : les expressions clés de ses modules.
+  const fromCourses = allCorrections.map((c) => c.answers[0])
+  const pool = fromCourses.length > 0 ? fromCourses : modules.flatMap((m) => m.keyPhrases.flatMap((g) => g.phrases)).filter((p) => !p.includes('…'))
+  const sentences = pool.filter((s) => s.split(' ').length >= (fromCourses.length > 0 ? 5 : 3))
   return shuffle(sentences).slice(0, n)
 }
 
@@ -24,7 +27,7 @@ export function Listening() {
       <div className={card}>
         <p className="font-semibold">✍️ Dictée</p>
         <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-          8 phrases tirées de tes corrections de cours : tu entends la version correcte, tu l'écris. Idéal pour fixer les bonnes structures.
+          8 phrases tirées de tes cours : tu entends la version correcte, tu l'écris. Idéal pour fixer les bonnes structures.
         </p>
         <button onClick={() => setDictation(buildDictation())} disabled={!canSpeak()} className={`${btnPrimary} mt-3`}>Commencer une dictée</button>
         {!canSpeak() && <p className="mt-2 text-xs text-red-600">Synthèse vocale indisponible sur ce navigateur.</p>}

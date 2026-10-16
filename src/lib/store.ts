@@ -11,8 +11,10 @@
 import { useSyncExternalStore } from 'react'
 import type { CardState } from './srs'
 import { retroactiveXp } from './xp'
+import { EDITION } from '../edition'
 
-export const STORAGE_KEY = 'english-app:progress'
+// Une clé par accès (Jojo : 'english-app:progress', inchangée depuis le début).
+export const STORAGE_KEY = EDITION.storageKey
 export const SCHEMA_VERSION = 2
 
 export interface Attempt {
@@ -40,6 +42,8 @@ export interface Settings {
   /** Sens des flashcards : anglais → français, français → anglais, ou mélangé. */
   cardDirection: 'en-fr' | 'fr-en' | 'mixte'
   newCardsPerSession: number
+  /** Palette adaptée au daltonisme (deutéranopie) : bleu / orange au lieu de vert / rouge / rose. */
+  colorBlind: boolean
 }
 
 export interface ProgressData {
@@ -72,6 +76,7 @@ export const DEFAULT_SETTINGS: Settings = {
   rate: 0.95,
   cardDirection: 'mixte',
   newCardsPerSession: 10,
+  colorBlind: EDITION.colorBlindDefault,
 }
 
 function emptyData(): ProgressData {

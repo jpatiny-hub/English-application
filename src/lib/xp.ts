@@ -6,7 +6,7 @@ import type { ProgressData } from './store'
 
 export type AnswerQuality = 'perfect' | 'typo' | 'override' | 'wrong'
 
-const LEVEL_XP = { B2: 10, 'B2+': 12, C1: 15 } as const
+const LEVEL_XP = { A1: 10, A2: 11, B1: 12, B2: 10, 'B2+': 12, C1: 15 } as const
 
 /** XP d'une réponse. Une réponse parfaite rapporte plus qu'une réponse acceptée avec une faute de frappe. */
 export function answerXp(ex: Exercise, quality: AnswerQuality, combo = 0): number {

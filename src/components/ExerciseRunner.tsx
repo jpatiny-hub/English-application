@@ -216,7 +216,7 @@ export function ExerciseRunner({ items, title, onExit, onFinish, record = true }
 
       <div className={`${card} p-5`}>
         <div className="flex flex-wrap items-center gap-2">
-          <Pill tone="indigo">{kindLabel[ex.kind]}</Pill>
+          <Pill tone="indigo">{ex.kind === 'transform' && ex.instruction.startsWith('Traduis') ? 'Traduction' : kindLabel[ex.kind]}</Pill>
           {ex.level && <LevelBadge level={ex.level} />}
           {ex.tags?.filter((t) => TAG_LABELS[t] && t !== 'vocab').slice(0, 2).map((t) => <Pill key={t}>{TAG_LABELS[t]}</Pill>)}
         </div>

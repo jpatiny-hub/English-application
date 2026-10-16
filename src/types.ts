@@ -1,8 +1,10 @@
 // Niveaux visés : on part du B2 (niveau actuel) pour aller vers le C1 (marge de progression).
-export type Level = 'B2' | 'B2+' | 'C1'
+export type Level = 'A1' | 'A2' | 'B1' | 'B2' | 'B2+' | 'C1'
 
 // Les 5 grands thèmes des cours (fiches EN-B2 d'Accent Lang).
-export type ModuleId = 'company' | 'problems' | 'opinions' | 'assumptions' | 'process' | 'explanations'
+// Modules de Jojo : 'company' | 'problems' | 'opinions' | 'assumptions' | 'process' | 'explanations' ;
+// ceux de Jujularage commencent par 'jj-'.
+export type ModuleId = string
 
 // ---------------------------------------------------------------------------
 // Exercices — un format commun utilisé partout (grammaire, corrections, style…)
@@ -177,6 +179,8 @@ export interface CourseModule {
   dialogueId?: string
   writingTaskIds: string[]
   exercises: Exercise[]
+  /** Paquets de vocabulaire liés au module (en plus du vocabulaire des séances). */
+  deckIds?: string[]
 }
 
 export type ModuleStep =

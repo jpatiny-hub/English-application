@@ -4,6 +4,7 @@ import { writingTasks } from '../data/writing'
 import { updateProgress, useProgress } from '../lib/store'
 import { markStep, recordActivity } from '../lib/progress'
 import { writingXp } from '../lib/xp'
+import { EDITION } from '../edition'
 import { lintText } from '../lib/lint'
 import { containsPhrase, countWords, formatDateFr } from '../lib/text'
 import { btnPrimary, btnSecondary, card, LevelBadge, Page, Pill, Section, SpeakButton } from '../components/ui'
@@ -66,12 +67,12 @@ export function WritingStudio() {
 
   async function copyForFeedback() {
     if (!task) return
-    const prompt = `Tu es mon professeur d'anglais. Je suis francophone, niveau B2, et je vise le C1.
+    const prompt = `Tu es mon professeur d'anglais. Je suis francophone, niveau ${EDITION.levels[0]}, et je vise le ${EDITION.levels[EDITION.levels.length - 1]}. Adapte tes explications à mon niveau.
 Voici un texte que j'ai écrit. Sujet : "${task.prompt}"
 
 Merci de :
 1. corriger toutes les erreurs (grammaire, temps — surtout past simple / present perfect —, prépositions, vocabulaire), en expliquant chaque correction en français ;
-2. proposer des formulations plus naturelles ou plus soutenues (niveau C1) ;
+2. proposer des formulations plus naturelles (niveau ${EDITION.levels[EDITION.levels.length - 1]}) ;
 3. donner une version corrigée complète ;
 4. me donner 3 conseils prioritaires pour progresser.
 

@@ -12,6 +12,7 @@ import { writingTasks } from '../src/data/writing.ts'
 import { extraPronunciation } from '../src/data/pronunciation.ts'
 import { changelog } from '../src/data/changelog.ts'
 import { themes } from '../src/data/themes.ts'
+import { EDITION } from '../src/edition.ts'
 import { checkAnswer, checkVocab, normalizeForComparison, vocabCandidates } from '../src/lib/text.ts'
 import type { Exercise } from '../src/types.ts'
 
@@ -89,6 +90,7 @@ for (const m of modules) {
   if (m.readingId && !readingTexts.some((t) => t.id === m.readingId)) errors.push(`${m.id} : lecture inconnue « ${m.readingId} »`)
   if (m.dialogueId && !dialogues.some((d) => d.id === m.dialogueId)) errors.push(`${m.id} : dialogue inconnu « ${m.dialogueId} »`)
   for (const id of m.writingTaskIds) if (!writingTasks.some((w) => w.id === id)) errors.push(`${m.id} : sujet d'écrit inconnu « ${id} »`)
+  for (const id of m.deckIds ?? []) if (!allDecks.some((d) => d.id === id)) errors.push(`${m.id} : paquet inconnu « ${id} »`)
 }
 for (const t of themes) {
   claim(t.id, 'thème')
@@ -101,6 +103,7 @@ for (const t of themes) {
 const versions = changelog.map((c) => c.version)
 if (new Set(versions).size !== versions.length) errors.push('changelog : numéros de version en double')
 
+console.log(`Accès : ${EDITION.name}`)
 const count = (k: Exercise['kind']) => allExercises.filter((r) => r.exercise.kind === k).length
 console.log(`Contenu : ${sessions.length} séances, ${modules.length} modules, ${grammarLessons.length} leçons, ${allVocab.length} mots, ${allExercises.length} exercices`)
 console.log(`  (qcm ${count('mcq')}, trous ${count('gap')}, corrections ${count('fix')}, réécritures ${count('transform')})`)

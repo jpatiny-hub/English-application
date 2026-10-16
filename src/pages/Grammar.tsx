@@ -6,7 +6,7 @@ import { LevelBadge, ListLink, Page, ProgressBar, Section } from '../components/
 export function Grammar() {
   const data = useProgress()
   return (
-    <Page title="Grammaire" subtitle="Des fiches courtes, des exemples tirés de tes cours et des exercices corrigés.">
+    <Page title="Grammaire" subtitle="Des fiches courtes, des exemples concrets et des exercices corrigés.">
       {grammarGroups.map((g) => (
         <Section key={g.id} title={`${g.icon} ${g.title}`}>
           {grammarLessons

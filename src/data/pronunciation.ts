@@ -1,7 +1,9 @@
 import type { PronunciationItem } from '../types'
+import { isJuju } from '../edition.ts'
+import { jujuPronunciation } from './juju/extra.ts'
 
 // Mots souvent mal prononcés par les francophones (en plus de ceux vus en cours).
-export const extraPronunciation: PronunciationItem[] = [
+const jojoExtraPronunciation: PronunciationItem[] = [
   { id: 'px-determine', word: 'determine', guide: 'di-TUR-min', tip: 'La fin se prononce « min », pas « maïne ».', example: 'We need to determine the root cause.' },
   { id: 'px-analysis', word: 'analysis', guide: 'uh-NAL-uh-sis', tip: 'Accent sur la 2e syllabe.', example: 'The analysis took three days.' },
   { id: 'px-analyse', word: 'analyse / analyze', guide: 'AN-uh-lize', tip: 'Le verbe met l\'accent sur la 1re syllabe (≠ analysis).', example: 'We analyse the samples every morning.' },
@@ -33,3 +35,6 @@ export const extraPronunciation: PronunciationItem[] = [
   { id: 'px-hungry-angry', word: 'hungry / angry', guide: 'HUNG-gree / ANG-gree', tip: 'Attention au « h » aspiré : il change le mot !', example: "I'm hungry, not angry." },
   { id: 'px-live-leave', word: 'live / leave', guide: 'liv (court) / leev (long)', tip: 'Le « i » court et le « ee » long distinguent les mots (ship/sheep, full/fool).', example: 'I live near the office. I leave at 8.' },
 ]
+
+// Accès en cours (voir src/edition.ts).
+export const extraPronunciation: PronunciationItem[] = isJuju ? jujuPronunciation : jojoExtraPronunciation

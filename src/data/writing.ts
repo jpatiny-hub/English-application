@@ -1,6 +1,8 @@
 import type { WritingTask } from '../types'
+import { isJuju } from '../edition.ts'
+import { jujuWritingTasks } from './juju/texts.ts'
 
-export const writingTasks: WritingTask[] = [
+const jojoWritingTasks: WritingTask[] = [
   {
     id: 'w-company-email',
     module: 'company',
@@ -455,3 +457,6 @@ I let out a bloodcurdling scream, and so did the figure.
 It turned out that it was Paul, the security guard. The storm must have caused a power cut, and he had come to check that nobody was trapped in the building. He can't have expected to find anyone, because he was just as scared as I was. We both laughed, but I must admit that, since that night, I have never stayed late on Halloween again.`,
   },
 ]
+
+// Accès en cours (voir src/edition.ts).
+export const writingTasks: WritingTask[] = isJuju ? jujuWritingTasks : jojoWritingTasks

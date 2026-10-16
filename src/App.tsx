@@ -27,6 +27,10 @@ import { Progress } from './pages/Progress'
 import { News } from './pages/News'
 import { Drill } from './pages/Drill'
 import { ThemeDetail, Themes } from './pages/Themes'
+import { EditionPicker } from './pages/EditionPicker'
+import { Translation } from './pages/Translation'
+import { CHOSEN_EDITION } from './edition'
+import { useProgress } from './lib/store'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -72,13 +76,26 @@ function RecoveredToast() {
   )
 }
 
+// Palette daltonienne : réglage de l'accès en cours, appliqué à toute la page.
+function ColorBlindMode() {
+  const on = useProgress().settings.colorBlind
+  useEffect(() => {
+    if (on) document.documentElement.setAttribute('data-colorblind', '')
+    else document.documentElement.removeAttribute('data-colorblind')
+  }, [on])
+  return null
+}
+
 function App() {
   const location = useLocation()
+  const picking = !CHOSEN_EDITION || location.pathname === '/acces'
   return (
     <div className="mx-auto flex min-h-screen max-w-md flex-col bg-(--app-bg) text-gray-900 dark:text-gray-100">
       <ScrollToTop />
       <RecoveredToast />
+      <ColorBlindMode />
       <main className="flex-1 pb-28">
+        {picking ? <EditionPicker /> : (
         <ErrorBoundary resetKey={location.pathname + location.search}>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -94,6 +111,7 @@ function App() {
           <Route path="/pratique" element={<Practice />} />
           <Route path="/pratique/corrections" element={<Corrections />} />
           <Route path="/pratique/reformulation" element={<Reformulation />} />
+          <Route path="/pratique/traduction" element={<Translation />} />
           <Route path="/pratique/ecrit" element={<Writing />} />
           <Route path="/pratique/ecrit/:taskId" element={<WritingStudio />} />
           <Route path="/pratique/oral" element={<Speaking />} />
@@ -110,8 +128,9 @@ function App() {
           <Route path="*" element={<Home />} />
         </Routes>
         </ErrorBoundary>
+        )}
       </main>
-      <NavBar />
+      {!picking && <NavBar />}
     </div>
   )
 }

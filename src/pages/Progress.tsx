@@ -8,10 +8,11 @@ import { canSpeak, speak } from '../lib/speech'
 import { formatDateFr, todayKey } from '../lib/text'
 import { clearErrors, readErrors } from '../lib/diagnostics'
 import type { Level } from '../types'
+import { EDITION } from '../edition'
 import { levelInfo, RANKS, xpToNext, ACTIVITY_XP } from '../lib/xp'
 import { btnPrimary, btnSecondary, card, LevelBadge, Page, ProgressBar, Section } from '../components/ui'
 
-const LEVELS: Level[] = ['B2', 'B2+', 'C1']
+const LEVELS: Level[] = EDITION.levels
 
 export function Progress() {
   const data = useProgress()
@@ -97,7 +98,7 @@ export function Progress() {
       <div id="niveau" />
       <XpSection xp={data.xp} xpByDay={data.xpByDay} />
 
-      <Section title="Vers le C1 : acquis par niveau">
+      <Section title={`Vers le ${LEVELS[LEVELS.length - 1]} : acquis par niveau`}>
         <div className={`${card} space-y-3`}>
           {LEVELS.map((lvl) => {
             const exIds = drillExercises.filter((r) => (r.exercise.level ?? 'B2') === lvl).map((r) => r.exercise.id)
@@ -137,6 +138,20 @@ export function Progress() {
 
       <Section title="Réglages">
         <div className={`${card} space-y-4`}>
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <p className="text-sm font-semibold">Accès : {EDITION.icon} {EDITION.name}</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">Chaque accès garde sa propre progression sur cet appareil.</p>
+            </div>
+            <Link to="/acces" className="shrink-0 rounded-xl bg-gray-100 px-3 py-2 text-sm font-semibold dark:bg-gray-800">Changer</Link>
+          </div>
+          <label className="flex items-center justify-between gap-3">
+            <span>
+              <span className="block text-sm font-semibold">Mode daltonien (deutéranopie)</span>
+              <span className="block text-xs text-gray-500 dark:text-gray-400">Bleu pour les bonnes réponses, orange pour les erreurs, pas de vert / rouge / rose.</span>
+            </span>
+            <input type="checkbox" checked={data.settings.colorBlind} onChange={(e) => setSetting('colorBlind', e.target.checked)} className="h-6 w-6 shrink-0 accent-indigo-600" />
+          </label>
           <div>
             <p className="text-sm font-semibold">Accent de la voix</p>
             <div className="mt-1 flex gap-2">
@@ -249,7 +264,7 @@ function XpSection({ xp, xpByDay }: { xp: number; xpByDay: Record<string, number
       <details className={card}>
         <summary className="flex cursor-pointer items-center justify-between font-bold">Comment gagner de l'XP ? <span className="text-gray-400">▾</span></summary>
         <ul className="mt-2 space-y-1 text-sm text-gray-600 dark:text-gray-300">
-          <li>✅ Bonne réponse : <strong>10 XP</strong> (B2), <strong>12</strong> (B2+), <strong>15</strong> (C1) ; +3 pour une phrase à réécrire ; un peu moins pour une carte de vocabulaire.</li>
+          <li>✅ Bonne réponse : de <strong>10 à 15 XP</strong> selon le niveau de l'exercice ; +3 pour une phrase à réécrire ; un peu moins pour une carte de vocabulaire.</li>
           <li>✏️ Réponse acceptée avec une faute de frappe : 70 % de l'XP. Validée toi-même : 50 %.</li>
           <li>🔥 Série : +1 XP par bonne réponse d'affilée à partir de la 3e (jusqu'à +5).</li>
           <li>🏆 Session sans aucune erreur (5 questions ou plus) : <strong>+50 %</strong> de bonus.</li>

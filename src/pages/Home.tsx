@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
-import { useProgress } from '../lib/store'
+import { updateProgress, useProgress } from '../lib/store'
+import { ReminderSettings } from '../components/ReminderSettings'
 import { daysSince, streak, totalAnswers, weakTags } from '../lib/progress'
 import { isDue } from '../lib/srs'
 import { CONTENT_VERSION } from '../data/changelog'
@@ -120,6 +121,17 @@ export function Home() {
           </div>
           <span className="text-2xl font-bold">›</span>
         </Link>
+      )}
+
+      {isJuju && !data.settings.reminderEnabled && !data.settings.reminderPromptDismissed && (
+        <div className={`${card} mt-3`}>
+          <div className="flex items-start justify-between gap-2">
+            <p className="font-bold">🔔 Un petit rappel chaque jour ?</p>
+            <button onClick={() => updateProgress((d) => ({ ...d, settings: { ...d.settings, reminderPromptDismissed: true } }))} aria-label="Masquer" className="text-sm text-gray-400">✕</button>
+          </div>
+          <p className="text-xs text-gray-500 dark:text-gray-400">10 minutes par jour, c'est le secret pour progresser. Choisis ton heure :</p>
+          <div className="mt-2"><ReminderSettings compact /></div>
+        </div>
       )}
 
       {needsBackup && (

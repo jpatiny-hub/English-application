@@ -10,6 +10,7 @@ Appli personnelle d'anglais (PWA React/Vite/Tailwind, 100 % locale). L'utilisate
 - Chaque fichier de `src/data/` exporte la version de l'accès en cours (`isJuju ? … : …`) : les pages n'ont pas à s'en soucier ; elles masquent ce qui est vide (séances, corrections, reformulation, thèmes).
 - Mode daltonien (`settings.colorBlind`, `html[data-colorblind]` dans `index.css`) : remappe vert → bleu, rouge / rose → orange. Actif par défaut pour Jujularage. Ne jamais transmettre une information par la seule couleur (garder ✓ / ✗, textes).
 - `npm run check-data` valide les DEUX accès (`EDITION=jujularage`).
+- Rappel quotidien sans serveur : `src/lib/reminder.ts` (fichier .ics + periodic background sync) et `public/reminder-sw.js` (chargé dans le service worker via `workbox.importScripts`, état lu dans IndexedDB `english-app-reminder`). Pas de push serveur (contraire à la règle « aucun serveur externe »).
 
 ## Règle n°1 : ne jamais casser la progression
 

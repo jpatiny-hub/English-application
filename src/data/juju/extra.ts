@@ -57,6 +57,15 @@ export const jujuPronunciation: PronunciationItem[] = [
 
 export const jujuChangelog: ChangelogEntry[] = [
   {
+    version: 2,
+    date: '2026-10-16',
+    title: 'Rappel quotidien 🔔',
+    changes: [
+      "Un rappel chaque jour à l'heure de ton choix : dans ton agenda (le plus fiable) et/ou en notification de l'appli installée.",
+      "La notification ne s'affiche pas si tu as déjà fait un exercice ce jour-là.",
+    ],
+  },
+  {
     version: 1,
     date: '2026-10-16',
     title: 'Bienvenue, Jujularage ! 🍺',

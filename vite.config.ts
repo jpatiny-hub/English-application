@@ -33,6 +33,8 @@ export default defineConfig({
         globPatterns: ['**/*.{js,css,html,svg,png,ico,woff2}'],
         // La police n'a besoin que des alphabets latins (pas de cyrillique ni de vietnamien hors ligne).
         globIgnores: ['**/*cyrillic*', '**/*vietnamese*'],
+        // Rappel quotidien (notifications locales, sans serveur) : public/reminder-sw.js
+        importScripts: ['reminder-sw.js'],
       },
     }),
   ],

@@ -6,6 +6,16 @@ import { jujuChangelog } from './juju/extra.ts'
 // `version` = précédente + 1 : l'accueil affichera une bannière « Nouveautés ».
 const jojoChangelog: ChangelogEntry[] = [
   {
+    version: 9,
+    date: '2026-10-16',
+    title: 'Deux accès et rappel quotidien',
+    changes: [
+      "Écran de choix de l'accès (Jojo / Jujularage) : chaque accès a sa propre progression. Ta progression est intacte.",
+      "Rappel quotidien (Progrès → Réglages) : événement dans l'agenda et/ou notification de l'appli installée.",
+      'Mode daltonien disponible dans les réglages.',
+    ],
+  },
+  {
     version: 8,
     date: '2026-10-16',
     title: 'Niveaux, expérience et nouveau logo 🫖',

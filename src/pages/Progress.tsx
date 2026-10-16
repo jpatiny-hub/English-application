@@ -9,6 +9,7 @@ import { formatDateFr, todayKey } from '../lib/text'
 import { clearErrors, readErrors } from '../lib/diagnostics'
 import type { Level } from '../types'
 import { EDITION } from '../edition'
+import { ReminderSettings } from '../components/ReminderSettings'
 import { levelInfo, RANKS, xpToNext, ACTIVITY_XP } from '../lib/xp'
 import { btnPrimary, btnSecondary, card, LevelBadge, Page, ProgressBar, Section } from '../components/ui'
 
@@ -145,6 +146,7 @@ export function Progress() {
             </div>
             <Link to="/acces" className="shrink-0 rounded-xl bg-gray-100 px-3 py-2 text-sm font-semibold dark:bg-gray-800">Changer</Link>
           </div>
+          <ReminderSettings />
           <label className="flex items-center justify-between gap-3">
             <span>
               <span className="block text-sm font-semibold">Mode daltonien (deutéranopie)</span>

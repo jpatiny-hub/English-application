@@ -31,6 +31,8 @@ import { EditionPicker } from './pages/EditionPicker'
 import { Translation } from './pages/Translation'
 import { CHOSEN_EDITION } from './edition'
 import { useProgress } from './lib/store'
+import { syncReminderState } from './lib/reminder'
+import { todayKey } from './lib/text'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -76,6 +78,17 @@ function RecoveredToast() {
   )
 }
 
+// Rappel quotidien : tient le service worker au courant (activé ? heure ? exercice déjà fait aujourd'hui ?).
+function ReminderSync() {
+  const data = useProgress()
+  const { reminderEnabled, reminderHour } = data.settings
+  const activeToday = (data.activity[todayKey()] ?? 0) > 0
+  useEffect(() => {
+    void syncReminderState(reminderEnabled, reminderHour, activeToday)
+  }, [reminderEnabled, reminderHour, activeToday])
+  return null
+}
+
 // Palette daltonienne : réglage de l'accès en cours, appliqué à toute la page.
 function ColorBlindMode() {
   const on = useProgress().settings.colorBlind
@@ -94,6 +107,7 @@ function App() {
       <ScrollToTop />
       <RecoveredToast />
       <ColorBlindMode />
+      {!picking && <ReminderSync />}
       <main className="flex-1 pb-28">
         {picking ? <EditionPicker /> : (
         <ErrorBoundary resetKey={location.pathname + location.search}>

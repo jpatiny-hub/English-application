@@ -44,6 +44,12 @@ export interface Settings {
   newCardsPerSession: number
   /** Palette adaptée au daltonisme (deutéranopie) : bleu / orange au lieu de vert / rouge / rose. */
   colorBlind: boolean
+  /** Rappel quotidien (notification de l'appli installée). */
+  reminderEnabled: boolean
+  /** Heure à partir de laquelle le rappel peut arriver. */
+  reminderHour: number
+  /** Encart « Active ton rappel » masqué sur l'accueil. */
+  reminderPromptDismissed: boolean
 }
 
 export interface ProgressData {
@@ -77,6 +83,9 @@ export const DEFAULT_SETTINGS: Settings = {
   cardDirection: 'mixte',
   newCardsPerSession: 10,
   colorBlind: EDITION.colorBlindDefault,
+  reminderEnabled: false,
+  reminderHour: 19,
+  reminderPromptDismissed: false,
 }
 
 function emptyData(): ProgressData {

@@ -14,9 +14,12 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg'],
       manifest: {
+        // Identifiant explicite de l'appli installée. Le changer = Chrome la voit comme une NOUVELLE appli
+        // (utile si Android croit encore une ancienne installation présente : « appli déjà installée »).
+        id: 'english-tea-time',
         name: 'English — Tea Time',
         short_name: 'English',
-        description: "Application personnelle pour progresser en anglais du niveau B2 vers le C1",
+        description: "Application pour progresser en anglais : accès Jojo (B2 → C1) et Jujularage (A1 → A2)",
         theme_color: '#012169',
         background_color: '#eef2ff',
         display: 'standalone',
